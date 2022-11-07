@@ -7,6 +7,9 @@ const ArtSchema = new mongoose.Schema(
 			required: true,
 			unique: true,
 		},
+		name: {
+			type: String
+		},
 		zone: {
 			type: String,
 			required: true,
