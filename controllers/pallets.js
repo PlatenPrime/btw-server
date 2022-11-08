@@ -117,3 +117,23 @@ export const updatePallet = async (req, res) => {
 		res.json({ message: 'Что-то не так c редактированием паллеты' })
 	}
 }
+
+
+
+// Get Pallets Includes Art
+
+export const getPalletsIncludesArt = async (req, res) => {
+	try {
+
+		const { art } = req.body
+
+		console.log(art)
+
+		const pallets = await Pallet.find({ "positions.art": art })
+
+		res.json(pallets)
+
+	} catch (error) {
+		res.json({ message: 'Что-то пошло не так' })
+	}
+}

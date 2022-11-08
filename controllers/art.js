@@ -59,6 +59,8 @@ export const getAllArts = async (req, res) => {
 export const getByTitle = async (req, res) => {
 	try {
 		const { title } = req.body
+		console.log(title)
+
 		const art = await Art.findOne({ "title": title })
 		res.json(art)
 
@@ -135,3 +137,6 @@ export const getArtPallets = async (req, res) => {
 		res.json({ message: 'Что-то пошло не так.' })
 	}
 }
+
+
+
