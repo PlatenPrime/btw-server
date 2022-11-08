@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { checkAuth } from "../utils/checkAuth.js";
-import { getAllArts, getByTitle, getById, removeArt, createArt, updateArtZone, getArtPallets, } from "../controllers/art.js";
+import { getAllArts, getByTitle, getById, removeArt, createArt, updateArtZone,  } from "../controllers/art.js";
 
 const router = new Router();
 
@@ -39,9 +39,6 @@ router.delete('/:id', checkAuth, removeArt)
 router.put('/:id', checkAuth, updateArtZone)
 
 
-// Get Art Pallets
-// http://localhost:3002/api/arts/pallets/:id
-router.get('/pallets/:id', getArtPallets)
 
 
 

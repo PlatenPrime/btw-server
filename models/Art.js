@@ -14,12 +14,7 @@ const ArtSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		pallets: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: "Pallet",
-			}
-		]
+		
 
 	}
 )

@@ -122,21 +122,4 @@ export const updateArtZone = async (req, res) => {
 }
 
 
-// Get Art Pallets
-
-export const getArtPallets = async (req, res) => {
-	try {
-		const art = await Row.findById(req.params.id)
-		const list = await Promise.all(
-			art.pallets.map((pallet) => {
-				return Pallet.findById(pallet)
-			}),
-		)
-		res.json(list)
-	} catch (error) {
-		res.json({ message: 'Что-то пошло не так.' })
-	}
-}
-
-
 
