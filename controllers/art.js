@@ -105,19 +105,26 @@ export const removeArt = async (req, res) => {
 
 // 
 
-export const updateArtZone = async (req, res) => {
+export const updateArtsZones = async (req, res) => {
 	try {
-		const { title, zone, name } = req.body
-		const art = await Art.findOne({ "title": title })
 
-		art.zone = zone;
-		art.name = name;
+		const { artsZones } = req.body;
 
-		await art.save();
+		await artsZones.forEach(element => {
 
-		res.json(art)
+			const art = Art.findOne({ "title": element.art })
+			art.zone = element.zone;
+			art.name = element.name;
+
+			art.save();
+
+			res.json(art)
+
+		});
+
+
 	} catch (error) {
-		res.json({ message: 'Что-то не так c обновлением данных артикула' })
+		res.json({ message: 'Что-то не так c обновлением данных артикулов' })
 	}
 }
 
