@@ -127,7 +127,6 @@ export const getPalletsIncludesArt = async (req, res) => {
 
 		const { art } = req.body
 
-		console.log(art)
 
 		const pallets = await Pallet.find({ "positions.art": art })
 

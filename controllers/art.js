@@ -59,7 +59,7 @@ export const getAllArts = async (req, res) => {
 export const getByTitle = async (req, res) => {
 	try {
 		const { title } = req.body
-		console.log(title)
+
 
 		const art = await Art.findOne({ "title": title })
 		res.json(art)
@@ -74,7 +74,7 @@ export const getByTitle = async (req, res) => {
 
 export const getById = async (req, res) => {
 	try {
-		console.log(req.params.id)
+
 		const art = await Art.findById(req.params.id)
 		res.json(art)
 	} catch (error) {
@@ -101,23 +101,42 @@ export const removeArt = async (req, res) => {
 
 
 
-// Update arts by Zones Loading
+
+
+// Delete arts before Zones Loading
+
+
+export const deleteArtsZones = async (req, res) => {
+	try {
+
+		await Art.deleteMany()
+
+		res.json({ message: "Артикулы удалены" })
+
+
+	} catch (error) {
+		res.json({ message: 'Что-то не так c обновлением данных артикулов' })
+	}
+}
+
+
+
+// Create arts by Zones Loading
 
 // 
 
-export const updateArtZone = async (req, res) => {
+export const createArtsZones = async (req, res) => {
 	try {
-		const { title, zone, name } = req.body
-		const art = await Art.findOne({ "title": title })
 
-		art.zone = zone;
-		art.name = name;
+		const artsZones = req.body;
 
-		await art.save();
+		await Art.insertMany(artsZones)
 
-		res.json(art)
+		res.json({ message: "Новые артикулы с зонами созданы" })
+
+
 	} catch (error) {
-		res.json({ message: 'Что-то не так c обновлением данных артикула' })
+		res.json({ message: 'Что-то не так c созданием новых артикулов' })
 	}
 }
 
