@@ -128,9 +128,11 @@ export const deleteArtsZones = async (req, res) => {
 export const createArtsZones = async (req, res) => {
 	try {
 
-		const artsZones = req.body;
+		const { artsZones } = req.body;
 
-		await Art.insertMany(artsZones)
+
+		await Art.insertMany(JSON.parse(artsZones))
+
 
 		res.json({ message: "Новые артикулы с зонами созданы" })
 
