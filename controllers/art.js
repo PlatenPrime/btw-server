@@ -76,6 +76,7 @@ export const getById = async (req, res) => {
 	try {
 
 		const art = await Art.findById(req.params.id)
+		
 		res.json(art)
 	} catch (error) {
 		res.json({ message: 'Артикул по ID не найден' })
