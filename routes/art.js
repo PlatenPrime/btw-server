@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { checkAuth } from "../utils/checkAuth.js";
-import { getAllArts, getByTitle, getById, removeArt, createArt, createArtsZones, deleteArtsZones, } from "../controllers/art.js";
+import { getAllArts, getById, removeArt, createArt, createArtsZones, deleteArtsZones, } from "../controllers/art.js";
 
 const router = new Router();
 
@@ -20,13 +20,6 @@ router.get("/", getAllArts)
 
 
 
-// Get Art By Title
-// http://localhost:3002/api/arts/title
-router.get('/title', getByTitle)
-
-
-
-
 
 
 
@@ -35,13 +28,13 @@ router.get('/title', getByTitle)
 
 // Create Arts Zones
 // http://localhost:3002/api/arts/zones
-router.post('/zones',  createArtsZones)
+router.post('/zones', createArtsZones)
 
 
 // Delete Arts Zones
 
 // http://localhost:3002/api/arts/zones
-router.delete('/zones',  deleteArtsZones)
+router.delete('/zones', deleteArtsZones)
 
 //_______________________________
 
