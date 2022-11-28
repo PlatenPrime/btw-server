@@ -58,11 +58,12 @@ export const getAllArts = async (req, res) => {
 
 export const getByTitle = async (req, res) => {
 	try {
-		const { title } = req.body
+		const { artTitle } = req.body
 
 
-		const art = await Art.findOne({ "title": title })
-		res.json(art)
+		const art = await Art.findOne({ "title": artTitle })
+
+		res.json({ art })
 
 	} catch (error) {
 		res.json({ message: 'Артикул по названию не найден' })
@@ -76,7 +77,7 @@ export const getById = async (req, res) => {
 	try {
 
 		const art = await Art.findById(req.params.id)
-		
+
 		res.json(art)
 	} catch (error) {
 		res.json({ message: 'Артикул по ID не найден' })
