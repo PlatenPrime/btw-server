@@ -1,5 +1,6 @@
 
 
+import Art from "../models/Art.js";
 import Pallet from "../models/Pallet.js";
 import Row from "../models/Row.js";
 
@@ -125,10 +126,11 @@ export const updatePallet = async (req, res) => {
 export const getPalletsIncludesArt = async (req, res) => {
 	try {
 
-		const { art } = req.body
+
+		const art = await Art.findById(req.params.id)
 
 
-		const pallets = await Pallet.find({ "positions.art": art })
+		const pallets = await Pallet.find({ "positions.art": art.title })
 
 		res.json(pallets)
 
