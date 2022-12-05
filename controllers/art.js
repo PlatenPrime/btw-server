@@ -13,9 +13,7 @@ export const createArt = async (req, res) => {
 
 
 
-		const newArt = new Art({
-			title, zone, name
-		})
+		const newArt = new Art({title, zone, name })
 
 
 		await newArt.save()
