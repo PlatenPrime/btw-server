@@ -8,7 +8,7 @@ const router = new Router();
 
 // Create Pallet
 //http://localhost:3002/api/pallets/:id
-router.post('/:id', checkAuth, createPallet)
+router.post('/:id', /* checkAuth, */ createPallet)
 
 
 
@@ -44,12 +44,12 @@ router.get('/:id', getById)
 
 // Remove Pallet
 // http://localhost:3002/api/pallets/:id
-router.delete('/:id', checkAuth, removePallet)
+router.delete('/:id', /* checkAuth, */ removePallet)
 
 
 // Update Pallet
 // http://localhost:3002/api/pallets/:id
-router.put('/:id', checkAuth, updatePallet)
+router.put('/:id', /* checkAuth, */ updatePallet)
 
 
 
