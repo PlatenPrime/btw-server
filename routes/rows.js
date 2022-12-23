@@ -9,7 +9,7 @@ const router = new Router();
 
 // Create Row
 //http://localhost:3002/api/rows
-router.post("/", /* checkAuth, */ createRow)
+router.post("/", checkAuth, createRow)
 
 
 // Get All Rows
@@ -24,12 +24,12 @@ router.get('/:id', getById)
 
 // Remove Row
 // http://localhost:3002/api/rows/:id
-router.delete('/:id', /* checkAuth, */ removeRow)
+router.delete('/:id', checkAuth, removeRow)
 
 
 // Update Row
 // http://localhost:3002/api/rows/:id
-router.put('/:id', /* checkAuth, */ updateRow)
+router.put('/:id', checkAuth, updateRow)
 
 
 
