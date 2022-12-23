@@ -10,7 +10,7 @@ const router = new Router();
 
 // Create Art
 //http://localhost:3002/api/arts
-router.post("/", /* checkAuth */ createArt)
+router.post("/", checkAuth,  createArt)
 
 
 
