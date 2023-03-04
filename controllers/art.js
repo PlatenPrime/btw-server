@@ -21,7 +21,7 @@ export const createArt = async (req, res) => {
 		return res.json(newArt)
 
 	} catch (error) {
-		res.json({ message: "Что-то не так с созданием арикула" })
+		res.json({ message: "Что-то не так с созданием артикула" })
 	}
 }
 
