@@ -9,11 +9,11 @@ import Pallet from "../models/Pallet.js";
 
 export const createArt = async (req, res) => {
 	try {
-		const { title, zone, nameukr, namerus } = req.body
+		const { artikul, zone, nameukr, namerus } = req.body
 
 
 
-		const newArt = new Art({title, zone, nameukr, namerus })
+		const newArt = new Art({ artikul, zone, nameukr, namerus })
 
 
 		await newArt.save()
