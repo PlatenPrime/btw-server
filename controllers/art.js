@@ -38,7 +38,7 @@ export const createArt = async (req, res) => {
 export const getAllArts = async (req, res) => {
 	try {
 
-		const arts = await Art.find().sort({ "title": 1 })
+		const arts = await Art.find().sort({ "artikul": 1 })
 
 		if (!arts) {
 			return res.json({ message: "Артикулов нет" })
