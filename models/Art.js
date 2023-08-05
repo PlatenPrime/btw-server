@@ -2,19 +2,22 @@ import mongoose from "mongoose";
 
 const ArtSchema = new mongoose.Schema(
 	{
-		title: {
+		artikul: {
 			type: String,
 			required: true,
 			unique: true,
 		},
-		name: {
+		nameukr: {
+			type: String
+		},
+		namerus: {
 			type: String
 		},
 		zone: {
 			type: String,
 			required: true,
 		},
-		
+
 
 	}
 )
