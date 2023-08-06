@@ -18,20 +18,9 @@ router.get("/", getAllPallets)
 
 
 
-
-
-
-
-
-
 // Get Pallets Includes Art
 // http://localhost:3002/api/pallets/art/:id
 router.get('/art/:id', getPalletsIncludesArt)
-
-
-
-
-
 
 
 
