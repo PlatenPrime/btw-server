@@ -130,7 +130,7 @@ export const getPalletsIncludesArt = async (req, res) => {
 		const art = await Art.findById(req.params.id)
 
 
-		const pallets = await Pallet.find({ "positions.art": art.title })
+		const pallets = await Pallet.find({ "positions.art": art.artikul })
 
 		res.json(pallets)
 
