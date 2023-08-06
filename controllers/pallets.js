@@ -7,134 +7,66 @@ import Row from "../models/Row.js";
 
 
 
-//Create Pallet
-
-export const createPallet = async (req, res) => {
+// Создание нового объекта Pallet с вложенными объектами Box и добавление его в объект Row
+export const createPalletWithBoxes = async (req, res) => {
 	try {
-		const { title, positions, rowId } = req.body
+		const { rowId, boxes, ...palletData } = req.body;
 
-		const row = rowId;
+		const newPallet = await Pallet.create(palletData);
 
-		const newPallet = new Pallet({
-			title, positions, row
-		})
+		await Row.findByIdAndUpdate(
+			rowId,
+			{ $push: { pallets: newPallet._id } },
+			{ new: true }
+		);
+
+		await Box.updateMany({ _id: { $in: boxes } }, { $push: { pallets: newPallet._id } });
+
+		res.status(201).json(newPallet);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
 
 
-		await newPallet.save()
-
-		try {
-			await Row.findByIdAndUpdate(rowId, {
-				$push: { pallets: newPallet._id },
-			})
-		} catch (error) {
-			console.log(error)
+// Получение объекта Pallet по ID
+export const getPalletOnID = async (req, res) => {
+	try {
+		const pallet = await Pallet.findById(req.params.id);
+		if (!pallet) {
+			return res.status(404).json({ message: 'Pallet not found' });
 		}
-
-
-		return res.json(newPallet)
-
+		res.json(pallet);
 	} catch (error) {
-		res.json({ message: "Что-то не так с паллетой" })
+		res.status(500).json({ message: error.message });
 	}
-}
+};
 
 
-// Get All Pallets
 
-export const getAllPallets = async (req, res) => {
+// Редактирование объекта Pallet по его ID
+export const editPallet = async (req, res) => {
 	try {
-		const pallets = await Pallet.find().sort('-createdAt')
-
-
-		if (!pallets) {
-			return res.json({ message: 'Паллет нет' })
-		}
-
-		res.json({ pallets })
+		const updatedPallet = await Pallet.findByIdAndUpdate(req.params.id, req.body, { new: true });
+		res.json(updatedPallet);
 	} catch (error) {
-		res.json({ message: 'Что-то не так с отображением паллет.' })
+		res.status(500).json({ message: error.message });
 	}
-}
+};
 
-
-// Get Pallet By Id
-export const getById = async (req, res) => {
+// Удаление объекта Pallet по его ID и обновление связанных Row
+export const deletePallet = async (req, res) => {
 	try {
-		const pallet = await Pallet.findByIdAndUpdate(req.params.id)
-		res.json(pallet)
+		const deletedPallet = await Pallet.findByIdAndDelete(req.params.id);
+
+		// Удаление ссылок на удаляемый объект Pallet из массивов pallets объектов Box
+		await Box.updateMany({ pallets: deletedPallet._id }, { $pull: { pallets: deletedPallet._id } });
+
+		// Удаление ссылки на удаляемый объект Pallet из массива pallets объекта Row
+		await Row.updateMany({ pallets: deletedPallet._id }, { $pull: { pallets: deletedPallet._id } });
+
+		res.json(deletedPallet);
 	} catch (error) {
-		res.json({ message: 'Паллета не найдена' })
+		res.status(500).json({ message: error.message });
 	}
-}
-
-
-
-
-
-
-
-// Remove pallet
-export const removePallet = async (req, res) => {
-	try {
-
-		const pallet = await Pallet.findById(req.params.id)
-
-
-		await Row.findByIdAndUpdate(pallet.row, {
-			$pull: { pallets: req.params.id },
-		})
-
-
-
-		const palletDelete = await Pallet.findByIdAndDelete(req.params.id)
-		if (!palletDelete) return res.json({ message: 'Такой паллеты не существует' })
-
-
-
-
-
-
-		res.json({ message: 'Паллета была удалена.' })
-	} catch (error) {
-		res.json({ message: 'Что-то не так с удалением паллеты.' })
-	}
-}
-
-
-// Update pallet
-export const updatePallet = async (req, res) => {
-	try {
-		const { title, positions, _id } = req.body
-		const pallet = await Pallet.findById(_id)
-
-
-		pallet.title = title;
-		pallet.positions = positions;
-
-		await pallet.save()
-
-		res.json(pallet)
-	} catch (error) {
-		res.json({ message: 'Что-то не так c редактированием паллеты' })
-	}
-}
-
-
-
-// Get Pallets Includes Art
-
-export const getPalletsIncludesArt = async (req, res) => {
-	try {
-
-
-		const art = await Art.findById(req.params.id)
-
-
-		const pallets = await Pallet.find({ "positions.art": art.artikul })
-
-		res.json(pallets)
-
-	} catch (error) {
-		res.json({ message: 'Что-то пошло не так' })
-	}
-}
+};

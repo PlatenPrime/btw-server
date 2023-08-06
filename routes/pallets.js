@@ -1,44 +1,22 @@
 import { Router } from "express";
-import { createPallet, getAllPallets, getById, getPalletsIncludesArt, removePallet, updatePallet } from "../controllers/pallets.js";
+import { createPalletWithBoxes, editPallet, deletePallet, getPalletOnID } from '../controllers/pallets.js';
 import { checkAuth } from "../utils/checkAuth.js";
 
 
 const router = new Router();
 
 
-// Create Pallet
-//http://localhost:3002/api/pallets/:id
-router.post('/:id', checkAuth,  createPallet)
+// Маршрут для получения объекта Pallet по ID
+router.get('/:id', getPalletOnID);
 
+// Маршрут для создания объекта Pallet с вложенными коробками и добавления его в объект Row
+router.post('/', createPalletWithBoxes);
 
+// Маршрут для редактирования объекта Pallet по ID
+router.put('/:id', editPallet);
 
-// Get All Pallets
-//http://localhost:3002/api/pallets
-router.get("/", getAllPallets)
-
-
-
-// Get Pallets Includes Art
-// http://localhost:3002/api/pallets/art/:id
-router.get('/art/:id', getPalletsIncludesArt)
-
-
-
-
-// Get Pallet By Id
-// http://localhost:3002/api/pallets/:id
-router.get('/:id', getById)
-
-
-
-// Remove Pallet
-// http://localhost:3002/api/pallets/:id
-router.delete('/:id',  checkAuth, removePallet)
-
-
-// Update Pallet
-// http://localhost:3002/api/pallets/:id
-router.put('/:id', checkAuth, updatePallet)
+// Маршрут для удаления объекта Pallet по ID
+router.delete('/:id', deletePallet);
 
 
 
