@@ -2,14 +2,14 @@ import { Router } from "express";
 
 import { checkAuth } from "../utils/checkAuth.js";
 
-import { createRow, getAllRows, getById, getRowPallets, removeRow, updateRow } from "../controllers/rows.js";
+import { createRow, getAllRows, getById, getRowPallets, deleteRowById, updateRowById } from "../controllers/rows.js";
 
 const router = new Router();
 
 
 // Create Row
 //http://localhost:3002/api/rows
-router.post("/", checkAuth, createRow)
+router.post("/", createRow)
 
 
 // Get All Rows
@@ -22,18 +22,18 @@ router.get("/", getAllRows)
 router.get('/:id', getById)
 
 
-// Remove Row
+// Delete Row By Id
 // http://localhost:3002/api/rows/:id
-router.delete('/:id', checkAuth, removeRow)
+router.delete('/:id', deleteRowById)
 
 
-// Update Row
+// Update Row By Id
 // http://localhost:3002/api/rows/:id
-router.put('/:id', checkAuth, updateRow)
+router.put('/:id',  updateRowById)
 
 
 
-// Get Post Comments
+// Get Row Pallets
 // http://localhost:3002/api/rows/pallets/:id
 router.get('/pallets/:id', getRowPallets)
 

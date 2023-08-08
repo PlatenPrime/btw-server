@@ -8,11 +8,13 @@ import Row from "../models/Row.js";
 
 
 // Создание нового объекта Pallet с вложенными объектами Box и добавление его в объект Row
-export const createPalletWithBoxes = async (req, res) => {
+export const createPallet = async (req, res) => {
 	try {
-		const { rowId, boxes, ...palletData } = req.body;
+		const { title, rowId } = req.body;
 
-		const newPallet = await Pallet.create(palletData);
+		const row = rowId
+
+		const newPallet = await Pallet.create({ title, row });
 
 		await Row.findByIdAndUpdate(
 			rowId,
@@ -20,7 +22,6 @@ export const createPalletWithBoxes = async (req, res) => {
 			{ new: true }
 		);
 
-		await Box.updateMany({ _id: { $in: boxes } }, { $push: { pallets: newPallet._id } });
 
 		res.status(201).json(newPallet);
 	} catch (error) {
@@ -30,9 +31,12 @@ export const createPalletWithBoxes = async (req, res) => {
 
 
 // Получение объекта Pallet по ID
-export const getPalletOnID = async (req, res) => {
+export const getPalletById = async (req, res) => {
 	try {
+
+
 		const pallet = await Pallet.findById(req.params.id);
+
 		if (!pallet) {
 			return res.status(404).json({ message: 'Pallet not found' });
 		}
@@ -45,9 +49,14 @@ export const getPalletOnID = async (req, res) => {
 
 
 // Редактирование объекта Pallet по его ID
-export const editPallet = async (req, res) => {
+export const updatePalletById = async (req, res) => {
 	try {
-		const updatedPallet = await Pallet.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+		const { title, rowId } = req.body;
+		const row = rowId
+
+
+		const updatedPallet = await Pallet.findByIdAndUpdate(req.params.id, { title, row }, { new: true });
 		res.json(updatedPallet);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
@@ -60,7 +69,7 @@ export const deletePallet = async (req, res) => {
 		const deletedPallet = await Pallet.findByIdAndDelete(req.params.id);
 
 		// Удаление ссылок на удаляемый объект Pallet из массивов pallets объектов Box
-		await Box.updateMany({ pallets: deletedPallet._id }, { $pull: { pallets: deletedPallet._id } });
+		// await Box.updateMany({ pallets: deletedPallet._id }, { $pull: { pallets: deletedPallet._id } });
 
 		// Удаление ссылки на удаляемый объект Pallet из массива pallets объекта Row
 		await Row.updateMany({ pallets: deletedPallet._id }, { $pull: { pallets: deletedPallet._id } });

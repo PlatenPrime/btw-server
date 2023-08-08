@@ -11,12 +11,12 @@ import Pallet from "../models/Pallet.js";
 
 export const createRow = async (req, res) => {
 	try {
-		const { title, pallets } = req.body
+		const { title } = req.body
 
 
 
 		const newRow = new Row({
-			title, pallets
+			title
 		})
 
 
@@ -59,9 +59,9 @@ export const getById = async (req, res) => {
 }
 
 
-// Remove row
+// Delete row
 
-export const removeRow = async (req, res) => {
+export const deleteRowById = async (req, res) => {
 	try {
 		const row = await Row.findByIdAndDelete(req.params.id)
 		if (!row) return res.json({ message: 'Такого ряда не существует' })
@@ -77,7 +77,7 @@ export const removeRow = async (req, res) => {
 
 // Update row
 
-export const updateRow = async (req, res) => {
+export const updateRowById = async (req, res) => {
 	try {
 		const { title, _id } = req.body
 		const row = await Row.findById(_id)
