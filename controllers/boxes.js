@@ -4,26 +4,25 @@ import Pallet from '../models/Pallet.js';
 // Создание новой коробки и добавление её в объект Pallet и Row
 export const createBox = async (req, res) => {
 	try {
-		const { palletId, rowId, ...boxData } = req.body;
+		const { palletId, ...boxData } = req.body;
 
-		const newBox = await Box.create(boxData);
 
-		const pallet = await Pallet.findById(palletId);
+		const pallet = palletId;
+
+		const newBox = await Box.create({ pallet, ...boxData });
+
+		const updatePallet = await Pallet.findById(palletId);
 		if (!pallet) {
 			return res.status(404).json({ message: 'Pallet not found' });
 		}
 
-		const updatedPallet = await Pallet.findByIdAndUpdate(
-			pallet._id,
+		await Pallet.findByIdAndUpdate(
+			updatePallet._id,
 			{ $push: { boxes: newBox._id } },
 			{ new: true }
 		);
 
-		const updatedRow = await Row.findByIdAndUpdate(
-			rowId,
-			{ $push: { pallets: updatedPallet._id } },
-			{ new: true }
-		);
+
 
 		res.status(201).json(newBox);
 	} catch (error) {
@@ -35,7 +34,7 @@ export const createBox = async (req, res) => {
 
 
 // Получение коробки по ID
-export const getBoxOnID = async (req, res) => {
+export const getBoxById = async (req, res) => {
 	try {
 		const box = await Box.findById(req.params.id);
 		if (!box) {
@@ -52,7 +51,7 @@ export const getBoxOnID = async (req, res) => {
 
 
 // Редактирование объекта Box по его ID
-export const editBox = async (req, res) => {
+export const updateBox = async (req, res) => {
 	try {
 		const updatedBox = await Box.findByIdAndUpdate(req.params.id, req.body, { new: true });
 		res.json(updatedBox);
@@ -61,8 +60,10 @@ export const editBox = async (req, res) => {
 	}
 };
 
+
+
 // Удаление объекта Box по его ID
-export const deleteBox = async (req, res) => {
+export const deleteBoxById = async (req, res) => {
 	try {
 		const deletedBox = await Box.findByIdAndDelete(req.params.id);
 

@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const BoxSchema = new mongoose.Schema(
 	{
-
-		articuls: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Art' }],
+		pallet: { type: mongoose.Schema.Types.ObjectId, ref: 'Pallet', required: true },
+		articuls: mongoose.Schema.Types.Object,
 		index: {
 			type: Number
 		},

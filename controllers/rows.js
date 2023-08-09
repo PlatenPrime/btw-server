@@ -64,6 +64,11 @@ export const getById = async (req, res) => {
 export const deleteRowById = async (req, res) => {
 	try {
 		const row = await Row.findByIdAndDelete(req.params.id)
+
+
+		// Добавь удаление всех паллет и всех коробок на ряде
+
+
 		if (!row) return res.json({ message: 'Такого ряда не существует' })
 
 

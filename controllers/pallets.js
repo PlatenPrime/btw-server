@@ -68,8 +68,7 @@ export const deletePallet = async (req, res) => {
 	try {
 		const deletedPallet = await Pallet.findByIdAndDelete(req.params.id);
 
-		// Удаление ссылок на удаляемый объект Pallet из массивов pallets объектов Box
-		// await Box.updateMany({ pallets: deletedPallet._id }, { $pull: { pallets: deletedPallet._id } });
+		// Найди где промисом удаляются все коробки на паллете или паллеты на ряду
 
 		// Удаление ссылки на удаляемый объект Pallet из массива pallets объекта Row
 		await Row.updateMany({ pallets: deletedPallet._id }, { $pull: { pallets: deletedPallet._id } });
