@@ -2,6 +2,7 @@
 
 import Row from "../models/Row.js";
 import Pallet from "../models/Pallet.js";
+import Box from "../models/Box.js";
 
 
 
@@ -63,21 +64,44 @@ export const getById = async (req, res) => {
 
 export const deleteRowById = async (req, res) => {
 	try {
-		const row = await Row.findByIdAndDelete(req.params.id)
+		const rowId = req.params.id;
 
+		// Найдем объект Row
+		const row = await Row.findById(rowId);
 
-		// Добавь удаление всех паллет и всех коробок на ряде
+		if (!row) {
+			return res.status(404).json({ message: 'Row not found' });
+		}
 
+		// Получим все связанные объекты Pallet внутри этой Row
+		const palletIds = row.pallets;
 
-		if (!row) return res.json({ message: 'Такого ряда не существует' })
+		// Удаление связанных объектов Box сначала
+		for (const palletId of palletIds) {
 
+			const pallet = await Pallet.findById(palletId);
 
+			if (!pallet) {
+				continue; // Можно также выбросить ошибку, если требуется
+			}
 
-		res.json({ message: 'Ряд был удален.' })
+			const boxIds = pallet.boxes;
+			await Box.deleteMany({ _id: { $in: boxIds } });
+		}
+
+		// Удаление связанных объектов Pallet
+		await Pallet.deleteMany({ _id: { $in: palletIds } });
+
+		// Удаление самого объекта Row
+		await Row.findByIdAndDelete(rowId);
+
+		res.json({ message: 'Row and associated data deleted successfully' });
 	} catch (error) {
-		res.json({ message: 'Что-то не так с удалением ряда.' })
+		res.status(500).json({ message: 'Error deleting Row', error: error.message });
 	}
 }
+
+
 
 
 // Update row

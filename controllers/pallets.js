@@ -3,6 +3,7 @@
 import Art from "../models/Art.js";
 import Pallet from "../models/Pallet.js";
 import Row from "../models/Row.js";
+import Box from "../models/Box.js";
 
 
 
@@ -66,14 +67,25 @@ export const updatePalletById = async (req, res) => {
 // Удаление объекта Pallet по его ID и обновление связанных Row
 export const deletePallet = async (req, res) => {
 	try {
-		const deletedPallet = await Pallet.findByIdAndDelete(req.params.id);
+		const deletedPallet = await Pallet.findById(req.params.id);
 
-		// Найди где промисом удаляются все коробки на паллете или паллеты на ряду
+		if (!deletedPallet) {
+			return res.status(404).json({ message: 'Pallet not found' });
+		}
+
+		// Получим все связанные объекты Box внутри этого Pallet
+		const boxIds = deletedPallet.boxes;
+
+		// Удаление связанных объектов Box
+		await Box.deleteMany({ _id: { $in: boxIds } });
 
 		// Удаление ссылки на удаляемый объект Pallet из массива pallets объекта Row
 		await Row.updateMany({ pallets: deletedPallet._id }, { $pull: { pallets: deletedPallet._id } });
 
-		res.json(deletedPallet);
+		// Удаление самого объекта Pallet
+		await Pallet.findByIdAndDelete(req.params.id);
+
+		res.json({ message: 'Pallet and associated data deleted successfully' });
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
