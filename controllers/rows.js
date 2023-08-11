@@ -118,7 +118,7 @@ export const updateRowById = async (req, res) => {
 
 		res.json(row)
 	} catch (error) {
-		res.json({ message: 'Что-то не так c редактированием ряда' })
+		res.json({ message: error.message })
 	}
 }
 
@@ -135,6 +135,6 @@ export const getRowPallets = async (req, res) => {
 		)
 		res.json(list)
 	} catch (error) {
-		res.json({ message: 'Что-то пошло не так.' })
+		res.json({ message: error.message })
 	}
 }

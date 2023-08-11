@@ -45,7 +45,7 @@ export const getAllPallets = async (req, res) => {
 
 		res.json({ pallets })
 	} catch (error) {
-		res.json({ message: 'Что-то не так с отображением рядов.' })
+		res.json({ message: error.message })
 	}
 }
 
@@ -110,3 +110,21 @@ export const deletePallet = async (req, res) => {
 		res.status(500).json({ message: error.message });
 	}
 };
+
+
+
+// Get Pallet Boxes
+
+export const getPalletBoxes = async (req, res) => {
+	try {
+		const pallet = await Pallet.findById(req.params.id)
+		const boxList = await Promise.all(
+			pallet.boxes.map((box) => {
+				return Box.findById(box)
+			}),
+		)
+		res.json({ boxes: boxList })
+	} catch (error) {
+		res.json({ message: error.message })
+	}
+}

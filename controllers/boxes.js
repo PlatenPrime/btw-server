@@ -1,7 +1,7 @@
 import Box from '../models/Box.js';
 import Pallet from '../models/Pallet.js';
 
-// Создание новой коробки и добавление её в объект Pallet и Row
+// Создание новой коробки и добавление её в объект Pallet
 export const createBox = async (req, res) => {
 	try {
 		const { palletId, ...boxData } = req.body;
@@ -30,6 +30,22 @@ export const createBox = async (req, res) => {
 	}
 };
 
+// Get All Pallets
+
+export const getAllBoxes = async (req, res) => {
+	try {
+		const boxes = await Box.find()
+
+
+		if (!boxes || boxes.length === 0) {
+			return res.json({ message: 'Коробок нет' })
+		}
+
+		res.json({ boxes })
+	} catch (error) {
+		res.json({ message: error.message })
+	}
+}
 
 
 
