@@ -39,7 +39,7 @@ export const getAllPallets = async (req, res) => {
 		const pallets = await Pallet.find().sort('title')
 
 
-		if (!pallets) {
+		if (!pallets || pallets.length === 0) {
 			return res.json({ message: 'Паллет нет' })
 		}
 
