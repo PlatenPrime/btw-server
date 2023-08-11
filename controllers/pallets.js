@@ -31,6 +31,26 @@ export const createPallet = async (req, res) => {
 };
 
 
+
+// Get All Pallets
+
+export const getAllPallets = async (req, res) => {
+	try {
+		const pallets = await Pallet.find().sort('title')
+
+
+		if (!pallets) {
+			return res.json({ message: 'Паллет нет' })
+		}
+
+		res.json({ pallets })
+	} catch (error) {
+		res.json({ message: 'Что-то не так с отображением рядов.' })
+	}
+}
+
+
+
 // Получение объекта Pallet по ID
 export const getPalletById = async (req, res) => {
 	try {

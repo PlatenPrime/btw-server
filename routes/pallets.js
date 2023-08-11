@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createPallet, deletePallet, getPalletById, updatePalletById } from '../controllers/pallets.js';
+import { createPallet, deletePallet, getAllPallets, getPalletById, updatePalletById } from '../controllers/pallets.js';
 import { checkAuth } from "../utils/checkAuth.js";
 
 
@@ -7,8 +7,14 @@ const router = new Router();
 
 
 // Маршрут для получения объекта Pallet по ID
-
+// http://localhost:3002/api/pallets/:id
 router.get('/:id', getPalletById);
+
+
+// http://localhost:3002/api/pallets
+router.get('/', getAllPallets);
+
+
 
 // Маршрут для создания объекта Pallet с вложенными коробками и добавления его в объект Row
 // http://localhost:3002/api/pallets
