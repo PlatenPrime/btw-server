@@ -8,6 +8,8 @@ import palletRoute from "./routes/pallets.js";
 import rowRoute from "./routes/rows.js";
 import artRoute from "./routes/arts.js";
 import boxRoute from "./routes/boxes.js";
+import compRoute from "./routes/comps.js";
+
 
 
 
@@ -36,6 +38,7 @@ app.use("/api/pallets", palletRoute);
 app.use("/api/rows", rowRoute);
 app.use("/api/arts", artRoute);
 app.use("/api/boxes", boxRoute);
+app.use("/api/comps", compRoute);
 
 
 
