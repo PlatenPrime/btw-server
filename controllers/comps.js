@@ -5,8 +5,8 @@ import Comp from '../models/Comp.js';
 export async function createComp(req, res) {
 	try {
 
-		const { artikul, prod, competitorsLinks } = req.body
-		const comp = new Comp({ artikul, prod, competitorsLinks });
+		const { artikul, prod, competitorsLinks, availability, price } = req.body
+		const comp = new Comp({ artikul, prod, competitorsLinks, availability, price });
 
 		await comp.save();
 
@@ -21,9 +21,9 @@ export async function createComp(req, res) {
 // Create or Update One Comp
 export async function updateOrCreateComp(req, res) {
 	try {
-		const { artikul, prod, competitorsLinks } = req.body;
+		const { artikul, prod, competitorsLinks, availability, price } = req.body;
 		const filter = { artikul };
-		const update = { prod, competitorsLinks };
+		const update = { prod, competitorsLinks, availability, price };
 		const comp = await Comp.findOneAndUpdate(filter, update, {
 			new: true,
 			upsert: true,
