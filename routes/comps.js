@@ -6,6 +6,7 @@ import {
 	getAllComps,
 	deleteComp,
 	deleteAllComps,
+	getCompByArtikul,
 } from '../controllers/comps.js';
 
 const router = new Router();
@@ -23,6 +24,10 @@ router.post("/update", updateOrCreateComp);
 // Get Comp By Id
 // http://localhost:3002/api/comps/:id
 router.get('/:id', getCompById)
+
+// Get Comp By Artikul 
+// http://localhost:3002/api/comps/search/:artikul
+router.get("/search/:artikul", getCompByArtikul)
 
 
 // Get All Comps

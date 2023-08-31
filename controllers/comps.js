@@ -5,8 +5,9 @@ import Comp from '../models/Comp.js';
 export async function createComp(req, res) {
 	try {
 
-		const { artikul, prod, competitorsLinks, isAvailable, price } = req.body
-		const comp = new Comp({ artikul, prod, competitorsLinks, isAvailable, price });
+		const compData = { ...req.body };
+
+		const comp = new Comp(compData);
 
 		await comp.save();
 
@@ -21,9 +22,11 @@ export async function createComp(req, res) {
 // Create or Update One Comp
 export async function updateOrCreateComp(req, res) {
 	try {
-		const { artikul, prod, competitorsLinks, isAvailable, price } = req.body;
+
+		const update = { ...req.body };
+		const { artikul } = req.body;
 		const filter = { artikul };
-		const update = { prod, competitorsLinks, isAvailable, price };
+
 		const comp = await Comp.findOneAndUpdate(filter, update, {
 			new: true,
 			upsert: true,
@@ -48,6 +51,29 @@ export async function getCompById(req, res) {
 		res.status(400).json({ error: 'Failed to get comp' });
 	}
 }
+
+
+// Get Comp By Artikul 
+
+export async function getCompByArtikul(req, res) {
+	try {
+		const artikul = req.params.artikul;
+		const comp = await Comp.findOne({ artikul });
+
+		if (!comp) {
+			return res.status(404).json({ message: "Объект не найден" });
+		}
+
+		res.json(comp);
+	} catch (error) {
+		res.status(500).json({ message: "Ошибка сервера" });
+	}
+}
+
+
+
+
+
 
 // Get All Comps
 export async function getAllComps(req, res) {

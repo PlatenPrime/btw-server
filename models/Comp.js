@@ -13,8 +13,15 @@ const CompSchema = new mongoose.Schema(
 		competitorsLinks: {
 			sharteLink: String
 		},
-		isAvailable: Number,
-		price: String,
+		avail: {
+			btrade: Number,
+			sharte: Boolean
+
+		},
+		price: {
+			btrade: String,
+			sharte: String
+		}
 
 
 	}
