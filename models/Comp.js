@@ -7,6 +7,7 @@ const CompSchema = new mongoose.Schema(
 			required: true,
 			unique: true,
 		},
+		nameukr: String,
 		prod: {
 			type: String
 		},
