@@ -9,6 +9,7 @@ import rowRoute from "./routes/rows.js";
 import artRoute from "./routes/arts.js";
 import boxRoute from "./routes/boxes.js";
 import compRoute from "./routes/comps.js";
+import logRoute from "./routes/logs.js";
 
 
 
@@ -39,6 +40,7 @@ app.use("/api/rows", rowRoute);
 app.use("/api/arts", artRoute);
 app.use("/api/boxes", boxRoute);
 app.use("/api/comps", compRoute);
+app.use("/api/logs", logRoute);
 
 
 
