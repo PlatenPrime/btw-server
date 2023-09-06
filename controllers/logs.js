@@ -10,12 +10,12 @@ export async function createLog(req, res) {
 
 		// const logData = { ...req.body };
 
-		const { artikul, changes } = req.body;
+		const { artikul, change } = req.body;
 
 
 		const log = new Log({
 			artikul,
-			changes,
+			change,
 		})
 
 		await log.save();
