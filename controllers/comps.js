@@ -78,7 +78,7 @@ export async function getCompByArtikul(req, res) {
 // Get All Comps
 export async function getAllComps(req, res) {
 	try {
-		const comps = await Comp.find();
+		const comps = await Comp.find().sort({ "artikul": 1 });
 		res.status(200).json(comps);
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to get comps' });
