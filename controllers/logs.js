@@ -31,7 +31,7 @@ export async function createLog(req, res) {
 // Get All Logs
 export async function getAllLogs(req, res) {
 	try {
-		const logs = await Log.find().sort({ timestamp: -1 });
+		const logs = await Log.find().sort({ timestamp: -1 }).limit(200);
 		res.status(200).json(logs);
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to get logs' });
