@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { checkAuth } from "../utils/checkAuth.js";
-import { getAllArts, getById, removeArt, createArt, deleteArticuls, updateOrCreateArt, } from "../controllers/arts.js";
+import { getAllArts, getById, removeArt, createArt, deleteArticuls, updateOrCreateArt, downloadExcelArtikuls, } from "../controllers/arts.js";
 
 const router = new Router();
 
@@ -10,11 +10,11 @@ const router = new Router();
 
 // Create One Articul
 //http://localhost:3002/api/arts
-router.post("/",  createArt)
+router.post("/", createArt)
 
 // Create or Update One Articul
 //http://localhost:3002/api/arts/update
-router.post("/update",  updateOrCreateArt);
+router.post("/update", updateOrCreateArt);
 
 
 
@@ -34,6 +34,11 @@ router.delete('/:id', /* checkAuth, */ removeArt)
 // Delete Articuls from DB
 // http://localhost:3002/api/arts/
 router.delete('/', deleteArticuls)
+
+// Download Excel With Artikuls
+// http://localhost:3002/api/arts/download
+router.get('/', downloadExcelArtikuls)
+
 
 
 

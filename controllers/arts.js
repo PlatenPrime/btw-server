@@ -1,4 +1,6 @@
 import Art from "../models/Art.js";
+import * as XLSX from 'xlsx';
+import fs from 'fs';
 
 
 
@@ -121,5 +123,42 @@ export const deleteArticuls = async (req, res) => {
 }
 
 
+// Download Excel With Artikuls
+export const downloadExcelArtikuls = async (req, res) => {
+
+	try {
+		const arts = await Art.find().sort({ "artikul": 1 })
+		// Создание новой книги Excel
+		const workbook = XLSX.utils.book_new();
+		// Преобразование JSON в массив данных
+		const data = [arts];
+		// Создание листа Excel
+		const ws = XLSX.utils.json_to_sheet(data);
+		// Добавление листа к книге
+		XLSX.utils.book_append_sheet(workbook, ws, 'Sheet1');
+		// Генерация временного имени файла
+		const filename = `output_${Date.now()}.xlsx`;
+		// Сохранение книги в файл
+		XLSX.writeFile(workbook, filename);
+
+		// Отправка файла как ответ на запрос
+		res.download(filename, (err) => {
+			if (err) {
+				console.error(err);
+			} else {
+				// Удаление временного файла после отправки
+				fs.unlinkSync(filename);
+			}
+		});
+
+
+
+	} catch (error) {
+		console.error(err);
+	}
+
+
+
+}
 
 
