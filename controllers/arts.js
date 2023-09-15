@@ -128,10 +128,24 @@ export const downloadExcelArtikuls = async (req, res) => {
 
 	try {
 		const arts = await Art.find().sort({ "artikul": 1 })
+
+		// Добавьте заголовки и преобразуйте данные
+		const data = [
+			["artikul", "nameukr", "prod", "competitorsLinks", "avail", "price"],
+			...arts.map((art) => [
+				art.artikul,
+				art.nameukr,
+				art.prod,
+				art.competitorsLinks,
+				art.avail,
+				art.price,
+			]),
+		];
+
+
 		// Создание новой книги Excel
 		const workbook = XLSX.utils.book_new();
-		// Преобразование JSON в массив данных
-		const data = [...arts];
+
 		// Создание листа Excel
 		const ws = XLSX.utils.json_to_sheet(data);
 		// Добавление листа к книге
