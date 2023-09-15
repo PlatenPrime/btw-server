@@ -131,7 +131,7 @@ export const downloadExcelArtikuls = async (req, res) => {
 		// Создание новой книги Excel
 		const workbook = XLSX.utils.book_new();
 		// Преобразование JSON в массив данных
-		const data = [arts];
+		const data = [...arts];
 		// Создание листа Excel
 		const ws = XLSX.utils.json_to_sheet(data);
 		// Добавление листа к книге
@@ -142,9 +142,9 @@ export const downloadExcelArtikuls = async (req, res) => {
 		XLSX.writeFile(workbook, filename);
 
 		// Отправка файла как ответ на запрос
-		res.download(filename, (err) => {
+		res.download(filename, (error) => {
 			if (err) {
-				console.error(err);
+				console.error(error);
 			} else {
 				// Удаление временного файла после отправки
 				fs.unlinkSync(filename);
