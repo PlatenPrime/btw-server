@@ -35,9 +35,6 @@ router.delete('/:id', /* checkAuth, */ removeArt)
 // http://localhost:3002/api/arts/
 router.delete('/', deleteArticuls)
 
-// Download Excel With Artikuls
-// http://localhost:3002/api/arts/download
-router.get('/download', downloadExcelArtikuls)
 
 
 

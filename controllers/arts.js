@@ -123,56 +123,5 @@ export const deleteArticuls = async (req, res) => {
 }
 
 
-// Download Excel With Artikuls
-export const downloadExcelArtikuls = async (req, res) => {
-
-	try {
-		const arts = await Art.find().sort({ "artikul": 1 })
-
-		// Добавьте заголовки и преобразуйте данные
-		const data = [
-			["artikul", "nameukr", "prod", "competitorsLinks", "avail", "price"],
-			...arts.map((art) => [
-				art.artikul,
-				art.nameukr,
-				art.prod,
-				art.competitorsLinks,
-				art.avail,
-				art.price,
-			]),
-		];
-
-
-		// Создание новой книги Excel
-		const workbook = XLSX.utils.book_new();
-
-		// Создание листа Excel
-		const ws = XLSX.utils.json_to_sheet(data);
-		// Добавление листа к книге
-		XLSX.utils.book_append_sheet(workbook, ws, 'Sheet1');
-		// Генерация временного имени файла
-		const filename = `output_${Date.now()}.xlsx`;
-		// Сохранение книги в файл
-		XLSX.writeFile(workbook, filename);
-
-		// Отправка файла как ответ на запрос
-		res.download(filename, (error) => {
-			if (err) {
-				console.error(error);
-			} else {
-				// Удаление временного файла после отправки
-				fs.unlinkSync(filename);
-			}
-		});
-
-
-
-	} catch (error) {
-		console.error(err);
-	}
-
-
-
-}
 
 

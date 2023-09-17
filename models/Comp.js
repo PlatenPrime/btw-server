@@ -11,17 +11,26 @@ const CompSchema = new mongoose.Schema(
 		prod: {
 			type: String
 		},
+		category: String,
+		subcategory: String,
+		size: String,
 		competitorsLinks: {
-			sharteLink: String
+			sharteLink: String,
+			yumiArtikul: String,
+			airLink: String,
 		},
 		avail: {
 			btrade: Number,
-			sharte: Boolean
+			sharte: Boolean,
+			yumi: Number,
+			air: Boolean
 
 		},
 		price: {
 			btrade: String,
-			sharte: String
+			sharte: String,
+			yumi: String,
+			air: String,
 		}
 
 
