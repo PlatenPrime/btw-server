@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { checkAuth } from "../utils/checkAuth.js";
-import { getAllArts, getById, removeArt, createArt, deleteArticuls, updateOrCreateArt, downloadExcelArtikuls, } from "../controllers/arts.js";
+import { getAllArts, getById, removeArt, createArt, deleteArticuls, updateOrCreateArt, } from "../controllers/arts.js";
 
 const router = new Router();
 
