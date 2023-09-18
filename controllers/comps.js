@@ -23,8 +23,7 @@ export async function createComp(req, res) {
 export async function updateOrCreateComp(req, res) {
 	try {
 
-		const update = { ...req.body };
-		const { artikul } = req.body;
+		const { artikul, ...update } = req.body;
 		const filter = { artikul };
 
 		const comp = await Comp.findOneAndUpdate(filter, update, {
@@ -33,6 +32,7 @@ export async function updateOrCreateComp(req, res) {
 		});
 		res.status(200).json(comp);
 	} catch (error) {
+		console.error('Error in updateOrCreateComp:', error);
 		res.status(400).json({ error: 'Failed to create/update comp' });
 	}
 }
