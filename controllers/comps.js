@@ -23,14 +23,25 @@ export async function createComp(req, res) {
 export async function updateOrCreateComp(req, res) {
 	try {
 
-		const { artikul, ...update } = req.body;
-		const filter = { artikul };
+		const { size, category, subcategory, prod, artikul, nameukr, competitorsLinks } = { ...req.body }
 
-		const comp = await Comp.findOneAndUpdate(filter, update, {
-			new: true,
-			upsert: true,
-		});
-		res.status(200).json(comp);
+
+		let existingComp = await Comp.findOne({ artikul });
+
+		if (existingComp) {
+			existingComp.category = category;
+			existingComp.subcategory = subcategory;
+			existingComp.size = size;
+			existingComp.prod = prod;
+			existingComp.competitorsLinks = competitorsLinks;
+			await existingComp.save();
+			return res.status(200).json(existingComp);
+		} else {
+			const newComp = new Comp({ size, category, subcategory, prod, artikul, nameukr, competitorsLinks })
+			await newComp.save();
+			return res.status(200).json(newComp)
+		}
+
 	} catch (error) {
 		console.error('Error in updateOrCreateComp:', error);
 		res.status(400).json({ error: 'Failed to create/update comp' });
