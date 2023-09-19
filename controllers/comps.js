@@ -22,26 +22,34 @@ export async function createComp(req, res) {
 // Create or Update One Comp
 export async function updateOrCreateComp(req, res) {
 	try {
-
-		const { size, category, subcategory, prod, artikul, nameukr, competitorsLinks } = { ...req.body }
-
+		const { size, category, subcategory, prod, artikul, nameukr, competitorsLinks } = req.body;
 
 		let existingComp = await Comp.findOne({ artikul });
 
 		if (existingComp) {
-			existingComp.category = category;
-			existingComp.subcategory = subcategory;
-			existingComp.size = size;
-			existingComp.prod = prod;
-			existingComp.competitorsLinks = competitorsLinks;
+			// Проверяем, были ли поля переданы в req.body, и обновляем только их
+			if (size) existingComp.size = size;
+			if (category) existingComp.category = category;
+			if (subcategory) existingComp.subcategory = subcategory;
+			if (prod) existingComp.prod = prod;
+			if (competitorsLinks) existingComp.competitorsLinks = competitorsLinks;
+
 			await existingComp.save();
 			return res.status(200).json(existingComp);
 		} else {
-			const newComp = new Comp({ size, category, subcategory, prod, artikul, nameukr, competitorsLinks })
+			// Создаем новый объект Comp и сохраняем только переданные поля
+			const newComp = new Comp({
+				size,
+				category,
+				subcategory,
+				prod,
+				artikul,
+				nameukr,
+				competitorsLinks
+			});
 			await newComp.save();
-			return res.status(200).json(newComp)
+			return res.status(200).json(newComp);
 		}
-
 	} catch (error) {
 		console.error('Error in updateOrCreateComp:', error);
 		res.status(400).json({ error: 'Failed to create/update comp' });
