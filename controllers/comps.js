@@ -45,14 +45,14 @@ export async function updateOrCreateComp(req, res) {
 			if (subcategory) existingComp.subcategory = subcategory;
 			if (prod) existingComp.prod = prod;
 			if (competitorsLinks) existingComp.competitorsLinks = competitorsLinks;
-			if (avail.sharte) existingComp.avail.sharte = avail.sharte;
-			if (avail.btrade) existingComp.avail.btrade = avail.btrade;
-			if (avail.air) existingComp.avail.air = avail.air;
-			if (avail.yumi) existingComp.avail.yumi = avail.yumi;
-			if (price.sharte) existingComp.price.sharte = price.sharte;
-			if (price.btrade) existingComp.price.btrade = price.btrade;
-			if (price.air) existingComp.price.air = price.air;
-			if (price.yumi) existingComp.price.yumi = price.yumi;
+			if (avail?.sharte) existingComp.avail.sharte = avail.sharte;
+			if (avail?.btrade) existingComp.avail.btrade = avail.btrade;
+			if (avail?.air) existingComp.avail.air = avail.air;
+			if (avail?.yumi) existingComp.avail.yumi = avail.yumi;
+			if (price?.sharte) existingComp.price.sharte = price.sharte;
+			if (price?.btrade) existingComp.price.btrade = price.btrade;
+			if (price?.air) existingComp.price.air = price.air;
+			if (price?.yumi) existingComp.price.yumi = price.yumi;
 
 
 			await existingComp.save();
