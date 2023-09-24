@@ -32,8 +32,6 @@ export async function updateOrCreateComp(req, res) {
 			price,
 			avail
 
-
-
 		} = req.body;
 
 		let existingComp = await Comp.findOne({ artikul });

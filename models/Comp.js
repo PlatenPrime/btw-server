@@ -26,14 +26,13 @@ const CompSchema = new mongoose.Schema(
 			yumi: Number,
 			air: Boolean,
 			best: Boolean
-
 		},
 		price: {
 			btrade: String,
 			sharte: String,
 			yumi: String,
 			air: String,
-			air: String,
+			best: String,
 		}
 
 
