@@ -8,6 +8,8 @@ export async function createComp(req, res) {
 		const compData = { ...req.body };
 		console.log(compData)
 
+
+
 		const comp = new Comp(compData);
 
 		await comp.save();

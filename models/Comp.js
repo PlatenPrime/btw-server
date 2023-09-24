@@ -22,10 +22,10 @@ const CompSchema = new mongoose.Schema(
 		},
 		avail: {
 			btrade: Number,
-			sharte: Boolean,
+			sharte: mongoose.Schema.Types.Mixed,
 			yumi: Number,
-			air: Boolean,
-			best: Boolean
+			air: mongoose.Schema.Types.Mixed,
+			best: mongoose.Schema.Types.Mixed,
 		},
 		price: {
 			btrade: String,
