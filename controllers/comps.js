@@ -6,6 +6,7 @@ export async function createComp(req, res) {
 	try {
 
 		const compData = { ...req.body };
+		console.log(compData)
 
 		const comp = new Comp(compData);
 
