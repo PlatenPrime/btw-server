@@ -16,20 +16,23 @@ const CompSchema = new mongoose.Schema(
 		size: String,
 		competitorsLinks: {
 			sharteLink: String,
-			yumiArtikul: String,
+			yumiLink: String,
 			airLink: String,
+			bestLink: String,
 		},
 		avail: {
 			btrade: Number,
 			sharte: Boolean,
 			yumi: Number,
-			air: Boolean
+			air: Boolean,
+			best: Boolean
 
 		},
 		price: {
 			btrade: String,
 			sharte: String,
 			yumi: String,
+			air: String,
 			air: String,
 		}
 

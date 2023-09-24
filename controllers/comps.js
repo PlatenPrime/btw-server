@@ -49,10 +49,12 @@ export async function updateOrCreateComp(req, res) {
 			if (avail?.btrade) existingComp.avail.btrade = avail.btrade;
 			if (avail?.air) existingComp.avail.air = avail.air;
 			if (avail?.yumi) existingComp.avail.yumi = avail.yumi;
+			if (avail?.best) existingComp.avail.best = avail.best;
 			if (price?.sharte) existingComp.price.sharte = price.sharte;
 			if (price?.btrade) existingComp.price.btrade = price.btrade;
 			if (price?.air) existingComp.price.air = price.air;
 			if (price?.yumi) existingComp.price.yumi = price.yumi;
+			if (price?.best) existingComp.price.best = price.best;
 
 
 			await existingComp.save();
