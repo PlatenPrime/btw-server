@@ -108,7 +108,9 @@ export const deleteRowById = async (req, res) => {
 
 export const updateRowById = async (req, res) => {
 	try {
-		const { title, _id } = req.body
+
+		const _id = req.params.id
+		const { title } = req.body
 		const row = await Row.findById(_id)
 
 
