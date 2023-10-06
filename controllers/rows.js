@@ -35,7 +35,7 @@ export const createRow = async (req, res) => {
 
 export const getAllRows = async (req, res) => {
 	try {
-		const rows = await Row.find().sort('-createdAt')
+		const rows = await Row.find().sort({ "title": 1 })
 
 
 		if (!rows) {
@@ -135,6 +135,22 @@ export const getRowPallets = async (req, res) => {
 				return Pallet.findById(pallet)
 			}),
 		)
+
+		// Сортировка массива list по полю title
+		list.sort((a, b) => {
+			const titleA = a.title.toLowerCase();
+			const titleB = b.title.toLowerCase();
+
+			if (titleA < titleB) {
+				return -1;
+			}
+			if (titleA > titleB) {
+				return 1;
+			}
+			return 0;
+		});
+
+
 		res.json(list)
 	} catch (error) {
 		res.json({ message: error.message })
