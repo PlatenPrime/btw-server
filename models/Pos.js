@@ -4,9 +4,7 @@ const PosSchema = new mongoose.Schema(
 	{
 		pallet: { type: mongoose.Schema.Types.ObjectId, ref: 'Pallet', required: true },
 		articuls: mongoose.Schema.Types.Object,
-		index: {
-			type: Number
-		},
+		box: String,
 		date: String
 
 	}
