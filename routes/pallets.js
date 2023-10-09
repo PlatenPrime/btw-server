@@ -17,7 +17,7 @@ router.get('/', getAllPallets);
 
 
 // http://localhost:3002/api/pallets/poses/:id
-router.get('/boxes/:id', getPalletPoses);
+router.get('/poses/:id', getPalletPoses);
 
 
 
