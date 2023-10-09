@@ -1,19 +1,14 @@
-
-
 import Art from "../models/Art.js";
 import Pallet from "../models/Pallet.js";
 import Row from "../models/Row.js";
-import Box from "../models/Box.js";
+import Pos from "../models/Pos.js";
 
-
-
-
-// Создание нового объекта Pallet с вложенными объектами Box и добавление его в объект Row
+// Создание нового объекта Pallet с вложенными объектами Pos и добавление его в объект Row
 export const createPallet = async (req, res) => {
 	try {
 		const { title, rowId } = req.body;
 
-		const row = rowId
+		const row = rowId;
 
 		const newPallet = await Pallet.create({ title, row });
 
@@ -23,39 +18,31 @@ export const createPallet = async (req, res) => {
 			{ new: true }
 		);
 
-
 		res.status(201).json(newPallet);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
 };
 
-
-
 // Get All Pallets
 
 export const getAllPallets = async (req, res) => {
 	try {
-		const pallets = await Pallet.find().sort('title')
-
+		const pallets = await Pallet.find().sort('title');
 
 		if (!pallets || pallets.length === 0) {
-			return res.json({ message: 'Паллет нет' })
+			return res.json({ message: 'Паллет нет' });
 		}
 
-		res.json({ pallets })
+		res.json({ pallets });
 	} catch (error) {
-		res.json({ message: error.message })
+		res.json({ message: error.message });
 	}
-}
-
-
+};
 
 // Получение объекта Pallet по ID
 export const getPalletById = async (req, res) => {
 	try {
-
-
 		const pallet = await Pallet.findById(req.params.id);
 
 		if (!pallet) {
@@ -67,15 +54,11 @@ export const getPalletById = async (req, res) => {
 	}
 };
 
-
-
 // Редактирование объекта Pallet по его ID
 export const updatePalletById = async (req, res) => {
 	try {
-
 		const { title, rowId } = req.body;
-		const row = rowId
-
+		const row = rowId;
 
 		const updatedPallet = await Pallet.findByIdAndUpdate(req.params.id, { title, row }, { new: true });
 		res.json(updatedPallet);
@@ -93,11 +76,11 @@ export const deletePallet = async (req, res) => {
 			return res.status(404).json({ message: 'Pallet not found' });
 		}
 
-		// Получим все связанные объекты Box внутри этого Pallet
-		const boxIds = deletedPallet.boxes;
+		// Получим все связанные объекты Pos внутри этого Pallet
+		const posIds = deletedPallet.poses;
 
-		// Удаление связанных объектов Box
-		await Box.deleteMany({ _id: { $in: boxIds } });
+		// Удаление связанных объектов Pos
+		await Pos.deleteMany({ _id: { $in: posIds } });
 
 		// Удаление ссылки на удаляемый объект Pallet из массива pallets объекта Row
 		await Row.updateMany({ pallets: deletedPallet._id }, { $pull: { pallets: deletedPallet._id } });
@@ -111,19 +94,17 @@ export const deletePallet = async (req, res) => {
 	}
 };
 
+// Get Pallet Poses
 
-
-// Get Pallet Boxes
-
-export const getPalletBoxes = async (req, res) => {
+export const getPalletPoses = async (req, res) => {
 	try {
 		const pallet = await Pallet.findById(req.params.id)
-		const boxList = await Promise.all(
-			pallet.boxes.map((box) => {
-				return Box.findById(box)
+		const posList = await Promise.all(
+			pallet.poses.map((pos) => {
+				return Pos.findById(pos)
 			}),
 		)
-		res.json({ boxes: boxList })
+		res.json({ poses: posList })
 	} catch (error) {
 		res.json({ message: error.message })
 	}

@@ -1,66 +1,51 @@
-
-
 import Row from "../models/Row.js";
 import Pallet from "../models/Pallet.js";
-import Box from "../models/Box.js";
+import Pos from "../models/Pos.js";
 
-
-
-
-
-//Create Row
-
+// Создание нового объекта Row
 export const createRow = async (req, res) => {
 	try {
-		const { title } = req.body
-
-
+		const { title } = req.body;
 
 		const newRow = new Row({
 			title
-		})
+		});
 
+		await newRow.save();
 
-		await newRow.save()
-
-		return res.json(newRow)
-
+		return res.json(newRow);
 	} catch (error) {
-		res.json({ message: "Что-то не так с созданием ряда" })
+		res.json({ message: "Что-то не так с созданием ряда" });
 	}
-}
-
+};
 
 // Get All Rows
 
 export const getAllRows = async (req, res) => {
 	try {
-		const rows = await Row.find().sort({ "title": 1 })
-
+		const rows = await Row.find().sort({ "title": 1 });
 
 		if (!rows) {
-			return res.json({ message: 'Рядов нет' })
+			return res.json({ message: 'Рядов нет' });
 		}
 
-		res.json({ rows })
+		res.json({ rows });
 	} catch (error) {
-		res.json({ message: 'Что-то не так с отображением рядов.' })
+		res.json({ message: 'Что-то не так с отображением рядов.' });
 	}
-}
+};
 
-
-// Get Row By Id
+// Получение объекта Row по ID
 export const getById = async (req, res) => {
 	try {
-		const row = await Row.findByIdAndUpdate(req.params.id)
-		res.json(row)
+		const row = await Row.findByIdAndUpdate(req.params.id);
+		res.json(row);
 	} catch (error) {
-		res.json({ message: 'Ряд не найден' })
+		res.json({ message: 'Ряд не найден' });
 	}
-}
+};
 
-
-// Delete row
+// Delete Row
 
 export const deleteRowById = async (req, res) => {
 	try {
@@ -76,17 +61,16 @@ export const deleteRowById = async (req, res) => {
 		// Получим все связанные объекты Pallet внутри этой Row
 		const palletIds = row.pallets;
 
-		// Удаление связанных объектов Box сначала
+		// Удаление связанных объектов Pos сначала
 		for (const palletId of palletIds) {
-
 			const pallet = await Pallet.findById(palletId);
 
 			if (!pallet) {
 				continue; // Можно также выбросить ошибку, если требуется
 			}
 
-			const boxIds = pallet.boxes;
-			await Box.deleteMany({ _id: { $in: boxIds } });
+			const posIds = pallet.poses;
+			await Pos.deleteMany({ _id: { $in: posIds } });
 		}
 
 		// Удаление связанных объектов Pallet
@@ -99,42 +83,36 @@ export const deleteRowById = async (req, res) => {
 	} catch (error) {
 		res.status(500).json({ message: 'Error deleting Row', error: error.message });
 	}
-}
+};
 
-
-
-
-// Update row
+// Update Row
 
 export const updateRowById = async (req, res) => {
 	try {
-
-		const _id = req.params.id
-		const { title } = req.body
-		const row = await Row.findById(_id)
-
+		const _id = req.params.id;
+		const { title } = req.body;
+		const row = await Row.findById(_id);
 
 		row.title = title;
 
-		await row.save()
+		await row.save();
 
-		res.json(row)
+		res.json(row);
 	} catch (error) {
-		res.json({ message: error.message })
+		res.json({ message: error.message });
 	}
-}
-
+};
 
 // Get Row Pallets
 
 export const getRowPallets = async (req, res) => {
 	try {
-		const row = await Row.findById(req.params.id)
+		const row = await Row.findById(req.params.id);
 		const list = await Promise.all(
 			row.pallets.map((pallet) => {
-				return Pallet.findById(pallet)
+				return Pallet.findById(pallet);
 			}),
-		)
+		);
 
 		// Сортировка массива list по полю title
 		list.sort((a, b) => {
@@ -150,9 +128,8 @@ export const getRowPallets = async (req, res) => {
 			return 0;
 		});
 
-
-		res.json(list)
+		res.json(list);
 	} catch (error) {
-		res.json({ message: error.message })
+		res.json({ message: error.message });
 	}
-}
+};

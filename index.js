@@ -7,7 +7,7 @@ import authRoute from "./routes/auth.js";
 import palletRoute from "./routes/pallets.js";
 import rowRoute from "./routes/rows.js";
 import artRoute from "./routes/arts.js";
-import boxRoute from "./routes/boxes.js";
+import posRoute from "./routes/poses.js";
 import compRoute from "./routes/comps.js";
 import logRoute from "./routes/logs.js";
 
@@ -38,7 +38,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/pallets", palletRoute);
 app.use("/api/rows", rowRoute);
 app.use("/api/arts", artRoute);
-app.use("/api/boxes", boxRoute);
+app.use("/api/poses", posRoute);
 app.use("/api/comps", compRoute);
 app.use("/api/logs", logRoute);
 

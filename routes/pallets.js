@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createPallet, deletePallet, getAllPallets, getPalletById, updatePalletById, getPalletBoxes } from '../controllers/pallets.js';
+import { createPallet, deletePallet, getAllPallets, getPalletById, updatePalletById, getPalletPoses } from '../controllers/pallets.js';
 import { checkAuth } from "../utils/checkAuth.js";
 
 
@@ -16,8 +16,8 @@ router.get('/', getAllPallets);
 
 
 
-// http://localhost:3002/api/pallets/boxes/:id
-router.get('/boxes/:id', getPalletBoxes);
+// http://localhost:3002/api/pallets/poses/:id
+router.get('/boxes/:id', getPalletPoses);
 
 
 
