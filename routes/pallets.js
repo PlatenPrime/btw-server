@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createPallet, deletePallet, getAllPallets, getPalletById, updatePalletById, getPalletPoses } from '../controllers/pallets.js';
+import { createPallet, deletePallet, getAllPallets, getPalletById, updatePalletById, getPalletPoses, clearPalletById, movePalletContent } from '../controllers/pallets.js';
 import { checkAuth } from "../utils/checkAuth.js";
 
 
@@ -25,8 +25,24 @@ router.get('/poses/:id', getPalletPoses);
 // http://localhost:3002/api/pallets
 router.post('/', createPallet);
 
+// Маршрут для очистки объекта Pallet по ID
+// http://localhost:3002/api/pallets/clear/:id
+router.put('/clear/:id', clearPalletById);
+
+
+// Маршрут для перемещения содержимого на очищенную паллету
+// http://localhost:3002/api/pallets/move
+router.put('/move', movePalletContent);
+
+
+
 // Маршрут для редактирования объекта Pallet по ID
+// http://localhost:3002/api/pallets/:id
 router.put('/:id', updatePalletById);
+
+
+
+
 
 // Маршрут для удаления объекта Pallet по ID
 router.delete('/:id', deletePallet);

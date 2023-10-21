@@ -94,6 +94,104 @@ export const deletePallet = async (req, res) => {
 	}
 };
 
+
+// Очищение паллеты от всех позиций на ней
+
+
+export const clearPalletById = async (req, res) => {
+	try {
+
+		const clearedPallet = await Pallet.findById(req.params.id);
+
+		if (!clearedPallet) {
+			return res.status(404).json({ message: "Pallet not found" });
+		}
+
+
+		// Получим все связанные объекты Pos внутри этого Pallet
+		const posIds = clearedPallet.poses;
+
+		// Удаление связанных объектов Pos
+		await Pos.deleteMany({ _id: { $in: posIds } });
+
+
+		clearedPallet.poses = [];
+
+		await clearedPallet.save();
+
+
+		res.json({ message: 'Pallet and associated data cleared successfully' });
+
+
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+}
+
+// Переместить содержимое паллеты на новое место
+
+
+export const movePalletContent = async (req, res) => {
+
+	// Очищение паллеты от всех позиций на ней
+	const clearPalletFunction = async (pallet) => {
+
+		const posIds = pallet.poses;
+
+
+
+		// Удаление связанных объектов Pos
+		await Pos.deleteMany({ _id: { $in: posIds } });
+
+		pallet.poses = [];
+		await pallet.save();
+	};
+
+
+
+
+	try {
+		const { currentPalletId, targetPalletId } = req.body;
+
+		// Проверим, существуют ли указанные паллеты
+		const currentPallet = await Pallet.findById(currentPalletId);
+		const targetPallet = await Pallet.findById(targetPalletId);
+
+		if (!currentPallet || !targetPallet) {
+			return res.status(404).json({ message: "One or both of the pallets not found" });
+		}
+
+		// Очистка второй паллеты
+		await clearPalletFunction(targetPallet);
+
+		// Получим все связанные объекты Pos внутри текущей паллеты
+		const posIdsToMove = currentPallet.poses;
+
+		// Обновление информации о паллете в позициях, которые переносятся
+		await Pos.updateMany({ _id: { $in: posIdsToMove } }, { pallet: targetPalletId });
+
+		// Добавим перемещенные позиции в целевую паллету
+		targetPallet.poses = posIdsToMove;
+		await targetPallet.save();
+
+
+		// Удаление связанных объектов Pos из текущей паллеты
+		currentPallet.poses = [];
+
+		await currentPallet.save();
+
+		res.json({ message: "Pallet content moved successfully" });
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+
+
+
+
+
+
+
 // Get Pallet Poses
 
 export const getPalletPoses = async (req, res) => {
