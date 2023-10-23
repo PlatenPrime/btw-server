@@ -116,18 +116,22 @@ export const getRowPallets = async (req, res) => {
 
 		// Сортировка массива list по полю title
 		list.sort((a, b) => {
-			const titleA = a.title.toLowerCase();
-			const titleB = b.title.toLowerCase();
+			const partsA = a.title.split('-');
+			const partsB = b.title.split('-');
 
-			if (titleA < titleB) {
-				return -1;
-			}
-			if (titleA > titleB) {
-				return 1;
+			for (let i = 0; i < partsA.length; i++) {
+				const numA = parseInt(partsA[i]);
+				const numB = parseInt(partsB[i]);
+
+				if (numA < numB) {
+					return -1;
+				}
+				if (numA > numB) {
+					return 1;
+				}
 			}
 			return 0;
 		});
-
 		res.json(list);
 	} catch (error) {
 		res.json({ message: error.message });
