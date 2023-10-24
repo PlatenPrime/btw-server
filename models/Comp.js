@@ -23,7 +23,7 @@ const CompSchema = new mongoose.Schema(
 		avail: {
 			btrade: Number,
 			sharte: mongoose.Schema.Types.Mixed,
-			yumi: Number,
+			yumi: mongoose.Schema.Types.Mixed,
 			air: mongoose.Schema.Types.Mixed,
 			best: mongoose.Schema.Types.Mixed,
 		},
