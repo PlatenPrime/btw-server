@@ -29,16 +29,17 @@ export const createArt = async (req, res) => {
 
 export const updateOrCreateArt = async (req, res) => {
 	try {
-		const { artikul, zone, nameukr, namerus } = req.body;
+		const { artikul, zone, nameukr, namerus, limit } = req.body;
 
 		// Попробуем найти документ по artikul
 		let existingArt = await Art.findOne({ artikul });
 
 		if (existingArt) {
 			// Если документ найден, обновим его поля
-			existingArt.zone = zone;
-			existingArt.nameukr = nameukr;
-			existingArt.namerus = namerus;
+			if (zone) existingArt.zone = zone;
+			if (nameukr) existingArt.nameukr = nameukr;
+			if (namerus) existingArt.namerus = namerus;
+			if (limit) existingArt.limit = limit;
 			await existingArt.save();
 			return res.json(existingArt);
 		} else {
