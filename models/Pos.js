@@ -6,7 +6,8 @@ const PosSchema = new mongoose.Schema(
 		artikul: String,
 		quant: Number,
 		boxes: Number,
-		date: String
+		date: String,
+		sklad: String
 
 	}
 )

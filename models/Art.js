@@ -17,6 +17,9 @@ const ArtSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		limit: {
+			type: Number
+		}
 
 
 	}
