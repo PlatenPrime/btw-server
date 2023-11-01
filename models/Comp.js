@@ -33,7 +33,8 @@ const CompSchema = new mongoose.Schema(
 			yumi: String,
 			air: String,
 			best: String,
-		}
+		},
+		abc: String,
 
 
 	}

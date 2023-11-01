@@ -33,7 +33,8 @@ export async function updateOrCreateComp(req, res) {
 			nameukr,
 			competitorsLinks,
 			price,
-			avail
+			avail,
+			abc
 
 		} = req.body;
 
@@ -45,14 +46,15 @@ export async function updateOrCreateComp(req, res) {
 			if (category) existingComp.category = category;
 			if (subcategory) existingComp.subcategory = subcategory;
 			if (prod) existingComp.prod = prod;
+			if (abc) existingComp.abc = abc;
 			if (competitorsLinks) existingComp.competitorsLinks = competitorsLinks;
 			if (avail?.sharte || avail?.sharte === false) existingComp.avail.sharte = avail.sharte;
 			if (avail?.btrade || avail?.btrade === 0) existingComp.avail.btrade = avail.btrade;
 			if (avail?.air || avail?.air === false) existingComp.avail.air = avail.air;
 			if (avail?.yumi || avail?.yumi === 0 || avail?.yumi === "") existingComp.avail.yumi = avail.yumi;
 			if (avail?.best || avail?.best === false) existingComp.avail.best = avail.best;
-			if (price?.sharte ) existingComp.price.sharte = price.sharte;
-			if (price?.btrade ) existingComp.price.btrade = price.btrade;
+			if (price?.sharte) existingComp.price.sharte = price.sharte;
+			if (price?.btrade) existingComp.price.btrade = price.btrade;
 			if (price?.air) existingComp.price.air = price.air;
 			if (price?.yumi) existingComp.price.yumi = price.yumi;
 			if (price?.best) existingComp.price.best = price.best;
@@ -70,6 +72,7 @@ export async function updateOrCreateComp(req, res) {
 				artikul,
 				nameukr,
 				competitorsLinks,
+				abc,
 
 			});
 			await newComp.save();
