@@ -79,3 +79,18 @@ export const deletePosById = async (req, res) => {
 		res.status(500).json({ message: error.message });
 	}
 };
+
+
+// Найти позиции по артикулу
+export const getPosesByArtikul = async (req, res) => {
+	try {
+	  const { artikul } = req.params; // Получаем артикул из параметров запроса
+  
+	  // Ищем все позиции с указанным артикулом
+	  const positions = await Pos.find({ artikul });
+  
+	  res.json({ positions });
+	} catch (error) {
+	  res.status(500).json({ message: error.message });
+	}
+  };

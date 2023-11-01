@@ -207,3 +207,25 @@ export const getPalletPoses = async (req, res) => {
 		res.json({ message: error.message })
 	}
 }
+
+
+
+// Найти паллеты по артикулу
+export const findPalletsByArtikul = async (req, res) => {
+	try {
+		const { artikul } = req.params; // Получаем артикул из параметров запроса
+
+		// Ищем все позиции с указанным артикулом
+		const positions = await Pos.find({ artikul });
+
+		// Получаем уникальные идентификаторы паллет, содержащих эти позиции
+		const palletIds = positions.map(pos => pos.pallet);
+
+		// Ищем паллеты по идентификаторам
+		const pallets = await Pallet.find({ _id: { $in: palletIds } });
+
+		res.json({ pallets });
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};

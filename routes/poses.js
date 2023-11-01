@@ -1,11 +1,15 @@
 import { Router } from 'express';
-import { getPosById, getAllPoses, createPos, updatePos, deletePosById } from '../controllers/poses.js';
+import { getPosById, getAllPoses, createPos, updatePos, deletePosById, getPosesByArtikul } from '../controllers/poses.js';
 
 const router = new Router();
 
 // Маршрут для создания позиции и добавления её в объект Pallet
 // http://localhost:3002/api/poses
 router.post('/', createPos);
+
+// Маршрут для получения позиций с артикулом
+// http://localhost:3002/api/poses/artikul/:artikul
+router.get('/artikul/:artikul', getPosesByArtikul);
 
 // Маршрут для получения позиции по ID
 // http://localhost:3002/api/poses/:id
@@ -21,5 +25,8 @@ router.put('/:id', updatePos);
 
 // Маршрут для удаления позиции по ID
 router.delete('/:id', deletePosById);
+
+
+
 
 export default router;

@@ -10,9 +10,9 @@ import Art from "../models/Art.js";
 
 export const createArt = async (req, res) => {
 	try {
-		const { artikul, zone, nameukr, namerus } = req.body
+		const { artikul, zone, nameukr, namerus, marker } = req.body
 
-		const newArt = new Art({ artikul, zone, nameukr, namerus })
+		const newArt = new Art({ artikul, zone, nameukr, namerus, marker })
 
 
 		await newArt.save()
@@ -29,7 +29,7 @@ export const createArt = async (req, res) => {
 
 export const updateOrCreateArt = async (req, res) => {
 	try {
-		const { artikul, zone, nameukr, namerus, limit } = req.body;
+		const { artikul, zone, nameukr, namerus, limit, marker } = req.body;
 
 		// Попробуем найти документ по artikul
 		let existingArt = await Art.findOne({ artikul });
@@ -40,11 +40,12 @@ export const updateOrCreateArt = async (req, res) => {
 			if (nameukr) existingArt.nameukr = nameukr;
 			if (namerus) existingArt.namerus = namerus;
 			if (limit) existingArt.limit = limit;
+			if (marker) existingArt.marker = marker;
 			await existingArt.save();
 			return res.json(existingArt);
 		} else {
 			// Если документ не найден, создадим новый
-			const newArt = new Art({ artikul, zone, nameukr, namerus });
+			const newArt = new Art({ artikul, zone, nameukr, namerus, marker });
 			await newArt.save();
 			return res.json(newArt);
 		}
@@ -90,9 +91,9 @@ export const getAllArts = async (req, res) => {
 
 
 
-// Remove One Articul from DB
+// Delete One Articul from DB
 
-export const removeArt = async (req, res) => {
+export const deleteArt = async (req, res) => {
 	try {
 		const art = await Art.findByIdAndDelete(req.params.id)
 		if (!art) return res.json({ message: 'Такого артикула нет' })
@@ -118,7 +119,7 @@ export const deleteArticuls = async (req, res) => {
 
 
 	} catch (error) {
-		res.json({ message: 'Что-то не так c обновлением данных артикулов' })
+		res.json({ message: 'Что-то не так c удалением артикулов' })
 	}
 }
 

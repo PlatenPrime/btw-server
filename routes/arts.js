@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { checkAuth } from "../utils/checkAuth.js";
-import { getAllArts, getById, removeArt, createArt, deleteArticuls, updateOrCreateArt, } from "../controllers/arts.js";
+import { getAllArts, getById, deleteArt, createArt, deleteArticuls, updateOrCreateArt, } from "../controllers/arts.js";
 
 const router = new Router();
 
@@ -29,7 +29,7 @@ router.get("/", getAllArts)
 
 // Remove One Articul from DB
 // http://localhost:3002/api/arts/:id
-router.delete('/:id', /* checkAuth, */ removeArt)
+router.delete('/:id', /* checkAuth, */ deleteArt)
 
 // Delete Articuls from DB
 // http://localhost:3002/api/arts/
