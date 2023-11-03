@@ -1,4 +1,5 @@
 import Comp from '../models/Comp.js';
+import fetch from 'node-fetch';
 
 
 // Create One Comp
@@ -153,5 +154,25 @@ export async function deleteAllComps(req, res) {
 		res.status(200).json({ message: 'All comps deleted successfully' });
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to delete comps' });
+	}
+}
+
+
+export async function getLinkPage(req, res) {
+	try {
+		const { link } = req.body; // Получаем ссылку из тела запроса
+
+		// Выполняем GET-запрос по указанной ссылке
+		const response = await fetch(link);
+
+		if (response.ok) {
+			const htmlString = await response.text(); // Получаем HTML-строку
+			res.status(200).send(htmlString); // Отправляем HTML на клиент
+		} else {
+			res.status(404).json({ error: 'Страница не найдена' });
+		}
+	} catch (error) {
+		console.error('Error in getLinkPage:', error);
+		res.status(500).json({ error: 'Ошибка сервера' });
 	}
 }

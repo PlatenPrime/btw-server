@@ -7,6 +7,7 @@ import {
 	deleteComp,
 	deleteAllComps,
 	getCompByArtikul,
+	getLinkPage,
 } from '../controllers/comps.js';
 
 const router = new Router();
@@ -20,19 +21,26 @@ router.post("/", createComp)
 //http://localhost:3002/api/comps/update
 router.post("/update", updateOrCreateComp);
 
+// Get All Comps
+//http://localhost:3002/api/comps
+router.get("/", getAllComps)
 
-// Get Comp By Id
-// http://localhost:3002/api/comps/:id
-router.get('/:id', getCompById)
+// Get Link Page
+//http://localhost:3002/api/comps/linkpage
+router.get("/linkpage", getLinkPage)
 
 // Get Comp By Artikul 
 // http://localhost:3002/api/comps/search/:artikul
 router.get("/search/:artikul", getCompByArtikul)
 
+// Get Comp By Id
+// http://localhost:3002/api/comps/:id
+router.get('/:id', getCompById)
 
-// Get All Comps
-//http://localhost:3002/api/comps
-router.get("/", getAllComps)
+
+
+
+
 
 // Delete One Comp from DB
 // http://localhost:3002/api/comps/:id
