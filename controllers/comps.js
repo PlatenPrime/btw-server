@@ -1,5 +1,6 @@
 import Comp from '../models/Comp.js';
 import fetch from 'node-fetch';
+import cheerio from 'cheerio';
 
 
 // Create One Comp
@@ -159,6 +160,19 @@ export async function deleteAllComps(req, res) {
 
 
 export async function getLinkPage(req, res) {
+
+
+	// Функция для удаления лишних символов из HTML
+	function cleanHtml(html) {
+		// Удаляем все отступы и переносы строк
+		const cleanedHtml = html.replace(/(\n|\r|\t)/g, '');
+
+		return cleanedHtml;
+	}
+
+
+
+
 	try {
 		const { link } = req.body; // Получаем ссылку из тела запроса
 
@@ -167,7 +181,8 @@ export async function getLinkPage(req, res) {
 
 		if (response.ok) {
 			const htmlString = await response.text(); // Получаем HTML-строку
-			res.status(200).send(htmlString); // Отправляем HTML на клиент
+			const jsonResponse = { html: htmlString };
+			res.status(200).json(jsonResponse); // Отправляем JSON с HTML на клиент
 		} else {
 			res.status(404).json({ error: 'Страница не найдена' });
 		}
