@@ -164,24 +164,27 @@ export async function getLinkPage(req, res) {
 
 
 	try {
-		const { link } = req.params; // Получаем ссылку из тела запроса
+		const { link } = req.params; // Получаем ссылку из параметров маршрута
 
-		console.log(link)
+		// Декодируем ссылку
+		const decodedLink = decodeURIComponent(link);
 
-		// Выполняем GET-запрос по указанной ссылке
-		const response = await fetch(link);
+		console.log(decodedLink);
+
+		// Выполняем GET-запрос по декодированной ссылке
+		const response = await fetch(decodedLink);
 
 		if (response.ok) {
-			const htmlString = await response.text(); // Получаем HTML-строку
+			const htmlString = await response.text();
 			const jsonResponse = { html: htmlString };
-		
+
 			res.status(200).json(jsonResponse);
-			// res.status(200).json({
-			// 	"answer" : "sdfiurhdfggdWRRRf"
-			// });
 		} else {
 			res.status(404).json({ error: 'Страница не найдена' });
 		}
+
+
+
 	} catch (error) {
 		console.error('Error in getLinkPage:', error);
 		res.status(500).json({ error: 'Ошибка сервера' });
