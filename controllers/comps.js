@@ -164,7 +164,7 @@ export async function getLinkPage(req, res) {
 
 
 	try {
-		const { link } = req.body; // Получаем ссылку из тела запроса
+		const { link } = req.params; // Получаем ссылку из тела запроса
 
 		console.log(link)
 

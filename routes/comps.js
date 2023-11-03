@@ -26,8 +26,8 @@ router.post("/update", updateOrCreateComp);
 router.get("/", getAllComps)
 
 // Get Link Page
-//http://localhost:3002/api/comps/linkpage
-router.get("/linkpage", getLinkPage)
+//http://localhost:3002/api/comps/linkpage/:link
+router.get("/linkpage/:link", getLinkPage)
 
 // Get Comp By Artikul 
 // http://localhost:3002/api/comps/search/:artikul
