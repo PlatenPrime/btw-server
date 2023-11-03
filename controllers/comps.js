@@ -162,19 +162,11 @@ export async function deleteAllComps(req, res) {
 export async function getLinkPage(req, res) {
 
 
-	// Функция для удаления лишних символов из HTML
-	function cleanHtml(html) {
-		// Удаляем все отступы и переносы строк
-		const cleanedHtml = html.replace(/(\n|\r|\t)/g, '');
-
-		return cleanedHtml;
-	}
-
-
-
 
 	try {
 		const { link } = req.body; // Получаем ссылку из тела запроса
+
+		console.log(link)
 
 		// Выполняем GET-запрос по указанной ссылке
 		const response = await fetch(link);
@@ -182,7 +174,11 @@ export async function getLinkPage(req, res) {
 		if (response.ok) {
 			const htmlString = await response.text(); // Получаем HTML-строку
 			const jsonResponse = { html: htmlString };
-			res.status(200).json(jsonResponse); // Отправляем JSON с HTML на клиент
+		
+			res.status(200).json(jsonResponse);
+			// res.status(200).json({
+			// 	"answer" : "sdfiurhdfggdWRRRf"
+			// });
 		} else {
 			res.status(404).json({ error: 'Страница не найдена' });
 		}
