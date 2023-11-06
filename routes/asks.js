@@ -13,15 +13,15 @@ router.post('/', createAsk);
 router.get('/', getAllAsks);
 
 // Маршрут для получения запроса на снятие (Ask) по ID
-//http://localhost:3002/api/asks
+//http://localhost:3002/api/asks/:id
 router.get('/:id', getAskById);
 
 // Маршрут для редактирования запроса на снятие (Ask) по ID
-//http://localhost:3002/api/asks
+//http://localhost:3002/api/asks/:id
 router.put('/:id', updateAskById);
 
 // Маршрут для удаления запроса на снятие (Ask) по ID
-//http://localhost:3002/api/asks
+//http://localhost:3002/api/asks/:id
 router.delete('/:id', deleteAsk);
 
 export default router;

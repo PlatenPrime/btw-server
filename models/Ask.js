@@ -5,9 +5,8 @@ const AskSchema = new mongoose.Schema(
 		artikul: {
 			type: String,
 			required: true,
-			unique: true,
 		},
-		quant: String,
+		quant: Number,
 		completed: Boolean,
 		asker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 		solver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
