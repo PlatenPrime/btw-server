@@ -11,7 +11,7 @@ export const createAsk = async (req, res) => {
 
 		await newAsk.save()
 
-		return res.json(newAsk)
+		return res.status(201).json(newAsk)
 
 	} catch (error) {
 		res.json({ message: "Ошибка создания запроса на снятие" })
@@ -29,7 +29,7 @@ export const getAllAsks = async (req, res) => {
 			return res.json({ message: 'Запросов на снятие нет' });
 		}
 
-		res.json({ asks });
+		res.status(200).json({ asks });
 	} catch (error) {
 		res.json({ message: error.message });
 	}
@@ -44,7 +44,7 @@ export const getAskById = async (req, res) => {
 		if (!ask) {
 			return res.status(404).json({ message: 'Ask not found' });
 		}
-		res.json(ask);
+		res.status(200).json(ask);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
@@ -58,7 +58,7 @@ export const updateAskById = async (req, res) => {
 
 
 		const updatedAsk = await Ask.findByIdAndUpdate(req.params.id, updateData, { new: true });
-		res.json(updatedAsk);
+		res.status(200).json(updatedAsk);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
@@ -72,7 +72,7 @@ export const deleteAsk = async (req, res) => {
 		const ask = await Ask.findByIdAndDelete(req.params.id)
 		if (!ask) return res.json({ message: 'Такого запроса на снятие нет' })
 
-		res.json({ message: 'Запрос на снятие был удален.' })
+		res.status(200).json({ message: 'Запрос на снятие был удален.' })
 
 
 	} catch (error) {

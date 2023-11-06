@@ -34,7 +34,7 @@ export const getAllPallets = async (req, res) => {
 			return res.json({ message: 'Паллет нет' });
 		}
 
-		res.json({ pallets });
+		res.status(200).json({ pallets });
 	} catch (error) {
 		res.json({ message: error.message });
 	}
