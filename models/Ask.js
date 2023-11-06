@@ -9,10 +9,11 @@ const AskSchema = new mongoose.Schema(
 		},
 		quant: String,
 		completed: Boolean,
-		asker: mongoose.Schema.Types.ObjectId, ref: 'User',
-		solver: mongoose.Schema.Types.ObjectId, ref: 'User',
+		asker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+		solver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
-	}
+	},
+	{ timestamps: true },
 )
 
 export default mongoose.model("Ask", AskSchema);

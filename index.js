@@ -10,6 +10,7 @@ import artRoute from "./routes/arts.js";
 import posRoute from "./routes/poses.js";
 import compRoute from "./routes/comps.js";
 import logRoute from "./routes/logs.js";
+import askRoute from "./routes/asks.js";
 
 
 
@@ -41,6 +42,7 @@ app.use("/api/arts", artRoute);
 app.use("/api/poses", posRoute);
 app.use("/api/comps", compRoute);
 app.use("/api/logs", logRoute);
+app.use("/api/asks", askRoute);
 
 
 
