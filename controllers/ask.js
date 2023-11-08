@@ -23,7 +23,7 @@ export const createAsk = async (req, res) => {
 
 export const getAllAsks = async (req, res) => {
 	try {
-		const asks = await Ask.find().sort('createdAt');
+		const asks = await Ask.find().sort({'createdAt' : -1});
 
 		if (!asks || asks.length === 0) {
 			return res.json({ message: 'Запросов на снятие нет' });
