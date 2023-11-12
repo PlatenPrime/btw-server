@@ -7,7 +7,7 @@ const AskSchema = new mongoose.Schema(
 			required: true,
 		},
 		quant: Number,
-		completed: Boolean,
+		status: String,
 		asker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 		solver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
