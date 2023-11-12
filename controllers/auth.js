@@ -88,7 +88,7 @@ export const getMe = async (req, res) => {
 
 		if (!user) {
 			return res.json({
-				message: 'Такой юзер не авторизован.',
+				message: 'Этот пользователь не авторизован.',
 			})
 		}
 
@@ -106,5 +106,25 @@ export const getMe = async (req, res) => {
 		})
 	} catch (error) {
 		res.json({ message: 'Нет доступа.' })
+	}
+}
+
+
+// Get User By Id
+
+export const getUserById = async (req, res) => {
+	try {
+
+		const user = await User.findById(req.params.id)
+
+		if (!user) {
+			return res.status(404).json({ message: 'User is not found' });
+		}
+
+		res.json(user);
+
+
+	} catch (error) {
+		res.status(500).json({ message: error.message });
 	}
 }
