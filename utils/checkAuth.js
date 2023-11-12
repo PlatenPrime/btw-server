@@ -24,3 +24,11 @@ export const checkAuth = (req, res, next) => {
 		})
 	}
 }
+
+
+
+
+
+/* router.get("/admin", checkAuth, checkRoles(['admin']), (req, res) => {
+    // Ваш обработчик маршрута
+}); */

@@ -21,6 +21,7 @@ export const register = async (req, res) => {
 		const newUser = new User({
 			username,
 			password: hash,
+			role: 'user',
 		})
 
 		const token = jwt.sign(
