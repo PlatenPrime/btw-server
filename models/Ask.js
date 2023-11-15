@@ -8,6 +8,7 @@ const AskSchema = new mongoose.Schema(
 		},
 		quant: Number,
 		status: String,
+		actions: [{ type: String }],
 		asker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 		solver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 
