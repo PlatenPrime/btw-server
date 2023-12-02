@@ -2,10 +2,7 @@ import mongoose from "mongoose";
 
 const AskSchema = new mongoose.Schema(
 	{
-		artikul: {
-			type: String,
-			required: true,
-		},
+		artikul: String,
 		quant: Number,
 		status: String,
 		actions: [{ type: String }],
