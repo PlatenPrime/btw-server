@@ -6,8 +6,8 @@ import Ask from "../models/Ask.js";
 export const createAsk = async (req, res) => {
 
 	try {
-		const { artikul, quant, status, asker, solver } = req.body
-		const newAsk = new Ask({ artikul, quant, status, asker, solver })
+		const { artikul, quant, status, asker, solver, comment } = req.body
+		const newAsk = new Ask({ artikul, quant, status, asker, solver, comment })
 
 		await newAsk.save()
 
@@ -23,7 +23,7 @@ export const createAsk = async (req, res) => {
 
 export const getAllAsks = async (req, res) => {
 	try {
-		const asks = await Ask.find().sort({'createdAt' : -1});
+		const asks = await Ask.find().sort({ 'createdAt': -1 });
 
 		if (!asks || asks.length === 0) {
 			return res.json({ message: 'Запросов на снятие нет' });

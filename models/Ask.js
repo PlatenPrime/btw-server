@@ -5,6 +5,7 @@ const AskSchema = new mongoose.Schema(
 		artikul: String,
 		quant: Number,
 		status: String,
+		comment: String,
 		actions: [{ type: String }],
 		asker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 		solver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
