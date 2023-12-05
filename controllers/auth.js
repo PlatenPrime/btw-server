@@ -88,11 +88,26 @@ export const login = async (req, res) => {
 // Get Me
 export const getMe = async (req, res) => {
 	try {
+		const user = await User.findById(req.id)
 
+		if (!user) {
+			return res.status(400).json({ message: `Користувач ${id} на знайдений` })
+		}
 
+		const token = jwt.sign(
+			{
+				id: user._id,
+			},
+			process.env.JWT_SECRET,
+			{ expiresIn: '30d' },
+		)
 
+		res.json({
+			user,
+			token,
+		})
 	} catch (error) {
-
+		res.json({ message: 'Немає доступу.' })
 	}
 }
 
@@ -102,10 +117,17 @@ export const getMe = async (req, res) => {
 export const getUserById = async (req, res) => {
 	try {
 
+		const user = await User.findById(req.id)
+
+		if (!user) {
+			return res.status(400).json({ message: `Користувач ${id} на знайдений` })
+		}
+
+		res.json({ user })
 
 
 	} catch (error) {
-
+		res.json({ message: 'Помилка при пошуку користувача' })
 	}
 }
 
