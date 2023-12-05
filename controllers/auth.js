@@ -77,7 +77,7 @@ export const login = async (req, res) => {
 
 		const token = generateAccessToken(user._id, user.roles)
 
-		return res.json({ token })
+		return res.json({ user, token })
 
 
 	} catch (error) {
