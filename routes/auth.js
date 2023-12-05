@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { checkAuth } from "../utils/checkAuth.js";
+import { checkRoles } from "../utils/checkRoles.js";
 import { registration, login, getMe, getUserById, getAllUsers } from "./../controllers/auth.js";
 import { check } from "express-validator";
 
@@ -31,7 +32,14 @@ router.post("/login", login)
 
 //Get All Users
 //http://localhost:3002/api/auth/
-router.get("/users", getAllUsers)
+router.get("/users",
+	checkAuth,
+	checkRoles([
+		"PRIME",
+		"ADMIN",
+		
+	]),
+	getAllUsers)
 
 
 //Get Me

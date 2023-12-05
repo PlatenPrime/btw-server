@@ -4,6 +4,23 @@ import jwt from 'jsonwebtoken'
 import Role from '../models/Role.js'
 import { validationResult } from 'express-validator'
 
+
+
+
+
+
+const generateAccessToken = (id, roles) => {
+	const payload = {
+		id,
+		roles
+	}
+	return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "30d" })
+}
+
+
+
+
+
 // Register user
 export const registration = async (req, res) => {
 	try {
@@ -46,8 +63,21 @@ export const login = async (req, res) => {
 
 		const user = await User.findOne({ username })
 
-		if
+		if (!user) {
+			return res.status(400).json({ message: `Користувач ${username} на знайдений` })
+		}
 
+		const validPassword = bcrypt.compareSync(password, user.password)
+
+		if (!validPassword) {
+			return res.status(400).json({ message: `Пароль не вірний` })
+		}
+
+
+
+		const token = generateAccessToken(user._id, user.roles)
+
+		return res.json({ token })
 
 
 	} catch (error) {
@@ -85,10 +115,12 @@ export const getUserById = async (req, res) => {
 export const getAllUsers = async (req, res) => {
 
 	try {
-
+		const users = await User.find()
+		res.json(users)
 
 
 	} catch (error) {
+		console.log(error);
 
 	}
 
