@@ -27,6 +27,10 @@ router.post("/registration",
 router.post("/login", login)
 
 
+//Get Me
+//http://localhost:3002/api/auth/me/:id
+router.get("/me/:id", checkAuth, getMe)
+
 
 //Get All Users
 //http://localhost:3002/api/auth/
@@ -40,13 +44,10 @@ router.get("/users",
 	getAllUsers)
 
 
-//Get Me
-//http://localhost:3002/api/auth/me
-router.get("/me", checkAuth, getMe)
 
 //Get User By Id
-//http://localhost:3002/api/auth/:id
-router.get("/:id", checkAuth, getUserById)
+//http://localhost:3002/api/auth/users/:id
+router.get("/users/:id", checkAuth, getUserById)
 
 
 

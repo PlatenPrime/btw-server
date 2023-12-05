@@ -10,6 +10,10 @@ export const checkAuth = (req, res, next) => {
 
 	try {
 		const token = (req.headers.authorization || "").replace(/Bearer\s?/, "")
+
+		console.log(token);
+
+
 		if (!token) {
 			return res.status(403).json({ message: "Користувач не авторизований" })
 		}

@@ -11,8 +11,8 @@ import { validationResult } from 'express-validator'
 
 const generateAccessToken = (id, roles) => {
 	const payload = {
-		id,
-		roles
+		id: id,
+		roles: roles
 	}
 	return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "30d" })
 }
@@ -88,19 +88,16 @@ export const login = async (req, res) => {
 // Get Me
 export const getMe = async (req, res) => {
 	try {
-		const user = await User.findById(req.id)
+
+		const user = await User.findById(req.params.id)
 
 		if (!user) {
 			return res.status(400).json({ message: `Користувач ${id} на знайдений` })
 		}
 
-		const token = jwt.sign(
-			{
-				id: user._id,
-			},
-			process.env.JWT_SECRET,
-			{ expiresIn: '30d' },
-		)
+
+		const token = generateAccessToken(user._id, user.roles)
+
 
 		res.json({
 			user,
@@ -117,7 +114,7 @@ export const getMe = async (req, res) => {
 export const getUserById = async (req, res) => {
 	try {
 
-		const user = await User.findById(req.id)
+		const user = await User.findById(req.params.id)
 
 		if (!user) {
 			return res.status(400).json({ message: `Користувач ${id} на знайдений` })
