@@ -11,7 +11,6 @@ const router = new Router();
 // Register
 //http://localhost:3002/api/auth/register
 router.post("/registration",
-
 	[
 		check("username", "username не може бути пустим").notEmpty(),
 		check("password", "Пароль має бути 4-16 символів ").isLength({
@@ -19,9 +18,8 @@ router.post("/registration",
 			max: 16
 		}),
 		check("fullname", "Повне ім'я не може бути пустим").notEmpty(),
-	]
-
-	, registration)
+	],
+	registration)
 
 
 //Login
@@ -37,18 +35,18 @@ router.get("/users",
 	checkRoles([
 		"PRIME",
 		"ADMIN",
-		
+
 	]),
 	getAllUsers)
 
 
 //Get Me
 //http://localhost:3002/api/auth/me
-router.get("/me", getMe)
+router.get("/me", checkAuth, getMe)
 
 //Get User By Id
 //http://localhost:3002/api/auth/:id
-router.get("/:id", getUserById)
+router.get("/:id", checkAuth, getUserById)
 
 
 
