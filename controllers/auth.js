@@ -1,112 +1,68 @@
 import User from '../models/User.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import Role from '../models/Role.js'
+import { validationResult } from 'express-validator'
 
 // Register user
-export const register = async (req, res) => {
+export const registration = async (req, res) => {
 	try {
-		const { username, password } = req.body
+		const errors = validationResult(req)
 
-		const isUsed = await User.findOne({ username })
-
-		if (isUsed) {
-			return res.json({
-				message: 'Данный username уже занят.',
-			})
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ message: "Помилка при реєстрації", errors })
 		}
 
-		const salt = bcrypt.genSaltSync(10)
-		const hash = bcrypt.hashSync(password, salt)
+		const { username, password, role, fullname } = req.body
+		const candidate = await User.findOne({ username })
 
-		const newUser = new User({
-			username,
-			password: hash,
-			role: 'user',
-		})
+		if (candidate) {
+			return res.status(400).json({ message: "Пользователь с таким username уже существует" })
+		}
 
-		const token = jwt.sign(
-			{
-				id: newUser._id,
-			},
-			process.env.JWT_SECRET,
-			{ expiresIn: '30d' },
-		)
+		const hashPasword = bcrypt.hashSync(password, 7)
+		const userRole = await Role.findOne({ value: role })
+		console.log(userRole);
 
-		await newUser.save()
 
-		res.json({
-			newUser,
-			token,
-			message: 'Регистрация прошла успешно.',
-		})
+
+		const user = new User({ username, password: hashPasword, roles: [userRole.value], fullname })
+		await user.save()
+
+		return res.json(user)
+
 	} catch (error) {
-		res.json({ message: 'Ошибка при создании пользователя.' })
+		res.status(400).json({ message: "Registration error", error: error })
 	}
 }
+
+
 
 // Login user
 export const login = async (req, res) => {
 	try {
+
 		const { username, password } = req.body
+
 		const user = await User.findOne({ username })
 
-		if (!user) {
-			return res.json({
-				message: 'Такого юзера не существует.',
-			})
-		}
+		if
 
-		const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
-		if (!isPasswordCorrect) {
-			return res.json({
-				message: 'Неверный пароль.',
-			})
-		}
 
-		const token = jwt.sign(
-			{
-				id: user._id,
-			},
-			process.env.JWT_SECRET,
-			{ expiresIn: '30d' },
-		)
-
-		res.json({
-			token,
-			user,
-			message: 'Вы вошли в систему.',
-		})
 	} catch (error) {
-		res.json({ message: 'Ошибка при авторизации.' })
+		res.status(400).json({ message: "Login error" })
 	}
 }
 
 // Get Me
 export const getMe = async (req, res) => {
 	try {
-		const user = await User.findById(req.userId)
 
-		if (!user) {
-			return res.json({
-				message: 'Этот пользователь не авторизован.',
-			})
-		}
 
-		const token = jwt.sign(
-			{
-				id: user._id,
-			},
-			process.env.JWT_SECRET,
-			{ expiresIn: '30d' },
-		)
 
-		res.json({
-			user,
-			token,
-		})
 	} catch (error) {
-		res.json({ message: 'Нет доступа.' })
+
 	}
 }
 
@@ -116,16 +72,24 @@ export const getMe = async (req, res) => {
 export const getUserById = async (req, res) => {
 	try {
 
-		const user = await User.findById(req.params.id)
-
-		if (!user) {
-			return res.status(404).json({ message: 'User is not found' });
-		}
-
-		res.json(user);
 
 
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+
 	}
+}
+
+
+// Get User
+
+export const getAllUsers = async (req, res) => {
+
+	try {
+
+
+
+	} catch (error) {
+
+	}
+
 }
