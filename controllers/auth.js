@@ -43,7 +43,7 @@ export const registration = async (req, res) => {
 
 
 
-		const user = new User({ username, password: hashPasword, role: [userRole.value], fullname })
+		const user = new User({ username, password: hashPasword, role: userRole.value, fullname })
 		await user.save()
 
 		return res.json(user)
