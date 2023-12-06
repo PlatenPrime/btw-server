@@ -9,10 +9,10 @@ import { validationResult } from 'express-validator'
 
 
 
-const generateAccessToken = (id, roles) => {
+const generateAccessToken = (id, role) => {
 	const payload = {
 		id: id,
-		roles: roles
+		role: role
 	}
 	return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "30d" })
 }
@@ -43,7 +43,7 @@ export const registration = async (req, res) => {
 
 
 
-		const user = new User({ username, password: hashPasword, roles: [userRole.value], fullname })
+		const user = new User({ username, password: hashPasword, role: [userRole.value], fullname })
 		await user.save()
 
 		return res.json(user)
@@ -75,7 +75,7 @@ export const login = async (req, res) => {
 
 
 
-		const token = generateAccessToken(user._id, user.roles)
+		const token = generateAccessToken(user._id, user.role)
 
 		return res.json({ user, token })
 
@@ -96,7 +96,7 @@ export const getMe = async (req, res) => {
 		}
 
 
-		const token = generateAccessToken(user._id, user.roles)
+		const token = generateAccessToken(user._id, user.role)
 
 
 		res.json({

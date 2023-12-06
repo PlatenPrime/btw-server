@@ -17,15 +17,14 @@ export const checkRoles = (roles) => {
 			}
 
 
-			const { roles: userRoles } = jwt.verify(token, process.env.JWT_SECRET)
+			const { role: userRole } = jwt.verify(token, process.env.JWT_SECRET)
 
 			let hasRole = false
-			userRoles.forEach(role => {
-				if (roles.includes(role)) {
-					hasRole = true
-				}
 
-			});
+
+			if (roles.includes(userRole)) {
+				hasRole = true
+			};
 
 
 			if (!hasRole) {

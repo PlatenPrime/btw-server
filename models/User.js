@@ -19,9 +19,8 @@ const UserSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		roles: [
-			{ type: String, ref: "Role" }
-		]
+		role: { type: String, ref: "Role" }
+
 
 
 	},
