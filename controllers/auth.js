@@ -129,7 +129,7 @@ export const getUserById = async (req, res) => {
 }
 
 
-// Get User
+// Get All Users
 
 export const getAllUsers = async (req, res) => {
 
@@ -144,3 +144,21 @@ export const getAllUsers = async (req, res) => {
 	}
 
 }
+
+
+// Get All Roles
+
+export const getAllRoles = async (req, res) => {
+
+	try {
+		const roles = await Role.find()
+		res.json(roles)
+
+
+	} catch (error) {
+		console.log(error);
+
+	}
+
+}
+

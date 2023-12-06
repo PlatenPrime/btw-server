@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { checkAuth } from "../utils/checkAuth.js";
 import { checkRoles } from "../utils/checkRoles.js";
-import { registration, login, getMe, getUserById, getAllUsers } from "./../controllers/auth.js";
+import { registration, login, getMe, getUserById, getAllUsers, getAllRoles } from "./../controllers/auth.js";
 import { check } from "express-validator";
 
 
@@ -33,7 +33,7 @@ router.get("/me/:id", checkAuth, getMe)
 
 
 //Get All Users
-//http://localhost:3002/api/auth/
+//http://localhost:3002/api/auth/users
 router.get("/users",
 	checkAuth,
 	checkRoles([
@@ -49,6 +49,12 @@ router.get("/users",
 //http://localhost:3002/api/auth/users/:id
 router.get("/users/:id", checkAuth, getUserById)
 
+
+//Get All Roles
+//http://localhost:3002/api/auth/roles
+router.get("/roles",
+	checkAuth,
+	getAllRoles)
 
 
 
