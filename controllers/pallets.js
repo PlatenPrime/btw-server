@@ -6,11 +6,11 @@ import Pos from "../models/Pos.js";
 // Создание нового объекта Pallet с вложенными объектами Pos и добавление его в объект Row
 export const createPallet = async (req, res) => {
 	try {
-		const { title, rowId } = req.body;
+		const { title, rowId, com } = req.body;
 
 		const row = rowId;
 
-		const newPallet = await Pallet.create({ title, row });
+		const newPallet = await Pallet.create({ title, row, com });
 
 		await Row.findByIdAndUpdate(
 			rowId,
@@ -57,10 +57,10 @@ export const getPalletById = async (req, res) => {
 // Редактирование объекта Pallet по его ID
 export const updatePalletById = async (req, res) => {
 	try {
-		const { title, rowId } = req.body;
+		const { title, rowId, com } = req.body;
 		const row = rowId;
 
-		const updatedPallet = await Pallet.findByIdAndUpdate(req.params.id, { title, row }, { new: true });
+		const updatedPallet = await Pallet.findByIdAndUpdate(req.params.id, { title, row, com }, { new: true });
 		res.json(updatedPallet);
 	} catch (error) {
 		res.status(500).json({ message: error.message });

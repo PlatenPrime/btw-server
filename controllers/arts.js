@@ -10,9 +10,9 @@ import Art from "../models/Art.js";
 
 export const createArt = async (req, res) => {
 	try {
-		const { artikul, zone, nameukr, namerus, marker } = req.body
+		const { artikul, zone, nameukr, namerus, marker, limit } = req.body
 
-		const newArt = new Art({ artikul, zone, nameukr, namerus, marker })
+		const newArt = new Art({ artikul, zone, nameukr, namerus, marker, limit })
 
 
 		await newArt.save()
