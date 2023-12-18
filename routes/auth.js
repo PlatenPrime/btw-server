@@ -36,11 +36,11 @@ router.get("/me/:id", checkAuth, getMe)
 //http://localhost:3002/api/auth/users
 router.get("/users",
 	checkAuth,
-	checkRoles([
-		"PRIME",
-		"ADMIN",
+	// checkRoles([
+	// 	"PRIME",
+	// 	"ADMIN",
 
-	]),
+	// ]),
 	getAllUsers)
 
 
