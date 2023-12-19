@@ -6,8 +6,8 @@ import Ask from "../models/Ask.js";
 export const createAsk = async (req, res) => {
 
 	try {
-		const { artikul, quant, status, asker, solver, comment } = req.body
-		const newAsk = new Ask({ artikul, quant, status, asker, solver, comment })
+		const { artikul, quant, status, asker, solver, com } = req.body
+		const newAsk = new Ask({ artikul, quant, status, asker, solver, com })
 
 		await newAsk.save()
 
