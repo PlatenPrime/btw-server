@@ -162,3 +162,59 @@ export const getAllRoles = async (req, res) => {
 
 }
 
+
+
+
+// Update user information
+export const updateUserInfo = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		const { password, username, role, fullname } = req.body;
+
+		// Find the user by ID
+		const user = await User.findById(userId);
+
+		if (!user) {
+			return res.status(404).json({ message: 'Пользователь не найден' });
+		}
+
+		// Update password if provided
+		if (password) {
+			const hashPassword = bcrypt.hashSync(password, 7);
+			user.password = hashPassword;
+		}
+
+		// Update username if provided
+		if (username) {
+			user.username = username;
+		}
+
+		// Update role if provided
+		if (role) {
+			const userRole = await Role.findOne({ value: role });
+			if (!userRole) {
+				return res.status(404).json({ message: 'Роль не найдена' });
+			}
+			user.role = userRole.value;
+		}
+
+		// Update fullname if provided
+		if (fullname) {
+			user.fullname = fullname;
+		}
+
+		// Save the updated user
+		await user.save();
+
+		// Generate a new token with updated information
+		const token = generateAccessToken(user._id, user.role);
+
+		// Return the updated user and token
+		res.json({
+			user,
+			token,
+		});
+	} catch (error) {
+		res.status(400).json({ message: 'Ошибка при обновлении информации пользователя', error: error });
+	}
+};

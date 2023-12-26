@@ -58,5 +58,10 @@ router.get("/roles",
 
 
 
+// Update User Info
+// http://localhost:3002/api/auth/update/:userId
+router.put('/update/:userId', checkAuth, updateUserInfo);
+
+
 
 export default router;
