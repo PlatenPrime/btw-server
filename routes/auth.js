@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { checkAuth } from "../utils/checkAuth.js";
 import { checkRoles } from "../utils/checkRoles.js";
-import { registration, login, getMe, getUserById, getAllUsers, getAllRoles } from "./../controllers/auth.js";
+import { registration, login, getMe, getUserById, getAllUsers, getAllRoles, updateUserInfo } from "./../controllers/auth.js";
 import { check } from "express-validator";
 
 
