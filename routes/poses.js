@@ -1,30 +1,75 @@
 import { Router } from 'express';
 import { getPosById, getAllPoses, createPos, updatePos, deletePosById, getPosesByArtikul } from '../controllers/poses.js';
+import { checkAuth } from "../utils/checkAuth.js";
+import { checkRoles } from "../utils/checkRoles.js";
 
 const router = new Router();
 
 // Маршрут для создания позиции и добавления её в объект Pallet
 // http://localhost:3002/api/poses
-router.post('/', createPos);
+router.post('/',
+
+	checkAuth,
+
+	checkRoles([
+		"PRIME",
+		"SKLAD",
+	]),
+
+
+	createPos);
 
 // Маршрут для получения позиций с артикулом
 // http://localhost:3002/api/poses/artikul/:artikul
-router.get('/artikul/:artikul', getPosesByArtikul);
+router.get('/artikul/:artikul',
+
+	checkAuth,
+
+	getPosesByArtikul);
+
+
 
 // Маршрут для получения позиции по ID
 // http://localhost:3002/api/poses/:id
-router.get('/:id', getPosById);
+router.get('/:id',
+
+	checkAuth,
+
+	getPosById);
 
 // Маршрут для получения всех позиций
 // http://localhost:3002/api/poses/
-router.get('/', getAllPoses);
+router.get('/',
+
+	checkAuth,
+
+	getAllPoses);
 
 // Маршрут для редактирования позиции по ID
 // http://localhost:3002/api/poses/:id
-router.put('/:id', updatePos);
+router.put('/:id',
+
+	checkAuth,
+
+	checkRoles([
+		"PRIME",
+		"SKLAD",
+	]),
+
+
+	updatePos);
 
 // Маршрут для удаления позиции по ID
-router.delete('/:id', deletePosById);
+router.delete('/:id',
+
+	checkAuth,
+
+	checkRoles([
+		"PRIME",
+		"SKLAD",
+	]),
+
+	deletePosById);
 
 
 

@@ -10,32 +10,56 @@ import {
 	getLinkPage,
 } from '../controllers/comps.js';
 
+
+import { checkAuth } from "../utils/checkAuth.js";
+import { checkRoles } from "../utils/checkRoles.js";
+
+
 const router = new Router();
 
 
 // Create One Comp
 //http://localhost:3002/api/comps
-router.post("/", createComp)
+router.post("/",
+
+	checkAuth,
+
+	checkRoles([
+		"PRIME",
+		"ADMIN",
+	]),
+
+	createComp)
 
 // Create or Update One Comp
 //http://localhost:3002/api/comps/update
-router.post("/update", updateOrCreateComp);
+router.post("/update",
+
+	checkAuth,
+
+	checkRoles([
+		"PRIME",
+		"ADMIN",
+	]),
+
+
+	updateOrCreateComp);
 
 // Get All Comps
 //http://localhost:3002/api/comps
-router.get("/", getAllComps)
+router.get("/", checkAuth, getAllComps)
 
 // Get Link Page
 //http://localhost:3002/api/comps/linkpage/:link
-router.get("/linkpage/:link", getLinkPage)
+router.get("/linkpage/:link", checkAuth, getLinkPage)
 
 // Get Comp By Artikul 
 // http://localhost:3002/api/comps/search/:artikul
-router.get("/search/:artikul", getCompByArtikul)
+router.get("/search/:artikul", checkAuth, getCompByArtikul)
 
 // Get Comp By Id
 // http://localhost:3002/api/comps/:id
-router.get('/:id', getCompById)
+router.get('/:id', checkAuth, getCompById)
 
 
 
@@ -44,11 +68,24 @@ router.get('/:id', getCompById)
 
 // Delete One Comp from DB
 // http://localhost:3002/api/comps/:id
-router.delete('/:id', /* checkAuth, */ deleteComp)
+router.delete('/:id', checkAuth,
+
+	checkRoles([
+		"PRIME",
+		"ADMIN",
+	]), deleteComp)
 
 
 // Delete All Comps from DB
 // http://localhost:3002/api/comps/
-router.delete('/', deleteAllComps)
+router.delete('/',
+
+	checkAuth,
+
+	checkRoles([
+		"PRIME",
+	]),
+
+	deleteAllComps)
 
 export default router;
