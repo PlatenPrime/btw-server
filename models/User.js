@@ -20,7 +20,8 @@ const UserSchema = new mongoose.Schema(
 			required: true,
 		},
 		role: { type: String, ref: "Role" },
-		telegram: String
+		telegram: String,
+		photo: String
 
 
 
