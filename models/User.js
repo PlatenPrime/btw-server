@@ -19,7 +19,8 @@ const UserSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		role: { type: String, ref: "Role" }
+		role: { type: String, ref: "Role" },
+		telegram: String
 
 
 

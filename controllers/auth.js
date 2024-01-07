@@ -30,7 +30,7 @@ export const registration = async (req, res) => {
 			return res.status(400).json({ message: "Помилка при реєстрації", errors })
 		}
 
-		const { username, password, role, fullname } = req.body
+		const { username, password, role, fullname, telegram } = req.body
 		const candidate = await User.findOne({ username })
 
 		if (candidate) {
@@ -43,7 +43,7 @@ export const registration = async (req, res) => {
 
 
 
-		const user = new User({ username, password: hashPasword, role: userRole.value, fullname })
+		const user = new User({ username, password: hashPasword, role: userRole.value, fullname, telegram })
 		await user.save()
 
 		return res.json(user)
@@ -169,7 +169,7 @@ export const getAllRoles = async (req, res) => {
 export const updateUserInfo = async (req, res) => {
 	try {
 		const { userId } = req.params;
-		const { password, username, role, fullname } = req.body;
+		const { password, username, role, fullname, telegram } = req.body;
 
 		// Find the user by ID
 		const user = await User.findById(userId);
