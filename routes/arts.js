@@ -41,12 +41,12 @@ router.post("/update",
 
 // Get Articul By Id
 // http://localhost:3002/api/arts/:id
-router.get('/:id', checkAuth, getById)
+router.get('/:id',  getById)
 
 
 // Get All Articuls
 //http://localhost:3002/api/arts
-router.get("/", checkAuth, getAllArts)
+router.get("/",  getAllArts)
 
 // Remove One Articul from DB
 // http://localhost:3002/api/arts/:id
