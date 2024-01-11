@@ -172,7 +172,9 @@ export async function getLinkPage(req, res) {
 		console.log(decodedLink);
 
 		// Выполняем GET-запрос по декодированной ссылке
-		const response = await fetch(decodedLink);
+		const response = await fetch(decodedLink, {
+			cache: 'no-store', // Запрещаем кэширование
+		});
 
 		if (response.ok) {
 			const htmlString = await response.text();
