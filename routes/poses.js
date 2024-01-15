@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getPosById, getAllPoses, createPos, updatePos, deletePosById, getPosesByArtikul } from '../controllers/poses.js';
+import { getPosById, getAllPoses, createPos, updatePos, deletePosById, getPosesByArtikul, addTitles } from '../controllers/poses.js';
 import { checkAuth } from "../utils/checkAuth.js";
 import { checkRoles } from "../utils/checkRoles.js";
 
@@ -45,6 +45,10 @@ router.get('/',
 
 	getAllPoses);
 
+
+// http://localhost:3002/api/poses/addtitles
+router.put("/addtitles", addTitles)
+
 // Маршрут для редактирования позиции по ID
 // http://localhost:3002/api/poses/:id
 router.put('/:id',
@@ -70,6 +74,9 @@ router.delete('/:id',
 	]),
 
 	deletePosById);
+
+
+
 
 
 

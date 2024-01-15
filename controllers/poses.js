@@ -1,5 +1,6 @@
 import Pos from '../models/Pos.js';
 import Pallet from '../models/Pallet.js';
+import Row from '../models/Row.js';
 
 // Создание новой коробки и добавление её в объект Pallet
 export const createPos = async (req, res) => {
@@ -8,7 +9,18 @@ export const createPos = async (req, res) => {
 
 		const pallet = palletId;
 
-		const newPos = await Pos.create({ pallet, ...posData });
+		const palletDB = await Pallet.findById(palletId);
+		const palletTitle = palletDB?.title
+		const row = await Row.findById(palletDB?.row)
+		const rowTitle = row?.title
+
+
+		const newPos = await Pos.create({
+			pallet,
+			palletTitle,
+			rowTitle,
+			...posData
+		});
 
 		const updatePallet = await Pallet.findById(palletId);
 		if (!pallet) {
@@ -84,13 +96,49 @@ export const deletePosById = async (req, res) => {
 // Найти позиции по артикулу
 export const getPosesByArtikul = async (req, res) => {
 	try {
-	  const { artikul } = req.params; // Получаем артикул из параметров запроса
-  
-	  // Ищем все позиции с указанным артикулом
-	  const positions = await Pos.find({ artikul });
-  
-	  res.json({ positions });
+		const { artikul } = req.params; // Получаем артикул из параметров запроса
+
+		// Ищем все позиции с указанным артикулом
+		const positions = await Pos.find({ artikul });
+
+		res.json({ positions });
 	} catch (error) {
-	  res.status(500).json({ message: error.message });
+		res.status(500).json({ message: error.message });
 	}
-  };
+};
+
+
+// Добавить всем позициям  поля rowTitle и palletTitle и заполнить их
+
+export const addTitles = async (req, res) => {
+	try {
+
+		const poses = await Pos.find();
+
+		for (let pos of poses) {
+
+			const pallet = await Pallet.findById(pos.pallet);
+			const palletTitle = pallet?.title
+			const row = await Row.findById(pallet?.row)
+			const rowTitle = row?.title
+
+			await Pos.findByIdAndUpdate(pos.id, {
+				palletTitle: palletTitle,
+				rowTitle: rowTitle,
+
+			}, { new: true });
+
+			console.log(`Обновление поизиции ${pos.artikul} завершено. 
+Ряд: ${rowTitle}, паллета: ${palletTitle}
+`);
+
+		}
+
+		console.log("Добавление всех тайтлов закончено!");
+
+
+
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+}
