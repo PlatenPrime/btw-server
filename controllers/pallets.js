@@ -151,11 +151,21 @@ export const movePalletContent = async (req, res) => {
 
 
 	try {
+
+
+
+
+
+
+
+
 		const { currentPalletId, targetPalletId } = req.body;
 
 		// Проверим, существуют ли указанные паллеты
 		const currentPallet = await Pallet.findById(currentPalletId);
 		const targetPallet = await Pallet.findById(targetPalletId);
+
+		const targetRowTitle = await Row.findById(targetPallet?.row)
 
 		if (!currentPallet || !targetPallet) {
 			return res.status(404).json({ message: "One or both of the pallets not found" });
@@ -168,7 +178,7 @@ export const movePalletContent = async (req, res) => {
 		const posIdsToMove = currentPallet.poses;
 
 		// Обновление информации о паллете в позициях, которые переносятся
-		await Pos.updateMany({ _id: { $in: posIdsToMove } }, { pallet: targetPalletId });
+		await Pos.updateMany({ _id: { $in: posIdsToMove } }, { pallet: targetPalletId, palletTitle: targetPalletId?.title, rowTitle: targetRowTitle });
 
 		// Добавим перемещенные позиции в целевую паллету
 		targetPallet.poses = posIdsToMove;
