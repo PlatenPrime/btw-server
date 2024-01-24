@@ -165,10 +165,13 @@ export const movePalletContent = async (req, res) => {
 		const currentPallet = await Pallet.findById(currentPalletId);
 		const targetPallet = await Pallet.findById(targetPalletId);
 
-		const targetRowTitle = await Row.findById(targetPallet?.row)
+		const targetRow = await Row.findById(targetPallet?.row)
 
-		if (!currentPallet || !targetPallet) {
-			return res.status(404).json({ message: "One or both of the pallets not found" });
+		const targetRowTitle = targetRow?.title
+
+
+		if (!currentPallet || !targetPallet || !targetRow) {
+			return res.status(404).json({ message: "One or both or target row of the pallets not found" });
 		}
 
 		// Очистка второй паллеты
