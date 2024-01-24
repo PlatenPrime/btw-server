@@ -137,9 +137,6 @@ export const movePalletContent = async (req, res) => {
 	const clearPalletFunction = async (pallet) => {
 
 		const posIds = pallet.poses;
-
-
-
 		// Удаление связанных объектов Pos
 		await Pos.deleteMany({ _id: { $in: posIds } });
 
