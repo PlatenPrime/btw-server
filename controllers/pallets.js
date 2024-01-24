@@ -181,7 +181,7 @@ export const movePalletContent = async (req, res) => {
 		const posIdsToMove = currentPallet.poses;
 
 		// Обновление информации о паллете в позициях, которые переносятся
-		await Pos.updateMany({ _id: { $in: posIdsToMove } }, { pallet: targetPalletId, palletTitle: targetPalletId?.title, rowTitle: targetRowTitle });
+		await Pos.updateMany({ _id: { $in: posIdsToMove } }, { pallet: targetPalletId, palletTitle: targetPallet?.title, rowTitle: targetRowTitle });
 
 		// Добавим перемещенные позиции в целевую паллету
 		targetPallet.poses = posIdsToMove;
