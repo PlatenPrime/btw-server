@@ -101,6 +101,25 @@ export const getPosesByArtikul = async (req, res) => {
 		// Ищем все позиции с указанным артикулом
 		const positions = await Pos.find({ artikul });
 
+		// Сортировка массива positions по полю palletTitle
+		positions?.sort((a, b) => {
+			const partsA = a.palletTitle.split('-');
+			const partsB = b.palletTitle.split('-');
+
+			for (let i = 0; i < partsA.length; i++) {
+				const numA = parseInt(partsA[i]);
+				const numB = parseInt(partsB[i]);
+
+				if (numA < numB) {
+					return -1;
+				}
+				if (numA > numB) {
+					return 1;
+				}
+			}
+			return 0;
+		});
+
 		res.json({ positions });
 	} catch (error) {
 		res.status(500).json({ message: error.message });
