@@ -14,10 +14,10 @@ const generateAccessToken = (id, role) => {
 		id: id,
 		role: role
 	}
-	return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "30d" })
+	return jwt.sign(payload, process.env.JWT_SECRET) 
 }
 
-
+  
 
 
 
