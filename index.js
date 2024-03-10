@@ -12,6 +12,7 @@ import compRoute from "./routes/comps.js";
 import logRoute from "./routes/logs.js";
 import askRoute from "./routes/asks.js";
 import roleRoute from "./routes/roles.js";
+import inRoute from "./routes/ins.js";
 
 
 
@@ -45,6 +46,7 @@ app.use("/api/comps", compRoute);
 app.use("/api/logs", logRoute);
 app.use("/api/asks", askRoute);
 app.use("/api/roles", roleRoute);
+app.use("/api/ins", roleRoute);
 
 
 
