@@ -16,7 +16,7 @@ export const createInstruction = async (req, res) => {
 	}
 }
 
-// Create or Update One Instruction
+//Update One Instruction
 export const updateOrCreateInstruction = async (req, res) => {
 	try {
 		const { title, body, category, department } = req.body;

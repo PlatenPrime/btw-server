@@ -7,56 +7,60 @@ import { getAllInstructions, getById, deleteInstruction, createInstruction, dele
 const router = new Router();
 
 // Create One Instruction
-//http://localhost:3002/api/instructions
+//http://localhost:3002/api/ins
 router.post("/",
 
-	checkAuth,
+	// checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 	createInstruction)
 
-// Create or Update One Instruction
-//http://localhost:3002/api/instructions/update
-router.post("/update",
+// Update One Instruction
+//http://localhost:3002/api/ins/:id
+router.put("/:id",
 
-	checkAuth,
+	// checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 	updateOrCreateInstruction);
 
 // Get Instruction By Id
-// http://localhost:3002/api/instructions/:id
+// http://localhost:3002/api/ins/:id
 router.get('/:id',  getById)
 
 // Get All Instructions
-//http://localhost:3002/api/instructions
+//http://localhost:3002/api/ins
 router.get("/",  getAllInstructions)
 
 // Remove One Instruction from DB
-// http://localhost:3002/api/instructions/:id
-router.delete('/:id', checkAuth,
+// http://localhost:3002/api/ins/:id
+router.delete('/:id',
 
-	checkRoles([
-		"PRIME"
-	]),
+// checkAuth,
+
+	// checkRoles([
+	// 	"PRIME"
+	// ]),
 
 	deleteInstruction);
 
 // Remove All Instructions from DB
-// http://localhost:3002/api/instructions
-router.delete('/', checkAuth,
+// http://localhost:3002/api/ins
+router.delete('/', 
 
-	checkRoles([
-		"PRIME"
-	]),
+// checkAuth,
+
+// 	checkRoles([
+// 		"PRIME"
+// 	]),
 
 	deleteInstructions);
 
