@@ -7,7 +7,7 @@ const InstructionSchema = new mongoose.Schema(
 			required: true,
 		},
 		body: {
-			type: Object,
+			type: String,
 			required: true,
 		},
 		category: {
