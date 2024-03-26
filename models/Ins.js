@@ -17,7 +17,12 @@ const InstructionSchema = new mongoose.Schema(
 		department: {
 			type: String,
 			required: true,
-		}
+		},
+		access: {
+			type: String,
+			required: true,
+		},
+
 	},
 	{ timestamps: true },
 )

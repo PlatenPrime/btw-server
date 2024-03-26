@@ -3,9 +3,9 @@ import Instruction from "../models/Ins.js";
 // Create One Instruction
 export const createInstruction = async (req, res) => {
 	try {
-		const { title, body, category, department } = req.body
+		const { title, body, category, department, access } = req.body
 
-		const newInstruction = new Instruction({ title, body, category, department })
+		const newInstruction = new Instruction({ title, body, category, department, access })
 
 		await newInstruction.save()
 
@@ -19,7 +19,7 @@ export const createInstruction = async (req, res) => {
 //Update One Instruction
 export const updateOrCreateInstruction = async (req, res) => {
 	try {
-		const { title, body, category, department } = req.body;
+		const { title, body, category, department, access  } = req.body;
 
 		// Попробуем найти документ по title
 		let existingInstruction = await Instruction.findById(req.params.id);
@@ -30,11 +30,12 @@ export const updateOrCreateInstruction = async (req, res) => {
 			if (body) existingInstruction.body = body;
 			if (category) existingInstruction.category = category;
 			if (department) existingInstruction.department = department;
+			if (access) existingInstruction.access = access;
 			await existingInstruction.save();
 			return res.json(existingInstruction);
 		} else {
 			// Если документ не найден, создадим новый
-			const newInstruction = new Instruction({ title, body, category, department });
+			const newInstruction = new Instruction({ title, body, category, department, access });
 			await newInstruction.save();
 			return res.json(newInstruction);
 		}
