@@ -8,7 +8,7 @@ const InstructionSchema = new mongoose.Schema(
 		},
 		titleImage: {
 			type: String,
-			required: true,
+			
 		},
 		author: {
 			type: mongoose.Schema.Types.ObjectId,
