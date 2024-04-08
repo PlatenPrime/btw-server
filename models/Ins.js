@@ -13,7 +13,7 @@ const InstructionSchema = new mongoose.Schema(
 		author: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
-			required: true,
+			
 		},
 		body: {
 			type: String,
