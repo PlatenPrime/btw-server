@@ -21,15 +21,15 @@ const InstructionSchema = new mongoose.Schema(
 		},
 		category: {
 			type: String,
-			required: true,
+			// required: true,
 		},
 		department: {
 			type: String,
-			required: true,
+			// required: true,
 		},
 		access: {
 			type: String,
-			required: true,
+			// required: true,
 		},
 
 	},
