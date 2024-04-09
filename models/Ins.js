@@ -15,9 +15,13 @@ const InstructionSchema = new mongoose.Schema(
 			ref: "User",
 			
 		},
+		video: {
+			type: String,
+			// required: true,
+		},
 		body: {
 			type: String,
-			required: true,
+			// required: true,
 		},
 		category: {
 			type: String,
