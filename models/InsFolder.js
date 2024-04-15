@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const InsgroupSchema = new mongoose.Schema({
+const InsFolderSchema = new mongoose.Schema({
 	title: { type: String, required: true },
 	instructions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Instruction' }],
 	color: String,
@@ -12,4 +12,4 @@ const InsgroupSchema = new mongoose.Schema({
 )
 
 
-export default mongoose.model("Insgroup", InsgroupSchema);
+export default mongoose.model("InsFolder", InsFolderSchema);

@@ -3,9 +3,9 @@ import Instruction from "../models/Ins.js";
 // Create One Instruction
 export const createInstruction = async (req, res) => {
 	try {
-		const { title, titleImage, author, video, body, category, department, access } = req.body
+		const { title, titleImage, author, videoUrl, body, folder } = req.body
 
-		const newInstruction = new Instruction({ title, titleImage, author, video, body, category, department, access })
+		const newInstruction = new Instruction({ title, titleImage, author, videoUrl, body, folder })
 
 		await newInstruction.save()
 
@@ -19,7 +19,7 @@ export const createInstruction = async (req, res) => {
 //Update One Instruction
 export const updateOrCreateInstruction = async (req, res) => {
 	try {
-		const { title, titleImage, author, video, body, category, department, access  } = req.body;
+		const { title, titleImage, author, videoUrl, body, folder  } = req.body;
 
 		// Попробуем найти документ по title
 		let existingInstruction = await Instruction.findById(req.params.id);
@@ -29,16 +29,14 @@ export const updateOrCreateInstruction = async (req, res) => {
 			if (title) existingInstruction.title = title;
 			if (titleImage) existingInstruction.titleImage = titleImage;
 			if (author) existingInstruction.author = author;
-			if (video) existingInstruction.video = video;
+			if (videoUrl) existingInstruction.videoUrl = videoUrl;
 			if (body) existingInstruction.body = body;
-			if (category) existingInstruction.category = category;
-			if (department) existingInstruction.department = department;
-			if (access) existingInstruction.access = access;
+			if (folder) existingInstruction.folder = folder;
 			await existingInstruction.save();
 			return res.json(existingInstruction);
 		} else {
 			// Если документ не найден, создадим новый
-			const newInstruction = new Instruction({ title, titleImage, author, video, body, category, department, access });
+			const newInstruction = new Instruction({ title, titleImage, author, videoUrl, body, folder });
 			await newInstruction.save();
 			return res.json(newInstruction);
 		}

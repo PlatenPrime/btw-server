@@ -15,7 +15,7 @@ const InstructionSchema = new mongoose.Schema(
 			ref: "User",
 			
 		},
-		video: {
+		videoUrl: {
 			type: String,
 			// required: true,
 		},
@@ -23,18 +23,11 @@ const InstructionSchema = new mongoose.Schema(
 			type: String,
 			// required: true,
 		},
-		category: {
-			type: String,
-			// required: true,
+		folder: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "InsFolder",
 		},
-		department: {
-			type: String,
-			// required: true,
-		},
-		access: {
-			type: String,
-			// required: true,
-		},
+
 
 	},
 	{ timestamps: true },
