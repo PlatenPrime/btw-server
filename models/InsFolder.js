@@ -8,7 +8,6 @@ const InsFolderSchema = new mongoose.Schema({
 },
 	{ timestamps: true },
 
-
 )
 
 
