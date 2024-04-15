@@ -1,4 +1,4 @@
-import InsFolder from "../models/InsFolder";
+import InsFolder from "../models/InsFolder.js";
 
 
 

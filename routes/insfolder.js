@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { createInsFolder } from "../controllers/insfolder";
-import { checkAuth } from "../utils/checkAuth";
+import { createInsFolder } from "../controllers/insfolder.js";
+import { checkAuth } from "../utils/checkAuth.js";
 
 
 
