@@ -4,12 +4,12 @@ import InsFolder from "../models/InsFolder.js";
 // Create One Instruction
 export const createInstruction = async (req, res) => {
 	try {
-		const { title, titleImage, author, videoUrl, body, folder } = req.body
+		const { title, titleImage, author, videoUrl, body, folderId } = req.body
 
-		const newInstruction = new Instruction({ title, titleImage, author, videoUrl, body, folder })
+		const newInstruction = new Instruction({ title, titleImage, author, videoUrl, body, folderId })
 
 
-		await  InsFolder.findByIdAndUpdate(folder , { $push: { instructions: newInstruction._id } }, { new: true })
+		await InsFolder.findByIdAndUpdate(folderId, { $push: { instructions: newInstruction._id } }, { new: true })
 
 		await newInstruction.save()
 
@@ -23,7 +23,7 @@ export const createInstruction = async (req, res) => {
 //Update One Instruction
 export const updateOrCreateInstruction = async (req, res) => {
 	try {
-		const { title, titleImage, author, videoUrl, body, folder } = req.body;
+		const { title, titleImage, author, videoUrl, body, folderId } = req.body;
 
 		// Попробуем найти документ по title
 		let existingInstruction = await Instruction.findById(req.params.id);
@@ -35,12 +35,12 @@ export const updateOrCreateInstruction = async (req, res) => {
 			if (author) existingInstruction.author = author;
 			if (videoUrl) existingInstruction.videoUrl = videoUrl;
 			if (body) existingInstruction.body = body;
-			if (folder) existingInstruction.folder = folder;
+			if (folderId) existingInstruction.folderId = folderId;
 			await existingInstruction.save();
 			return res.json(existingInstruction);
 		} else {
 			// Если документ не найден, создадим новый
-			const newInstruction = new Instruction({ title, titleImage, author, videoUrl, body, folder });
+			const newInstruction = new Instruction({ title, titleImage, author, videoUrl, body, folderId });
 			await newInstruction.save();
 			return res.json(newInstruction);
 		}
