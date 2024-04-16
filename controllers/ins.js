@@ -87,7 +87,7 @@ export const getFolderInstructions = async (req, res) => {
 			insFolder?.instructions.map((instruction) => Instruction.findById(instruction))
 
 		)
-		res.json({ folderInstructions: insList })
+		res.status(200).json({ folderInstructions: insList })
 	} catch (error) {
 		res.json({ message: error.message })
 	}
