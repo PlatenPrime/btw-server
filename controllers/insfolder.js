@@ -5,8 +5,8 @@ import Instruction from "../models/Ins.js";
 
 export const createInsFolder = async (req, res) => {
 	try {
-		const { title, color } = req.body;
-		const newInsFolder = await InsFolder.create({ title, color });
+		const { title } = req.body;
+		const newInsFolder = await InsFolder.create({ title });
 		res.status(201).json(newInsFolder);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
@@ -41,10 +41,10 @@ export const getInsFolderById = async (req, res) => {
 
 export const updateInsFolderById = async (req, res) => {
 	try {
-		const { title, color } = req.body;
+		const { title } = req.body;
 		const insFolder = await InsFolder.findByIdAndUpdate(
 			req.params.id,
-			{ title, color },
+			{ title },
 			{ new: true }
 		);
 		if (!insFolder) {
