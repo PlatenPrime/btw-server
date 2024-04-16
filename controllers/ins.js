@@ -1,4 +1,5 @@
 import Instruction from "../models/Ins.js";
+import InsFolder from "../models/InsFolder.js";
 
 // Create One Instruction
 export const createInstruction = async (req, res) => {
@@ -6,6 +7,9 @@ export const createInstruction = async (req, res) => {
 		const { title, titleImage, author, videoUrl, body, folder } = req.body
 
 		const newInstruction = new Instruction({ title, titleImage, author, videoUrl, body, folder })
+
+
+		await  InsFolder.findByIdAndUpdate(folder , { $push: { instructions: newInstruction._id } }, { new: true })
 
 		await newInstruction.save()
 
@@ -19,7 +23,7 @@ export const createInstruction = async (req, res) => {
 //Update One Instruction
 export const updateOrCreateInstruction = async (req, res) => {
 	try {
-		const { title, titleImage, author, videoUrl, body, folder  } = req.body;
+		const { title, titleImage, author, videoUrl, body, folder } = req.body;
 
 		// Попробуем найти документ по title
 		let existingInstruction = await Instruction.findById(req.params.id);
@@ -46,7 +50,7 @@ export const updateOrCreateInstruction = async (req, res) => {
 };
 
 // Get Instruction By Id
-export const getById = async (req, res) => {
+export const getInstructionById = async (req, res) => {
 	try {
 
 		const instruction = await Instruction.findById(req.params.id)
@@ -73,6 +77,26 @@ export const getAllInstructions = async (req, res) => {
 		res.json({ message: "Что-то не так с отображением инструкций" })
 	}
 }
+
+
+
+export const getFolderInstructions = async (req, res) => {
+	try {
+		const insFolder = await InsFolder.findById(req.params.id)
+		const insList = await Promise.all(
+			insFolder?.instructions.map((instruction) => Instruction.findById(instruction))
+
+		)
+		res.json({ folderInstructions: insList })
+	} catch (error) {
+		res.json({ message: error.message })
+	}
+}
+
+
+
+
+
 
 // Delete One Instruction from DB
 export const deleteInstruction = async (req, res) => {

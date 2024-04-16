@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { checkAuth } from "../utils/checkAuth.js";
 import { checkRoles } from "../utils/checkRoles.js";
-import { getAllInstructions, getById, deleteInstruction, createInstruction, deleteInstructions, updateOrCreateInstruction, } from "../controllers/ins.js";
+import { getAllInstructions, getInstructionById, deleteInstruction, createInstruction, deleteInstructions, updateOrCreateInstruction, getFolderInstructions,  } from "../controllers/ins.js";
 
 const router = new Router();
 
@@ -34,11 +34,15 @@ router.put("/:id",
 
 // Get Instruction By Id
 // http://localhost:3002/api/ins/:id
-router.get('/:id',  getById)
+router.get('/:id',  getInstructionById)
 
 // Get All Instructions
 //http://localhost:3002/api/ins
 router.get("/",  getAllInstructions)
+
+// Get Folder Instructions
+//http://localhost:3002/api/ins/insfolder/:id
+router.get('/insfolder/:id',  getFolderInstructions)
 
 // Remove One Instruction from DB
 // http://localhost:3002/api/ins/:id
