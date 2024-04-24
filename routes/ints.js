@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { createInt, getAllInts, getIntById, updateIntById, deleteIntById } from "../controllers/int.js";
+import { createInt, getAllInts, getIntById, updateIntById, deleteIntById } from "../controllers/ints.js";
 
 
 const router = new Router();

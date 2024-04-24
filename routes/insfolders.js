@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createInsFolder, deleteInsFolderById, getAllInsFolders, getInsFolderById, updateInsFolderById } from "../controllers/insfolder.js";
+import { createInsFolder, deleteInsFolderById, getAllInsFolders, getInsFolderById, updateInsFolderById } from "../controllers/insfolders.js";
 import { checkAuth } from "../utils/checkAuth.js";
 
 

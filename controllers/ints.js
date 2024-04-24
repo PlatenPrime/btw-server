@@ -14,7 +14,7 @@ export const createInt = async (req, res) => {
         return res.status(201).json(newInt)
 
     } catch (error) {
-        res.json({ message: "Щось не так с створенням інтеграції" })
+        res.json({ message: "Щось не так зі створенням інтеграції" })
     }
 }
 

@@ -6,9 +6,9 @@ const IntBlockSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        int: { type: mongoose.Schema.Types.ObjectId, ref: 'Int' },
-        ins: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Instruction' }],
-        time: Number,
+        intId: { type: mongoose.Schema.Types.ObjectId, ref: 'Int' },
+        insId: { type: mongoose.Schema.Types.ObjectId, ref: 'Instruction' },
+
 
     }
 
