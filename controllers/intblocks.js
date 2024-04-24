@@ -32,6 +32,19 @@ export const getAllIntBlocks = async (req, res) => {
 }
 
 
+export const getIntBlocksByIntId = async (req, res) => {
+    try {
+        const intBlocks = await IntBlock.find({ intId: req.params.id })
+        res.status(200).json(intBlocks)
+    } catch (error) {
+        res.json({ message: error.message })
+    }
+}
+
+
+
+
+
 export const getIntBlockById = async (req, res) => {
     try {
         const intBlock = await IntBlock.findById(req.params.id)

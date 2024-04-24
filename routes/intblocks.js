@@ -3,7 +3,7 @@ import { Router } from "express";
 import { checkAuth } from "../utils/checkAuth.js";
 import { checkRoles } from "../utils/checkRoles.js";
 
-import { createIntBlock, getAllIntBlocks, getIntBlockById, deleteIntBlockById, updateIntBlockById } from "../controllers/intblocks.js";
+import { createIntBlock, getAllIntBlocks, getIntBlockById, deleteIntBlockById, updateIntBlockById, getIntBlocksByIntId } from "../controllers/intblocks.js";
 
 
 
@@ -17,6 +17,10 @@ router.post("/", createIntBlock)
 
 // http://localhost:3002/api/intblocks
 router.get("/", getAllIntBlocks)
+
+
+// http://localhost:3002/api/intblocks/int/:id
+router.get("/int/:id", getIntBlocksByIntId)
 
 // http://localhost:3002/api/intblocks/:id
 router.get("/:id", getIntBlockById)
