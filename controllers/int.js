@@ -25,7 +25,7 @@ export const createInt = async (req, res) => {
 export const getAllInts = async (req, res) => {
     try {
         const ints = await Int.find().sort('title')
-        res.status(200).json({ ints })
+        res.status(200).json( ints )
     } catch (error) {
         res.json({ message: error.message })
     }
@@ -38,7 +38,7 @@ export const getAllInts = async (req, res) => {
 export const getIntById = async (req, res) => {
     try {
         const int = await Int.findById(req.params.id)
-        res.status(200).json({ int })
+        res.status(200).json(int )
     } catch (error) {
         res.json({ message: error.message })
     }
@@ -59,7 +59,7 @@ export const updateIntById = async (req, res) => {
         if (blocks) int.blocks = blocks
 
         await int.save()
-        res.status(200).json({ int })
+        res.status(200).json(int)
     } catch (error) {
         res.json({ message: error.message })
     }
