@@ -11,7 +11,7 @@ export const createInt = async (req, res) => {
 
         await newInt.save()
 
-        return res.json(newInt)
+        return res.status(201).json(newInt)
 
     } catch (error) {
         res.json({ message: "Щось не так с створенням інтеграції" })
@@ -25,7 +25,7 @@ export const createInt = async (req, res) => {
 export const getAllInts = async (req, res) => {
     try {
         const ints = await Int.find().sort('title')
-        res.status(200).json( ints )
+        res.status(200).json(ints)
     } catch (error) {
         res.json({ message: error.message })
     }
@@ -38,7 +38,7 @@ export const getAllInts = async (req, res) => {
 export const getIntById = async (req, res) => {
     try {
         const int = await Int.findById(req.params.id)
-        res.status(200).json(int )
+        res.status(200).json(int)
     } catch (error) {
         res.json({ message: error.message })
     }
