@@ -14,8 +14,8 @@ import askRoute from "./routes/asks.js";
 import roleRoute from "./routes/roles.js";
 import insRoute from "./routes/ins.js";
 import insFolderRoute from "./routes/insfolders.js";
-import intRoute from "./routes/ints.js";
-import intBlockRoute from "./routes/intblocks.js";
+import adaptRoute from "./routes/adapts.js";
+import adaptBlockRoute from "./routes/adaptblocks.js";
 
 
 
@@ -51,8 +51,8 @@ app.use("/api/asks", askRoute);
 app.use("/api/roles", roleRoute);
 app.use("/api/ins", insRoute);
 app.use("/api/insfolders", insFolderRoute);
-app.use("/api/ints", intRoute);
-app.use("/api/intblocks", intBlockRoute);
+app.use("/api/adapts", adaptRoute);
+app.use("/api/adaptblocks", adaptBlockRoute);
 
 
 
