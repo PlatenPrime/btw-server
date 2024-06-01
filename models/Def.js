@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-const DefsSchema = new mongoose.Schema(
+const DefSchema = new mongoose.Schema(
     {
-        defs: [{
+        items: [{
             artikul: String,
             nameukr: String,
-            stock: Number,
-            quant: Number,
+            stockQuant: Number,
+            btradeQuant: Number,
         }],
     },
     { timestamps: true },
 )
 
-export default mongoose.model("Defs", DefsSchema);
+export default mongoose.model("Def", DefSchema);
