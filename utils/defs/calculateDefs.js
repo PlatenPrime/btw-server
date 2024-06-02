@@ -4,6 +4,8 @@
 import mongoose from 'mongoose';
 import Def from '../../models/Def.js';
 import { getArtDataBtrade } from '../getArtDataBtrade.js';
+import { sendMessageToUser } from '../sendMessagesTelegram.js';
+
 import Art from '../../models/Art.js';
 import Pos from '../../models/Pos.js';
 
@@ -40,11 +42,12 @@ function isNewerThanThreeYears(dateString) {
 export async function calculateDefs() {
     try {
         console.log('Начало calculateDefs');
+
         const [poses, arts] = await Promise.all([Pos.find(), Art.find()]);
         console.log(`Найдено позиций: ${poses.length}`);
         console.log(`Найдено артикулов: ${arts.length}`);
 
-        console.log(`Первая позиция: ${JSON.stringify(poses[0])}`);
+
 
 
         const correctRows = ["06-08", "10-12", "14-16", "18-20", "22-24", "27-29"]; // TODO: Заменить в будущем на константы из базы данных
@@ -52,17 +55,17 @@ export async function calculateDefs() {
 
         const stocks = poses
             .filter(pos => pos.sklad === "pogrebi" && isNewerThanThreeYears(pos.date))
-             .filter((pos) => /^\d{4}-\d{4}$/.test(pos.artikul))
-             .filter((pos) => pos?.quant !== 0)
-             .map((pos) => {
+            .filter((pos) => /^\d{4}-\d{4}$/.test(pos.artikul))
+            .filter((pos) => pos?.quant !== 0)
+            .map((pos) => {
                 const art = arts.find((art) => art?.artikul === pos?.artikul);
                 if (art) {
                     pos.nameukr = art.nameukr;
                 }
                 return pos;
             })
-              .filter((pos) => pos !== null)
-             .filter((pos) => correctRows.includes(pos.rowTitle))
+            .filter((pos) => pos !== null)
+            .filter((pos) => correctRows.includes(pos.rowTitle))
             .reduce((stocks, currentStock) => {
 
                 const existingStock = stocks.find((stock) => stock.artikul === currentStock.artikul);
@@ -80,34 +83,46 @@ export async function calculateDefs() {
             }, [])
             .sort((a, b) => a.artikul.localeCompare(b.artikul));
 
-        console.log(`Отфильтровано остатков: ${stocks.length}`);
-        console.log(`Первый сток: ${JSON.stringify(stocks[0])}`);
-        
+
+
 
         let newDefs = [];
 
         for (const stock of stocks) {
-            console.log(`Обработка артикула: ${stock.artikul}`);
+
             const { quant } = await getArtDataBtrade(stock.artikul);
-            console.log(`Получено количество для ${stock.artikul}: ${quant}`);
+            console.log(`Артикул: ${stock.nameukr} - ${quant} ${typeof quant}`);
+
             if (quant && stock.quant >= quant) {
                 newDefs.push({
                     artikul: stock.artikul,
                     nameukr: stock.nameukr,
                     stockQuant: stock.quant,
-                    bradeQuant: quant,
+                    btradeQuant: quant,
                 });
             }
         }
-
-        console.log(`Новых дефицитов: ${newDefs.length}`);
-
 
 
         const def = new Def({
             items: newDefs
         });
+
+
         await def.save();
+
+
+
+        sendMessageToUser(`
+        ${newDefs?.length > 0 ?
+                `Є наступні дефіцити:
+            ${newDefs?.map(def => `    ${def?.artikul} - ${def?.stockQuant - def?.btradeQuant} шт.
+            `)}`
+                :
+                "Дефіцитів немає"
+            }
+        `,
+            "555196992")
 
     } catch (error) {
         console.error(error);
