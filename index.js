@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import cron from 'node-cron';
 
 import authRoute from "./routes/auth.js";
 import palletRoute from "./routes/pallets.js";
@@ -17,6 +18,8 @@ import insFolderRoute from "./routes/insfolders.js";
 import adaptRoute from "./routes/adapts.js";
 import adaptBlockRoute from "./routes/adaptblocks.js";
 
+
+import { calculateDefs } from "./utils/defs/calculateDefs.js";
 
 
 
@@ -72,4 +75,10 @@ async function start() {
 
 start();
 
+
+cron.schedule('0 9-17 * * 1-5', async () => {
+	console.log('Calculating defs...');
+	await calculateDefs();
+	console.log('Calculating defs finished...');
+});
 
