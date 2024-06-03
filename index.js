@@ -84,10 +84,10 @@ async function start() {
 start();
 
 
-// cron.schedule('0 9-17 * * 1-5', async () => {
-// 	console.log('Calculating defs...');
-// 	await calculateDefs();
-// 	console.log('Calculating defs finished...');
-// });
+cron.schedule('0 9-17 * * 1-5', async () => {
+	console.log('Calculating defs...');
+	await calculateDefs();
+	console.log('Calculating defs finished...');
+});
 
 
