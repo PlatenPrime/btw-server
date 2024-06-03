@@ -1,8 +1,7 @@
 import Def from "../models/Def.js";
+import { calculateRemainsDefs } from "../utils/defs/calculateDefs.js";
 
 
-
-// Get All Defs
 export const getAllDefs = async (req, res) => {
     try {
         const defs = await Def.find();
@@ -17,7 +16,6 @@ export const getAllDefs = async (req, res) => {
 
 
 
-// Get Latest Def
 export const getLatestDef = async (req, res) => {
     try {
         const latestDef = await Def.find().sort({ 'createdAt': -1 }).limit(1);
@@ -25,6 +23,21 @@ export const getLatestDef = async (req, res) => {
             return res.json({ message: 'Дефицитов нет' });
         }
         res.status(200).json(latestDef);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+
+
+
+
+export const getRemainsDefs = async (req, res) => {
+    try {
+
+        const remainsDefs = await calculateRemainsDefs();
+        res.status(200).json(remainsDefs);
+
     } catch (error) {
         res.json({ message: error.message });
     }

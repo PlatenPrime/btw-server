@@ -25,7 +25,8 @@ mongoose.set('strictQuery', false)
 
 
 
-import { calculateDefs } from "./utils/defs/calculateDefs.js";
+import { calculateDefs} from "./utils/defs/calculateDefs.js";
+
 
 
 
@@ -88,4 +89,5 @@ start();
 // 	await calculateDefs();
 // 	console.log('Calculating defs finished...');
 // });
+
 
