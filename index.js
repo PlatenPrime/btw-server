@@ -17,6 +17,12 @@ import insRoute from "./routes/ins.js";
 import insFolderRoute from "./routes/insfolders.js";
 import adaptRoute from "./routes/adapts.js";
 import adaptBlockRoute from "./routes/adaptblocks.js";
+import defRoute from "./routes/defs.js";
+
+
+mongoose.set('strictQuery', false)
+
+
 
 
 import { calculateDefs } from "./utils/defs/calculateDefs.js";
@@ -56,6 +62,7 @@ app.use("/api/ins", insRoute);
 app.use("/api/insfolders", insFolderRoute);
 app.use("/api/adapts", adaptRoute);
 app.use("/api/adaptblocks", adaptBlockRoute);
+app.use("/api/defs", defRoute);
 
 
 
