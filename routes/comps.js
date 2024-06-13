@@ -51,7 +51,7 @@ router.get("/", checkAuth, getAllComps)
 
 // Get Link Page
 //http://localhost:3002/api/comps/linkpage/:link
-router.get("/linkpage/:link", checkAuth, getLinkPage)
+router.get("/linkpage/:link", getLinkPage)
 
 // Get Comp By Artikul 
 // http://localhost:3002/api/comps/search/:artikul
