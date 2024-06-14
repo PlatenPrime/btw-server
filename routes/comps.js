@@ -24,10 +24,10 @@ router.post("/",
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"ADMIN",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"ADMIN",
+	// ]),
 
 	createComp)
 
@@ -37,10 +37,10 @@ router.post("/update",
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"ADMIN",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"ADMIN",
+	// ]),
 
 
 	updateOrCreateComp);
@@ -70,10 +70,12 @@ router.get('/:id', checkAuth, getCompById)
 // http://localhost:3002/api/comps/:id
 router.delete('/:id', checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"ADMIN",
-	]), deleteComp)
+	// checkRoles([
+	// 	"PRIME",
+	// 	"ADMIN",
+	// ]), 
+	
+	deleteComp)
 
 
 // Delete All Comps from DB
@@ -82,9 +84,9 @@ router.delete('/',
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// ]),
 
 	deleteAllComps)
 

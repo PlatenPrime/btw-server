@@ -12,10 +12,10 @@ const router = new Router();
 //http://localhost:3002/api/rows
 router.post("/", checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 
 	createRow)
@@ -37,10 +37,10 @@ router.delete('/:id',
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 	deleteRowById)
 
@@ -53,10 +53,10 @@ router.put('/:id',
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 
 

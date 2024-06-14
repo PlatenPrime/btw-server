@@ -28,10 +28,10 @@ router.post('/',
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 	createPallet);
 
@@ -41,10 +41,10 @@ router.put('/clear/:id',
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 	clearPalletById);
 
@@ -55,10 +55,10 @@ router.put('/move',
 
 checkAuth,
 
-checkRoles([
-	"PRIME",
-	"SKLAD",
-]),
+// checkRoles([
+// 	"PRIME",
+// 	"SKLAD",
+// ]),
 
 
 movePalletContent);
@@ -71,10 +71,10 @@ router.put('/:id',
 
 checkAuth,
 
-checkRoles([
-	"PRIME",
-	"SKLAD",
-]),
+// checkRoles([
+// 	"PRIME",
+// 	"SKLAD",
+// ]),
 
 
 updatePalletById);
@@ -88,10 +88,10 @@ router.delete('/:id',
 
 checkAuth,
 
-checkRoles([
-	"PRIME",
-	"SKLAD",
-]),
+// checkRoles([
+// 	"PRIME",
+// 	"SKLAD",
+// ]),
 
 deletePallet);
 

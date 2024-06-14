@@ -55,10 +55,10 @@ router.put('/:id',
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 
 	updatePos);
@@ -68,10 +68,10 @@ router.delete('/:id',
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 	deletePosById);
 

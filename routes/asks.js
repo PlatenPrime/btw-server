@@ -9,11 +9,11 @@ const router = new Router();
 //http://localhost:3002/api/asks
 router.post('/', checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-		"PICKER"
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// 	"PICKER",
+	// ]),
 	createAsk);
 
 // Маршрут для получения всех запросов на снятие (Ask)
@@ -38,10 +38,10 @@ router.put('/:id',
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// ]),
 
 	updateAskById);
 
@@ -51,11 +51,11 @@ router.delete('/:id',
 
 	checkAuth,
 
-	checkRoles([
-		"PRIME",
-		"SKLAD",
-		"PICKER"
-	]),
+	// checkRoles([
+	// 	"PRIME",
+	// 	"SKLAD",
+	// 	"PICKER"
+	// ]),
 
 	deleteAsk);
 
