@@ -104,11 +104,18 @@ export const deleteInstruction = async (req, res) => {
 		const instruction = await Instruction.findByIdAndDelete(req.params.id)
 		if (!instruction) return res.json({ message: 'Такой инструкции нет' })
 
+		// Delete instruction from folder
+		await InsFolder.findByIdAndUpdate(instruction.folderId, { $pull: { instructions: instruction._id } }, { new: true })
+
 		res.json({ message: 'Инструкция была удалена.' })
 	} catch (error) {
 		res.json({ message: 'Что-то не так с удалением инструкции.' })
 	}
 }
+
+
+
+
 
 //Delete Instructions from DB
 export const deleteInstructions = async (req, res) => {
