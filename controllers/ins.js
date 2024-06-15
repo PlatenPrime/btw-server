@@ -33,8 +33,8 @@ export const updateOrCreateInstruction = async (req, res) => {
 			if (title) existingInstruction.title = title;
 			if (titleImage) existingInstruction.titleImage = titleImage;
 			if (author) existingInstruction.author = author;
-			if (videoUrl) existingInstruction.videoUrl = videoUrl;
-			if (body) existingInstruction.body = body;
+			if (videoUrl || videoUrl === "") existingInstruction.videoUrl = videoUrl;
+			if (body || body === "") existingInstruction.body = body;
 			if (folderId) existingInstruction.folderId = folderId;
 			await existingInstruction.save();
 			return res.json(existingInstruction);
