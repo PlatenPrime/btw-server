@@ -4,7 +4,7 @@ import AdaptBlock from "../models/AdaptBlock.js"
 
 export const createAdaptBlock = async (req, res) => {
     try {
-        const {  adaptId, insId } = req.body
+        const { adaptId, insId } = req.body
 
 
         const newAdaptBlock = new AdaptBlock({ adaptId, insId })
@@ -34,8 +34,17 @@ export const getAllAdaptBlocks = async (req, res) => {
 
 export const getAdaptBlocksByAdaptId = async (req, res) => {
     try {
-        const adaptBlocks = await AdaptBlock.find({ adaptId: req.params.id })
-        res.status(200).json(adaptBlocks)
+        // Получаем документ Adapt с указанным id
+        const adapt = await Adapt.findById(req.params.id).populate('blocks');
+
+        if (!adapt) {
+            return res.status(404).json({ message: 'Adapt not found' });
+        }
+
+        // Получаем массив блоков в том порядке, в котором они записаны в документе Adapt
+        const adaptBlocks = adapt.blocks;
+
+        res.status(200).json(adaptBlocks);
     } catch (error) {
         res.json({ message: error.message })
     }
