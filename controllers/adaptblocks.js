@@ -4,10 +4,10 @@ import AdaptBlock from "../models/AdaptBlock.js"
 
 export const createAdaptBlock = async (req, res) => {
     try {
-        const { title, adaptId, insId } = req.body
+        const {  adaptId, insId } = req.body
 
 
-        const newAdaptBlock = new AdaptBlock({ title, adaptId, insId })
+        const newAdaptBlock = new AdaptBlock({ adaptId, insId })
 
         await Adapt.findByIdAndUpdate(
             adaptId,
@@ -58,9 +58,8 @@ export const getAdaptBlockById = async (req, res) => {
 
 export const updateAdaptBlockById = async (req, res) => {
     try {
-        const { title, insId } = req.body
+        const { insId } = req.body
         const adaptBlock = await AdaptBlock.findById(req.params.id)
-        if (title) adaptBlock.title = title
         if (insId) adaptBlock.insId = insId
         await adaptBlock.save()
         res.status(200).json(adaptBlock)
