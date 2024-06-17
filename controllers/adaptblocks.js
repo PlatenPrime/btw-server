@@ -94,3 +94,30 @@ export const deleteAdaptBlockById = async (req, res) => {
         res.json({ message: error.message })
     }
 }
+
+
+
+// Новый контроллер для обновления свойства isDone
+export const updateAdaptBlockIsDone = async (req, res) => {
+    try {
+        const { userId, isDone } = req.body;
+        const adaptBlock = await AdaptBlock.findById(req.params.id);
+        adaptBlock.isDone.set(userId, isDone);
+        await adaptBlock.save();
+        res.status(200).json(adaptBlock);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+};
+
+// Новый контроллер для получения состояния isDone для конкретного пользователя
+export const getAdaptBlockIsDone = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const adaptBlock = await AdaptBlock.findById(req.params.id);
+        const isDone = adaptBlock.isDone.get(userId) || false;
+        res.status(200).json({ userId, isDone });
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+};
