@@ -18,6 +18,7 @@ import insFolderRoute from "./routes/insfolders.js";
 import adaptRoute from "./routes/adapts.js";
 import adaptBlockRoute from "./routes/adaptblocks.js";
 import defRoute from "./routes/defs.js";
+import testRoute from "./routes/tests.js";
 
 
 mongoose.set('strictQuery', false)
@@ -64,6 +65,7 @@ app.use("/api/insfolders", insFolderRoute);
 app.use("/api/adapts", adaptRoute);
 app.use("/api/adaptblocks", adaptBlockRoute);
 app.use("/api/defs", defRoute);
+app.use("/api/tests", testRoute);
 
 
 

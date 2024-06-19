@@ -51,12 +51,17 @@ export const getAdaptById = async (req, res) => {
 
 export const updateAdaptById = async (req, res) => {
     try {
-        const { title, blocks } = req.body
+        const { title, blocks, test } = req.body
 
         const adapt = await Adapt.findById(req.params.id)
 
+        if (!adapt) {
+            return res.status(404).json({ message: 'Adapt not found' })
+        }
+
         if (title) adapt.title = title
         if (blocks) adapt.blocks = blocks
+        if (test) adapt.test = test
 
         await adapt.save()
         res.status(200).json(adapt)

@@ -7,6 +7,7 @@ const AdaptSchema = new mongoose.Schema(
             required: true,
         },
         blocks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AdaptBlock' }],
+        test: { type: mongoose.Schema.Types.ObjectId, ref: 'Test' },
 
     }
 
