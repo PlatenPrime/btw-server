@@ -9,17 +9,17 @@ const router = new Router();
 //http://localhost:3002/api/tests
 
 
-router.post("/",  checkAuth, createTest)
+router.post("/", createTest)
 
-router.get("/", checkAuth, getAllTests)
+router.get("/", getAllTests)
 
-router.get("/:id", checkAuth, getTestById)
+router.get("/:id", getTestById)
 
-router.put("/:id", checkAuth, updateTestById)
+router.put("/:id", updateTestById)
 
-router.delete("/", checkAuth, deleteAllTests)
+router.delete("/", deleteAllTests)
 
-router.delete("/:id", checkAuth, deleteTestById)
+router.delete("/:id", deleteTestById)
 
 
 

@@ -8,7 +8,7 @@ export const createTest = async (req, res) => {
         const { adaptId, questions } = req.body;
         const newTest = new Test({ adaptId, questions });
 
-const adapt = await Adapt.findById(adaptId);
+        const adapt = await Adapt.findById(adaptId);
         if (!adapt) {
             return res.status(404).json({ message: 'Adapt not found' });
         }
@@ -51,7 +51,18 @@ export const getTestById = async (req, res) => {
 export const updateTestById = async (req, res) => {
     try {
         const { adaptId, questions } = req.body;
-        const test = await Test.findByIdAndUpdate(req.params.id, { adaptId, questions }, { new: true });
+
+        const test = await Test.findById(req.params.id);
+
+
+        if (!test) {
+            return res.status(404).json({ message: 'Test not found' });
+        }
+
+        if (adaptId) test.adaptId = adaptId;
+        if (questions) test.questions = questions;
+
+        await test.save();
         res.status(200).json(test);
     } catch (error) {
         res.status(500).json({ message: error.message });
