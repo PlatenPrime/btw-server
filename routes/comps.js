@@ -4,10 +4,10 @@ import {
 	updateOrCreateComp,
 	getCompById,
 	getAllComps,
-	deleteComp,
 	deleteAllComps,
 	getCompByArtikul,
 	getLinkPage,
+	deleteCompById,
 } from '../controllers/comps.js';
 
 
@@ -75,7 +75,7 @@ router.delete('/:id', checkAuth,
 	// 	"ADMIN",
 	// ]), 
 	
-	deleteComp)
+	deleteCompById)
 
 
 // Delete All Comps from DB

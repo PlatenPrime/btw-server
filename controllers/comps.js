@@ -135,7 +135,7 @@ export async function getAllComps(req, res) {
 }
 
 // Delete One Comp from DB
-export async function deleteComp(req, res) {
+export async function deleteCompById(req, res) {
 	try {
 		const comp = await Comp.findByIdAndDelete(req.params.id);
 		if (!comp) {
@@ -160,8 +160,6 @@ export async function deleteAllComps(req, res) {
 
 
 export async function getLinkPage(req, res) {
-
-
 
 	try {
 		const { link } = req.params; // Получаем ссылку из параметров маршрута

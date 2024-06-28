@@ -67,7 +67,7 @@ export const updateAskById = async (req, res) => {
 
 // Delete Ask from DB
 
-export const deleteAsk = async (req, res) => {
+export const deleteAskById = async (req, res) => {
 	try {
 		const ask = await Ask.findByIdAndDelete(req.params.id)
 		if (!ask) return res.json({ message: 'Такого запроса на снятие нет' })

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createAsk, getAllAsks, getAskById, updateAskById, deleteAsk } from '../controllers/ask.js';
+import { createAsk, getAllAsks, getAskById, updateAskById, deleteAskById } from '../controllers/ask.js';
 import { checkAuth } from "../utils/checkAuth.js";
 import { checkRoles } from "../utils/checkRoles.js";
 
@@ -57,6 +57,6 @@ router.delete('/:id',
 	// 	"PICKER"
 	// ]),
 
-	deleteAsk);
+	deleteAskById);
 
 export default router;
