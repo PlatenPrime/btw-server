@@ -1,5 +1,5 @@
 import Def from "../models/Def.js";
-import { calculateRemainsDefs } from "../utils/defs/calculateDefs.js";
+import { calculateDefs, calculateRemainsDefs } from "../utils/defs/calculateDefs.js";
 
 
 export const getAllDefs = async (req, res) => {
@@ -38,6 +38,16 @@ export const getRemainsDefs = async (req, res) => {
         const remainsDefs = await calculateRemainsDefs();
         res.status(200).json(remainsDefs);
 
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+
+export const calculateDefsOutOfSchedule = async (req, res) => {
+    try {
+        const defs = await calculateDefs();
+        res.status(200).json(defs);
     } catch (error) {
         res.json({ message: error.message });
     }

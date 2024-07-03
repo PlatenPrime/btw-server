@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { checkAuth } from "../utils/checkAuth.js";
 import { checkRoles } from "../utils/checkRoles.js";
-import { getAllDefs, getLatestDef, getRemainsDefs } from "../controllers/defs.js";
+import { calculateDefsOutOfSchedule, getAllDefs, getLatestDef, getRemainsDefs } from "../controllers/defs.js";
 
 
 const router = new Router();
@@ -33,6 +33,17 @@ router.get(
 router.get(
     '/remains',
     getRemainsDefs
+)
+
+
+router.get(
+    '/calculate',
+    // checkAuth,
+    // checkRoles([
+    //     "PRIME", 
+    //     "ADMIN",
+    // ]),
+    calculateDefsOutOfSchedule
 )
 
 
