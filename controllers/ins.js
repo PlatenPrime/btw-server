@@ -85,9 +85,12 @@ export const getFolderInstructions = async (req, res) => {
 		const insFolder = await InsFolder.findById(req.params.id)
 		const insList = await Promise.all(
 			insFolder?.instructions.map((instruction) => Instruction.findById(instruction))
-
 		)
-		res.status(200).json({ folderInstructions: insList })
+
+		const sortedInsList = insList.sort((a, b) => a.title.localeCompare(b.title));
+
+
+		res.status(200).json({ folderInstructions: sortedInsList })
 	} catch (error) {
 		res.json({ message: error.message })
 	}
