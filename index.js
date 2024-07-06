@@ -20,15 +20,11 @@ import adaptBlockRoute from "./routes/adaptblocks.js";
 import defRoute from "./routes/defs.js";
 import testRoute from "./routes/tests.js";
 
+import { calculateDefs } from "./utils/defs/calculateDefs.js";
+
 
 mongoose.set('strictQuery', false)
 
-
-
-
-import { calculateDefs} from "./utils/defs/calculateDefs.js";
-
-import { getArtDataAir } from "./utils/comps/getArtDateAir.js";
 
 
 const app = express();
@@ -71,7 +67,6 @@ app.use("/api/tests", testRoute);
 
 
 
-
 async function start() {
 	try {
 		await mongoose.connect(
@@ -91,5 +86,3 @@ cron.schedule('0 6-14 * * 1-5', async () => {
 	await calculateDefs();
 	console.log('Calculating defs finished...');
 });
-
-
