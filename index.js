@@ -28,7 +28,7 @@ mongoose.set('strictQuery', false)
 
 import { calculateDefs} from "./utils/defs/calculateDefs.js";
 
-
+import { getArtDataAir } from "./utils/comps/getArtDateAir.js";
 
 
 const app = express();
