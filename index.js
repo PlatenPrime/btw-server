@@ -22,9 +22,8 @@ import testRoute from "./routes/tests.js";
 
 import { calculateDefs } from "./utils/defs/calculateDefs.js";
 
-import {updateAllArtDataComp} from "./utils/comps/updateAllArtDataComp.js";
-import {getArtDataComp} from "./utils/comps/getArtDataComp.js";
-import { updateArtDataComp } from "./utils/comps/updateArtDataComp.js";
+import { updateAllArtDataComps } from "./utils/comps/updateAllArtDataComps.js";
+
 
 
 mongoose.set('strictQuery', false)
@@ -92,8 +91,14 @@ cron.schedule('0 6-14 * * 1-5', async () => {
 });
 
 
-await updateAllArtDataComp();
-// await updateArtDataComp("1101-0001")
+cron.schedule('0 5 * * 1-5', async () => {
+	console.log('Updating all comps...');
+	await updateAllArtDataComps();
+	console.log('Updating all comps finished...');
+});
+
+
+
 
 
 

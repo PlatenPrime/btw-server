@@ -3,6 +3,9 @@ import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
 
+import { getArtDataComp, updateArtDataComp, updateAllArtDataComps } from "../utils/comps/index.js";
+
+
 // Create One Comp
 export async function createComp(req, res) {
 	try {
@@ -157,6 +160,30 @@ export async function deleteAllComps(req, res) {
 		res.status(400).json({ error: 'Failed to delete comps' });
 	}
 }
+
+
+
+export async function getUpdatedArtDataComp(req, res) {
+	try {
+		const { artikul } = req.params;
+		const comp = await updateArtDataComp(artikul);
+		res.status(200).json(comp);
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to update comp' });
+	}
+}
+
+
+export async function getUpdatedAllArtDataComps(req, res) {
+	try {
+		await updateAllArtDataComps();
+		res.status(200).json({ message: 'All comps updated successfully' });
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to update comps' });
+	}
+}
+
+
 
 
 export async function getLinkPage(req, res) {

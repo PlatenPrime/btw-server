@@ -4,6 +4,7 @@
 
 import { getArtDataComp } from "./getArtDataComp.js";
 import Comp from "../../models/Comp.js";
+import { sendMessageToUser } from "../sendMessagesTelegram.js";
 
 
 export async function updateArtDataComp(artikul) {
@@ -34,5 +35,10 @@ export async function updateArtDataComp(artikul) {
 
     await comp.save();
 
+    sendMessageToUser(
+        `Артикул ${artikul} успішно проаналізовано!`, "555196992")
+
     console.log("Finished updating artikul:", artikul);
+
+    return comp;
 }   

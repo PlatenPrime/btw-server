@@ -8,6 +8,8 @@ import {
 	getCompByArtikul,
 	getLinkPage,
 	deleteCompById,
+	getUpdatedArtDataComp,
+	getUpdatedAllArtDataComps,
 } from '../controllers/comps.js';
 
 
@@ -35,7 +37,7 @@ router.post("/",
 //http://localhost:3002/api/comps/update
 router.post("/update",
 
-	checkAuth,
+	// checkAuth,
 
 	// checkRoles([
 	// 	"PRIME",
@@ -57,9 +59,23 @@ router.get("/linkpage/:link", getLinkPage)
 // http://localhost:3002/api/comps/search/:artikul
 router.get("/search/:artikul", checkAuth, getCompByArtikul)
 
+
+
+// Get All Updated Comps
+// http://localhost:3002/api/comps/updated
+router.get("/updated",  getUpdatedAllArtDataComps)
+
+
+// Get Updated Comp
+// http://localhost:3002/api/comps/updated/:artikul
+router.get("/updated/:artikul",  getUpdatedArtDataComp)
+
+
+
+
 // Get Comp By Id
 // http://localhost:3002/api/comps/:id
-router.get('/:id', checkAuth, getCompById)
+router.get('/:id',  getCompById)
 
 
 

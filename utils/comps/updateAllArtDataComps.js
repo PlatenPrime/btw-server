@@ -1,9 +1,10 @@
 import Comp from "../../models/Comp.js";
+import { sendMessageToUser } from "../sendMessagesTelegram.js";
 import { updateArtDataComp } from "./updateArtDataComp.js";
 
 
 
-export async function updateAllArtDataComp() {
+export async function updateAllArtDataComps() {
 
     console.log("Updating all comps...");
     
@@ -14,6 +15,10 @@ export async function updateAllArtDataComp() {
         console.log(artikul);
         await updateArtDataComp(artikul);
     }
+
+
+    sendMessageToUser(
+          "Всі конкуренти проаналізовані успішно!", "555196992")
 
     console.log("All comps updated.");
 }
