@@ -51,8 +51,8 @@ export async function getArtDataSharte(link) {
 
         const isAvailable = extractAvailabilityFromResponse(responseString);
 
-        console.log(price ? `Цена: ${price} грн` : "Цена не найдена");
-        console.log(isAvailable ? "Товар в наличии" : "Товара нет в наличии");
+        // console.log(price ? `Цена: ${price} грн` : "Цена не найдена");
+        // console.log(isAvailable ? "Товар в наличии" : "Товара нет в наличии");
 
         return { price, isAvailable };
 

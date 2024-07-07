@@ -22,6 +22,10 @@ import testRoute from "./routes/tests.js";
 
 import { calculateDefs } from "./utils/defs/calculateDefs.js";
 
+import {updateAllArtDataComp} from "./utils/comps/updateAllArtDataComp.js";
+import {getArtDataComp} from "./utils/comps/getArtDataComp.js";
+import { updateArtDataComp } from "./utils/comps/updateArtDataComp.js";
+
 
 mongoose.set('strictQuery', false)
 
@@ -86,3 +90,10 @@ cron.schedule('0 6-14 * * 1-5', async () => {
 	await calculateDefs();
 	console.log('Calculating defs finished...');
 });
+
+
+await updateAllArtDataComp();
+// await updateArtDataComp("1101-0001")
+
+
+

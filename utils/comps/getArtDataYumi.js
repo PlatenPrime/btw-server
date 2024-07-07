@@ -93,12 +93,12 @@ export async function getArtDataYumi(yumiLink) {
         const quant = extractQuantFromString(responseString);
         let price = extractPriceFromString(responseString);
 
-        console.log("Цена со строки", price);
+        // console.log("Цена со строки", price);
 
         if (!price) {
             let pack = extractQuantityInPackFromString(responseString)
             pack = pack || 1
-            console.log("В 1 пачке:", pack)
+            // console.log("В 1 пачке:", pack)
 
 
             price = extractProductPriceFromString(responseString, pack)
@@ -107,8 +107,8 @@ export async function getArtDataYumi(yumiLink) {
 
 
 
-        console.log("Цена Yumi", price);
-        console.log("Наличие Yumi", quant);
+        // console.log("Цена Yumi", price);
+        // console.log("Наличие Yumi", quant);
 
         return { price, quant };
 

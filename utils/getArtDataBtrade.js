@@ -72,11 +72,15 @@ export async function getArtDataBtrade(art) {
         const responseString = await response.text();
 
 
-        const quant = extractQuantFromString(responseString);
-        const price = extractPriceFromString(responseString);
+        let quant = extractQuantFromString(responseString);
+        let price = extractPriceFromString(responseString);
 
-        console.log("Цена Btrade", price);
-        console.log("Наличие Btrade", quant);
+        if (price === '1703671923.00') {
+            price = 'N/A';
+        }
+
+        // console.log("Цена Btrade", price);
+        // console.log("Наличие Btrade", quant);
 
 
         return { price, quant };
