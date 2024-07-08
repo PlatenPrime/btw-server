@@ -4,6 +4,7 @@ import cheerio from 'cheerio';
 
 
 import { getArtDataComp, updateArtDataComp, updateAllArtDataComps } from "../utils/comps/index.js";
+import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
 
 
 // Create One Comp
@@ -168,6 +169,8 @@ export async function getUpdatedArtDataComp(req, res) {
 		const { artikul } = req.params;
 		const comp = await updateArtDataComp(artikul);
 		res.status(200).json(comp);
+		sendMessageToUser(
+			`Артикул ${artikul} успішно проаналізовано!`, "555196992")
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to update comp' });
 	}
