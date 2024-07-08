@@ -83,9 +83,9 @@ export async function getArtDataYumi(yumiLink) {
         })
 
 
-        if (!response.ok) {
-            throw new NetworkError('Network response was not ok');
-        }
+        // if (!response.ok) {
+        //     throw new NetworkError('Network response was not ok');
+        // }
 
         const responseString = await response.text();
 
@@ -121,6 +121,6 @@ export async function getArtDataYumi(yumiLink) {
         } else {
             console.error("Unknown error:", error);
         }
-        throw error;
+       
     }
 }

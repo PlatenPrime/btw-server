@@ -1,17 +1,5 @@
 
 
-
-import axios from "axios"
-
-
-
-class NetworkError extends Error {
-    constructor(message) {
-        super(message);
-        this.name = "NetworkError";
-    }
-}
-
 const regex = /(\d+(\.\d+)?)/;
 
 function extractValueFromString(valueString, searchValue, back = false) {
@@ -85,11 +73,10 @@ export async function getArtDataBtrade(art) {
 
         return { price, quant };
     } catch (error) {
-        if (error instanceof NetworkError) {
+      
             console.error("Network error:", error.message);
-        } else {
-            console.error("Unknown error:", error);
+      
         }
 
     }
-}
+

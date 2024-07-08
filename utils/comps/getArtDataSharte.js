@@ -35,9 +35,9 @@ export async function getArtDataSharte(link) {
             cache: 'no-store', // Запрещаем кэширование
         })
 
-        if (!response.ok) {
-            throw new NetworkError('Network response was not ok');
-        }
+        // if (!response.ok) {
+        //     throw new NetworkError('Network response was not ok');
+        // }
 
         const responseString = await response.text();
 
