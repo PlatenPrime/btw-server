@@ -78,6 +78,10 @@ function optimizePoses(poses, arts) {
 export async function calculateDefs() {
     try {
         console.log('Начало calculateDefs');
+        sendMessageToUser(`
+       Розрахунок оптимальних позицій...
+        `,
+            "555196992")
 
         const [poses, arts] = await Promise.all([Pos.find(), Art.find()]);
         console.log(`Найдено позиций: ${poses.length}`);
@@ -88,6 +92,12 @@ export async function calculateDefs() {
         console.log(`Оптимизировано позиций: ${stocks.length}`);
 
         let newDefs = [];
+
+
+        sendMessageToUser(`
+        Рохрахунок дефіцитів почався...
+         `,
+             "555196992")
 
         for (const stock of stocks) {
 
