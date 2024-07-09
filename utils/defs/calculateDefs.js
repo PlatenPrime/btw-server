@@ -130,6 +130,12 @@ export async function calculateDefs() {
         `,
             "555196992")
 
+
+            sendMessageToUser(`
+            Рохрахунок дефіцитів закінчився...
+             `,
+                 "555196992")
+
     } catch (error) {
         console.error(error);
     }
