@@ -78,10 +78,7 @@ function optimizePoses(poses, arts) {
 export async function calculateDefs() {
     try {
         console.log('Начало calculateDefs');
-        sendMessageToUser(`
-       Розрахунок оптимальних позицій...
-        `,
-            "555196992")
+     
 
         const [poses, arts] = await Promise.all([Pos.find(), Art.find()]);
         console.log(`Найдено позиций: ${poses.length}`);
