@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
 
-import { getArtDataComp, updateArtDataComp, updateAllArtDataComps } from "../utils/comps/index.js";
+import { getArtDataComp, updateArtDataComp, updateAllArtDataComps, getArtDataSharte, getArtDataAir, getArtDataYumi, getArtDataBest, getArtDataBtrade } from "../utils/comps/index.js";
 import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
 
 
@@ -11,17 +11,33 @@ import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
 export async function createComp(req, res) {
 	try {
 
-		const compData = { ...req.body };
-		console.log(compData)
+		const {
+			artikul,
+			prod,
+			size,
+			category,
+			subcategory,
+			nameukr,
+			competitorsLinks,
+		} = { ...req.body };
 
+
+
+		const compData = {
+			artikul,
+			prod,
+			size,
+			category,
+			subcategory,
+			nameukr,
+			competitorsLinks,
+		}
 
 
 		const comp = new Comp(compData);
 
 		await comp.save();
 
-
-		console.log(comp)
 		res.status(201).json(comp);
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to create comp' });

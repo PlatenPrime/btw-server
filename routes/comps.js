@@ -24,7 +24,7 @@ const router = new Router();
 //http://localhost:3002/api/comps
 router.post("/",
 
-	checkAuth,
+	// checkAuth,
 
 	// checkRoles([
 	// 	"PRIME",
@@ -84,7 +84,9 @@ router.get('/:id',  getCompById)
 
 // Delete One Comp from DB
 // http://localhost:3002/api/comps/:id
-router.delete('/:id', checkAuth,
+router.delete('/:id', 
+	
+	// checkAuth,
 
 	// checkRoles([
 	// 	"PRIME",
