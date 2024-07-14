@@ -10,6 +10,7 @@ import {
 	deleteCompById,
 	getUpdatedArtDataComp,
 	getUpdatedAllArtDataComps,
+	updateCompById,
 } from '../controllers/comps.js';
 
 
@@ -46,6 +47,13 @@ router.post("/update",
 
 
 	updateOrCreateComp);
+
+
+// Update Comp By Id
+//http://localhost:3002/api/comps/:id
+router.put('/:id', updateCompById)
+
+
 
 // Get All Comps
 //http://localhost:3002/api/comps

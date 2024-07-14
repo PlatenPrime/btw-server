@@ -106,6 +106,31 @@ export async function updateOrCreateComp(req, res) {
 	}
 }
 
+
+export async function updateCompById(req, res) {
+    try {
+        console.log('Request Body:', req.body);
+        
+        const updatedComp = await Comp.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        
+        if (!updatedComp) {
+            return res.status(404).json({ error: 'Comp not found' });
+        }
+        
+        console.log('Updated Comp:', updatedComp);
+        
+        res.status(200).json(updatedComp);
+    } catch (error) {
+        console.error('Error updating comp:', error);
+        res.status(400).json({ error: 'Failed to update comp', details: error.message });
+    }
+}
+
+
+
+
+
+
 // Get Comp By Id
 export async function getCompById(req, res) {
 	try {
