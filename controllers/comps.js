@@ -6,7 +6,7 @@ import cheerio from 'cheerio';
 import { getArtDataComp, updateArtDataComp, updateAllArtDataComps, getArtDataSharte, getArtDataAir, getArtDataYumi, getArtDataBest, getArtDataBtrade } from "../utils/comps/index.js";
 import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
 import CompData from '../models/CompData.js';
-import { createCompDataFunction } from '../utils/comps/createCompData.js';
+import { createCompData, updateCompData } from '../utils/comps/createOrUpdateCompData.js';
 
 
 // Create One Comp
@@ -267,12 +267,19 @@ export async function getLinkPage(req, res) {
 
 
 
-export async function createCompData(req, res) {
-	try {
-		const { artikul } = req.body;
-		const compData = await createCompDataFunction(artikul);
-		res.status(200).json(compData);
-	} catch (error) {
-		res.status(400).json({ error: 'Failed to create comp data' });
-	}
+export async function createorUpdateCompData(req, res) {
+    try {
+        const { artikul } = req.body;
+
+        const existComp = await CompData.findOne({ artikul });
+        if (existComp) {
+            const updatedCompData = await updateCompData(artikul);
+            res.status(200).json(updatedCompData);
+        } else {
+            const compData = await createCompData(artikul);
+            res.status(200).json(compData);
+        }
+    } catch (error) {
+        res.status(400).json({ error: 'Failed to create or update comp data' });
+    }
 }

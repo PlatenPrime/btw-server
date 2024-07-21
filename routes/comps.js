@@ -11,7 +11,7 @@ import {
 	getUpdatedArtDataComp,
 	getUpdatedAllArtDataComps,
 	updateCompById,
-	createCompData,
+	createorUpdateCompData,
 } from '../controllers/comps.js';
 
 
@@ -42,7 +42,7 @@ router.post(
 
 
 
-	createCompData
+	createorUpdateCompData
 )
 
 
