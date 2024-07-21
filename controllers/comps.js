@@ -6,7 +6,7 @@ import cheerio from 'cheerio';
 import { getArtDataComp, updateArtDataComp, updateAllArtDataComps, getArtDataSharte, getArtDataAir, getArtDataYumi, getArtDataBest, getArtDataBtrade } from "../utils/comps/index.js";
 import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
 import CompData from '../models/CompData.js';
-import { createCompData, updateCompData } from '../utils/comps/createOrUpdateCompData.js';
+import { createOrUpdateCompData } from '../utils/comps/createOrUpdateCompData.js';
 
 
 // Create One Comp
@@ -267,19 +267,37 @@ export async function getLinkPage(req, res) {
 
 
 
-export async function createorUpdateCompData(req, res) {
-    try {
-        const { artikul } = req.body;
+export async function createOrUpdateCompDataByArtikul(req, res) {
+	try {
+		const { artikul } = req.body;
 
-        const existComp = await CompData.findOne({ artikul });
-        if (existComp) {
-            const updatedCompData = await updateCompData(artikul);
-            res.status(200).json(updatedCompData);
-        } else {
-            const compData = await createCompData(artikul);
-            res.status(200).json(compData);
-        }
-    } catch (error) {
-        res.status(400).json({ error: 'Failed to create or update comp data' });
-    }
+
+		const compData = await createOrUpdateCompData(artikul);
+
+		res.status(200).json(compData);
+
+
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to create or update comp data' });
+	}
+}
+
+
+export async function getCompDataByArtikul(req, res) {
+	try {
+		const { artikul } = req.params;
+		const compData = await CompData.findOne({ artikul });
+		res.status(200).json(compData);
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to get comp data' });
+	}
+}
+
+export async function getAllCompDatas(req, res) {
+	try {
+		const compDatas = await CompData.find();
+		res.status(200).json(compDatas);
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to get comp data' });
+	}
 }

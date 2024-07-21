@@ -1,14 +1,52 @@
 import { getArtDataComp } from "./getArtDataComp.js";
+import Comp from "../../models/Comp.js";
 import CompData from "../../models/CompData.js";
 
+export async function updateFullCompData(artikul) {
 
+    console.log("Updating artikul:", artikul);
 
-export async function createCompData(artikul) {
+    const comp = await Comp.findOne({ artikul });
+    const compData = await CompData.findOne({ artikul });
+
+    if (!comp) {
+        return;
+    }
+
 
 
     const { btrade, yumi, air, sharte, best } = await getArtDataComp(artikul);
 
+    comp.avail.btrade = btrade?.quant;
+    comp.avail.yumi = yumi?.quant;
+    comp.avail.air = air?.isAvailable;
+    comp.avail.sharte = sharte?.isAvailable;
+    comp.avail.best = best?.isAvailable;
 
+    comp.price.btrade = btrade?.price;
+    comp.price.yumi = yumi?.price;
+    comp.price.air = air?.price;
+    comp.price.sharte = sharte?.price;
+    comp.price.best = best?.price;
+
+    await comp.save();
+
+
+    if (compData) {
+        await updateCompData(artikul, { btrade, yumi, air, sharte, best });
+    } else {
+        await createCompData(artikul, { btrade, yumi, air, sharte, best });
+    }
+
+    console.log("Finished updating artikul:", artikul);
+
+}
+
+
+
+
+
+async function createCompData(artikul, { btrade, yumi, air, sharte, best }) {
 
 
     const compData = new CompData({
@@ -38,8 +76,7 @@ export async function createCompData(artikul) {
 }
 
 
-
-export async function updateCompData(artikul) {
+async function updateCompData(artikul, { btrade, yumi, air, sharte, best }) {
 
     const today = new Date().setHours(0, 0, 0, 0); // Устанавливаем начало текущего дня
     const compData = await CompData.findOne({ artikul });
@@ -56,10 +93,6 @@ export async function updateCompData(artikul) {
             console.log('Данные за сегодняшний день уже существуют, не обновляем');
             return compData;
         }
-
-
-        const { btrade, yumi, air, sharte, best } = await getArtDataComp(artikul);
-
 
         // Добавляем новые данные
         const updatedData = {
@@ -87,20 +120,4 @@ export async function updateCompData(artikul) {
     }
 
 
-}
-
-
-export async function createOrUpdateCompData(artikul) {
-
-    const existCompData = await CompData.findOne({ artikul });
-
-
-    if (existCompData) {
-        const updatedCompData = await updateCompData(artikul);
-        return updatedCompData;
-
-    } else {
-        const compData = await createCompData(artikul);
-        return compData;
-    }
 }

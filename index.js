@@ -23,6 +23,7 @@ import testRoute from "./routes/tests.js";
 import { calculateDefs } from "./utils/defs/calculateDefs.js";
 
 import { updateAllArtDataComps } from "./utils/comps/updateAllArtDataComps.js";
+import { updateFullCompData } from "./utils/comps/updateFullCompData.js";
 
 
 
@@ -96,8 +97,6 @@ cron.schedule('0 3 * * 1-5', async () => {
 	await updateAllArtDataComps();
 	console.log('Updating all comps finished...');
 });
-
-
 
 
 
