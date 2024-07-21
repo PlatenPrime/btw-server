@@ -98,6 +98,3 @@ cron.schedule('0 3 * * 1-5', async () => {
 	console.log('Updating all comps finished...');
 });
 
-
-
-updateAllArtDataComps();
