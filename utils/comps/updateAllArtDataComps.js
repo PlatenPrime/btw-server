@@ -1,7 +1,7 @@
 import Comp from "../../models/Comp.js";
 import { sendMessageToUser } from "../sendMessagesTelegram.js";
-import { createOrUpdateCompData } from "./createOrUpdateCompData.js";
 import { updateArtDataComp } from "./updateArtDataComp.js";
+import { updateFullCompData } from "./updateFullCompData.js";
 
 
 
@@ -14,7 +14,7 @@ export async function updateAllArtDataComps() {
     for (const comp of comps) {
         const artikul = comp.artikul;
         console.log(artikul);
-        await updateArtDataComp(artikul);
+        await updateFullCompData(artikul);
 
     }
 

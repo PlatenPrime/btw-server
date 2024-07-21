@@ -5,8 +5,8 @@ import cheerio from 'cheerio';
 
 import { getArtDataComp, updateArtDataComp, updateAllArtDataComps, getArtDataSharte, getArtDataAir, getArtDataYumi, getArtDataBest, getArtDataBtrade } from "../utils/comps/index.js";
 import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
-import CompData from '../models/CompData.js';
-import { createOrUpdateCompData } from '../utils/comps/createOrUpdateCompData.js';
+import { createOrUpdateCompStamp } from '../utils/comps/createOrUpdateCompData.js';
+import CompStamp from '../models/CompStamp.js';
 
 
 // Create One Comp
@@ -267,14 +267,14 @@ export async function getLinkPage(req, res) {
 
 
 
-export async function createOrUpdateCompDataByArtikul(req, res) {
+export async function createOrUpdateCompStampByArtikul(req, res) {
 	try {
 		const { artikul } = req.body;
 
 
-		const compData = await createOrUpdateCompData(artikul);
+		const compStamp = await createOrUpdateCompStamp(artikul);
 
-		res.status(200).json(compData);
+		res.status(200).json(compStamp);
 
 
 	} catch (error) {
@@ -283,20 +283,20 @@ export async function createOrUpdateCompDataByArtikul(req, res) {
 }
 
 
-export async function getCompDataByArtikul(req, res) {
+export async function getCompStampByArtikul(req, res) {
 	try {
 		const { artikul } = req.params;
-		const compData = await CompData.findOne({ artikul });
-		res.status(200).json(compData);
+		const compStamp = await CompStamp.findOne({ artikul });
+		res.status(200).json(compStamp);
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to get comp data' });
 	}
 }
 
-export async function getAllCompDatas(req, res) {
+export async function getAllCompStamps(req, res) {
 	try {
-		const compDatas = await CompData.find();
-		res.status(200).json(compDatas);
+		const compStamps = await CompStamp.find();
+		res.status(200).json(compStamps);
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to get comp data' });
 	}

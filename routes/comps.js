@@ -11,9 +11,9 @@ import {
 	getUpdatedArtDataComp,
 	getUpdatedAllArtDataComps,
 	updateCompById,
-	createOrUpdateCompDataByArtikul,
-	getCompDataByArtikul,
-	getAllCompDatas,
+	createOrUpdateCompStampByArtikul,
+	getAllCompStamps,
+	getCompStampByArtikul,
 } from '../controllers/comps.js';
 
 
@@ -40,11 +40,11 @@ router.post("/",
 
 
 router.post(
-	"/compData",
+	"/compStamp",
 
 
 
-	createOrUpdateCompDataByArtikul
+	createOrUpdateCompStampByArtikul
 )
 
 
@@ -94,10 +94,10 @@ router.get("/updated", getUpdatedAllArtDataComps)
 router.get("/updated/:artikul", getUpdatedArtDataComp)
 
 
-router.get("/compData", getAllCompDatas)
-router.get("/compData/:artikul", getCompDataByArtikul)
 
 
+router.get("/compStamp", getAllCompStamps)
+router.get("/compStamp/:artikul", getCompStampByArtikul)
 
 
 // Get Comp By Id

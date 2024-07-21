@@ -100,4 +100,4 @@ cron.schedule('0 3 * * 1-5', async () => {
 
 
 
-
+updateAllArtDataComps();

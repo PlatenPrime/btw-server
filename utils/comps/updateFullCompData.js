@@ -1,19 +1,17 @@
 import { getArtDataComp } from "./getArtDataComp.js";
 import Comp from "../../models/Comp.js";
-import CompData from "../../models/CompData.js";
+import CompStamp from "../../models/CompStamp.js";
 
 export async function updateFullCompData(artikul) {
 
     console.log("Updating artikul:", artikul);
 
     const comp = await Comp.findOne({ artikul });
-    const compData = await CompData.findOne({ artikul });
+    const compStamp = await CompStamp.findOne({ artikul });
 
     if (!comp) {
         return;
     }
-
-
 
     const { btrade, yumi, air, sharte, best } = await getArtDataComp(artikul);
 
@@ -32,10 +30,10 @@ export async function updateFullCompData(artikul) {
     await comp.save();
 
 
-    if (compData) {
-        await updateCompData(artikul, { btrade, yumi, air, sharte, best });
+    if (compStamp) {
+        await updateCompStamp(artikul, { btrade, yumi, air, sharte, best });
     } else {
-        await createCompData(artikul, { btrade, yumi, air, sharte, best });
+        await createCompStamp(artikul, { btrade, yumi, air, sharte, best });
     }
 
     console.log("Finished updating artikul:", artikul);
@@ -43,15 +41,12 @@ export async function updateFullCompData(artikul) {
 }
 
 
+async function createCompStamp(artikul, { btrade, yumi, air, sharte, best }) {
 
 
-
-async function createCompData(artikul, { btrade, yumi, air, sharte, best }) {
-
-
-    const compData = new CompData({
+    const compStamp = new CompStamp({
         artikul,
-        data: [
+        dates: [
             {
                 date: new Date(),
                 avail: {
@@ -71,31 +66,31 @@ async function createCompData(artikul, { btrade, yumi, air, sharte, best }) {
             },
         ],
     });
-    await compData.save();
-    return compData;
+    await compStamp.save();
+    return compStamp;
 }
 
 
-async function updateCompData(artikul, { btrade, yumi, air, sharte, best }) {
+async function updateCompStamp(artikul, { btrade, yumi, air, sharte, best }) {
 
     const today = new Date().setHours(0, 0, 0, 0); // Устанавливаем начало текущего дня
-    const compData = await CompData.findOne({ artikul });
+    const compStamp = await CompStamp.findOne({ artikul });
 
 
-    if (compData) {
-        const existingDataToday = compData.data.find(entry => {
+    if (compStamp) {
+        const existingDateToday = compStamp.dates.find(entry => {
             const entryDate = new Date(entry.date).setHours(0, 0, 0, 0);
             return entryDate === today;
         });
 
-        if (existingDataToday) {
+        if (existingDateToday) {
             // Данные за сегодняшний день уже существуют, не обновляем
             console.log('Данные за сегодняшний день уже существуют, не обновляем');
-            return compData;
+            return compStamp;
         }
 
         // Добавляем новые данные
-        const updatedData = {
+        const newDate = {
             date: new Date(),
             avail: {
                 btrade: btrade?.quant,
@@ -113,10 +108,9 @@ async function updateCompData(artikul, { btrade, yumi, air, sharte, best }) {
             },
         };
 
-        compData.data.push(updatedData);
-        await compData.save();
-
-        return compData;
+        compStamp.dates.push(newDate);
+        await compStamp.save();
+        return compStamp;
     }
 
 

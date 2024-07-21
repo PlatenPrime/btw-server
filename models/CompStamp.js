@@ -26,16 +26,16 @@ const dateSchema = new mongoose.Schema({
 })
 
 
-const CompDataSchema = new mongoose.Schema(
+const CompStampSchema = new mongoose.Schema(
 	{
 		artikul: {
 			type: String,
 			required: true,
 			unique: true,
 		},
-        data: [dateSchema]
+        dates: [dateSchema]
 
 	}
 )
 
-export default mongoose.model("CompData", CompDataSchema);
+export default mongoose.model("CompStamp", CompStampSchema);

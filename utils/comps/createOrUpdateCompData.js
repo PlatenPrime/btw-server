@@ -1,9 +1,9 @@
 import { getArtDataComp } from "./getArtDataComp.js";
-import CompData from "../../models/CompData.js";
+import CompStamp from "../../models/CompStamp.js";
 
 
 
-export async function createCompData(artikul) {
+export async function createCompStamp(artikul) {
 
 
     const { btrade, yumi, air, sharte, best } = await getArtDataComp(artikul);
@@ -11,9 +11,9 @@ export async function createCompData(artikul) {
 
 
 
-    const compData = new CompData({
+    const compStamp = new CompStamp({
         artikul,
-        data: [
+        dates: [
             {
                 date: new Date(),
                 avail: {
@@ -33,28 +33,28 @@ export async function createCompData(artikul) {
             },
         ],
     });
-    await compData.save();
-    return compData;
+    await compStamp.save();
+    return compStamp;
 }
 
 
 
-export async function updateCompData(artikul) {
+export async function updateCompStamp(artikul) {
 
     const today = new Date().setHours(0, 0, 0, 0); // Устанавливаем начало текущего дня
-    const compData = await CompData.findOne({ artikul });
+    const compStamp = await CompStamp.findOne({ artikul });
 
 
-    if (compData) {
-        const existingDataToday = compData.data.find(entry => {
+    if (compStamp) {
+        const existingDateToday = compStamp.dates.find(entry => {
             const entryDate = new Date(entry.date).setHours(0, 0, 0, 0);
             return entryDate === today;
         });
 
-        if (existingDataToday) {
+        if (existingDateToday) {
             // Данные за сегодняшний день уже существуют, не обновляем
             console.log('Данные за сегодняшний день уже существуют, не обновляем');
-            return compData;
+            return compStamp;
         }
 
 
@@ -62,7 +62,7 @@ export async function updateCompData(artikul) {
 
 
         // Добавляем новые данные
-        const updatedData = {
+        const newDate = {
             date: new Date(),
             avail: {
                 btrade: btrade?.quant,
@@ -80,27 +80,27 @@ export async function updateCompData(artikul) {
             },
         };
 
-        compData.data.push(updatedData);
-        await compData.save();
+        compStamp.dates.push(newDate);
+        await compStamp.save();
 
-        return compData;
+        return compStamp;
     }
 
 
 }
 
 
-export async function createOrUpdateCompData(artikul) {
+export async function createOrUpdateCompStamp(artikul) {
 
-    const existCompData = await CompData.findOne({ artikul });
+    const existCompStamp = await CompStamp.findOne({ artikul });
 
 
-    if (existCompData) {
-        const updatedCompData = await updateCompData(artikul);
-        return updatedCompData;
+    if (existCompStamp) {
+        const updatedCompStamp = await updateCompStamp(artikul);
+        return updatedCompStamp;
 
     } else {
-        const compData = await createCompData(artikul);
-        return compData;
+        const compStamp = await createCompStamp(artikul);
+        return compStamp;
     }
 }
