@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 const dateSchema = new mongoose.Schema({
     date: {
-        type: String,
+        type: Date,
         required: true,
         unique: true,
     },

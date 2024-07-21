@@ -5,6 +5,8 @@ import cheerio from 'cheerio';
 
 import { getArtDataComp, updateArtDataComp, updateAllArtDataComps, getArtDataSharte, getArtDataAir, getArtDataYumi, getArtDataBest, getArtDataBtrade } from "../utils/comps/index.js";
 import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
+import CompData from '../models/CompData.js';
+import { createCompDataFunction } from '../utils/comps/createCompData.js';
 
 
 // Create One Comp
@@ -108,22 +110,22 @@ export async function updateOrCreateComp(req, res) {
 
 
 export async function updateCompById(req, res) {
-    try {
-        console.log('Request Body:', req.body);
-        
-        const updatedComp = await Comp.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-        
-        if (!updatedComp) {
-            return res.status(404).json({ error: 'Comp not found' });
-        }
-        
-        console.log('Updated Comp:', updatedComp);
-        
-        res.status(200).json(updatedComp);
-    } catch (error) {
-        console.error('Error updating comp:', error);
-        res.status(400).json({ error: 'Failed to update comp', details: error.message });
-    }
+	try {
+		console.log('Request Body:', req.body);
+
+		const updatedComp = await Comp.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+
+		if (!updatedComp) {
+			return res.status(404).json({ error: 'Comp not found' });
+		}
+
+		console.log('Updated Comp:', updatedComp);
+
+		res.status(200).json(updatedComp);
+	} catch (error) {
+		console.error('Error updating comp:', error);
+		res.status(400).json({ error: 'Failed to update comp', details: error.message });
+	}
 }
 
 
@@ -259,5 +261,18 @@ export async function getLinkPage(req, res) {
 	} catch (error) {
 		console.error('Error in getLinkPage:', error);
 		res.status(500).json({ error: 'Ошибка сервера' });
+	}
+}
+
+
+
+
+export async function createCompData(req, res) {
+	try {
+		const { artikul } = req.body;
+		const compData = await createCompDataFunction(artikul);
+		res.status(200).json(compData);
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to create comp data' });
 	}
 }

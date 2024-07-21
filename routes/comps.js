@@ -11,6 +11,7 @@ import {
 	getUpdatedArtDataComp,
 	getUpdatedAllArtDataComps,
 	updateCompById,
+	createCompData,
 } from '../controllers/comps.js';
 
 
@@ -33,6 +34,18 @@ router.post("/",
 	// ]),
 
 	createComp)
+
+
+
+router.post(
+	"/compData",
+
+
+
+	createCompData
+)
+
+
 
 // Create or Update One Comp
 //http://localhost:3002/api/comps/update
@@ -71,19 +84,19 @@ router.get("/search/:artikul", checkAuth, getCompByArtikul)
 
 // Get All Updated Comps
 // http://localhost:3002/api/comps/updated
-router.get("/updated",  getUpdatedAllArtDataComps)
+router.get("/updated", getUpdatedAllArtDataComps)
 
 
 // Get Updated Comp
 // http://localhost:3002/api/comps/updated/:artikul
-router.get("/updated/:artikul",  getUpdatedArtDataComp)
+router.get("/updated/:artikul", getUpdatedArtDataComp)
 
 
 
 
 // Get Comp By Id
 // http://localhost:3002/api/comps/:id
-router.get('/:id',  getCompById)
+router.get('/:id', getCompById)
 
 
 
@@ -92,15 +105,15 @@ router.get('/:id',  getCompById)
 
 // Delete One Comp from DB
 // http://localhost:3002/api/comps/:id
-router.delete('/:id', 
-	
+router.delete('/:id',
+
 	// checkAuth,
 
 	// checkRoles([
 	// 	"PRIME",
 	// 	"ADMIN",
 	// ]), 
-	
+
 	deleteCompById)
 
 
