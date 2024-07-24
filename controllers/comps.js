@@ -7,6 +7,7 @@ import { getArtDataComp, updateArtDataComp, updateAllArtDataComps, getArtDataSha
 import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
 import { createOrUpdateCompStamp } from '../utils/comps/createOrUpdateCompData.js';
 import CompStamp from '../models/CompStamp.js';
+import CompVariant from '../models/CompVariant.js';
 
 
 // Create One Comp
@@ -301,3 +302,67 @@ export async function getAllCompStamps(req, res) {
 		res.status(400).json({ error: 'Failed to get comp data' });
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+export async function createCompVariant(req, res) {
+	try {
+		const compVariant = await CompVariant.create(req.body);
+		res.status(201).json(compVariant);
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to create comp variant' });
+	}
+}
+
+
+export async function getAllCompVariants(req, res) {
+	try {
+		const compVariants = await CompVariant.find();
+		res.status(200).json(compVariants);
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to get comp variants' });
+	}
+}
+
+
+export async function getCompVariantById(req, res) {
+	try {
+		const { id } = req.params;
+		const compVariant = await CompVariant.findById(id);
+		res.status(200).json(compVariant);
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to get comp variant' });
+	}
+}
+
+
+
+export async function updateCompVariantById(req, res) {
+	try {
+		const { id } = req.params;
+		const compVariant = await CompVariant.findByIdAndUpdate(id, req.body, { new: true });
+		res.status(200).json(compVariant);
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to update comp variant' });
+	}
+}
+
+
+export async function deleteCompVariantById(req, res) {
+	try {
+		const { id } = req.params;
+		await CompVariant.findByIdAndDelete(id);
+		res.status(200).json({ message: 'Comp variant deleted successfully' });
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to delete comp variant' });
+	}
+}
+
