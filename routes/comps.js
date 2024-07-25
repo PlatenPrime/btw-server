@@ -14,6 +14,11 @@ import {
 	createOrUpdateCompStampByArtikul,
 	getAllCompStamps,
 	getCompStampByArtikul,
+	createCompVariant,
+	getAllCompVariants,
+	getCompVariantById,
+	updateCompVariantById,
+	deleteCompVariantById,
 } from '../controllers/comps.js';
 
 
@@ -39,14 +44,9 @@ router.post("/",
 
 
 
-router.post(
-	"/compStamp",
+router.post("/compStamp", createOrUpdateCompStampByArtikul)
 
-
-
-	createOrUpdateCompStampByArtikul
-)
-
+router.post("/variant", createCompVariant)
 
 
 // Create or Update One Comp
@@ -63,6 +63,9 @@ router.post("/update",
 
 	updateOrCreateComp);
 
+
+
+	router.put("/variant/:id", updateCompVariantById)
 
 // Update Comp By Id
 //http://localhost:3002/api/comps/:id
@@ -100,13 +103,17 @@ router.get("/compStamp", getAllCompStamps)
 router.get("/compStamp/:artikul", getCompStampByArtikul)
 
 
+router.get("/variant",  getAllCompVariants)
+router.get("/variant/:id", getCompVariantById)
+
+
 // Get Comp By Id
 // http://localhost:3002/api/comps/:id
 router.get('/:id', getCompById)
 
 
 
-
+router.delete("/variant/:id", deleteCompVariantById)
 
 
 // Delete One Comp from DB

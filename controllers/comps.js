@@ -315,7 +315,10 @@ export async function getAllCompStamps(req, res) {
 
 export async function createCompVariant(req, res) {
 	try {
-		const compVariant = await CompVariant.create(req.body);
+
+		const compVariant =  new CompVariant(req.body);
+		await compVariant.save();
+
 		res.status(201).json(compVariant);
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to create comp variant' });

@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const CompVariantSchema = new mongoose.Schema(
     {
         artikul: {
-            type: Number,
+            type: String,
             required: true,
             unique: true,
         },
@@ -11,13 +11,14 @@ const CompVariantSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-    
+
         imageUrl: {
             type: String
         },
         prod: {
             type: String
         },
+        connect: String,
         size: String,
         competitorsLinks: {
             sharteLink: String,
@@ -39,7 +40,7 @@ const CompVariantSchema = new mongoose.Schema(
             air: String,
             best: String,
         },
-    
+
 
 
     }
