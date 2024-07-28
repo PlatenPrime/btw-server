@@ -92,7 +92,7 @@ cron.schedule('0 6-14 * * 1-5', async () => {
 });
 
 
-cron.schedule('0 3 * * 1-5', async () => {
+cron.schedule('0 3 * * 1-7', async () => {
 	console.log('Updating all comps...');
 	await updateAllArtDataComps();
 	console.log('Updating all comps finished...');
