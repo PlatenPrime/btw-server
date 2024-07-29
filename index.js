@@ -88,18 +88,18 @@ async function start() {
 start();
 
 
-// cron.schedule('0 6-14 * * 1-5', async () => {
-// 	console.log('Calculating defs...');
-// 	await calculateDefs();
-// 	console.log('Calculating defs finished...');
-// });
+cron.schedule('0 6-14 * * 1-5', async () => {
+	console.log('Calculating defs...');
+	await calculateDefs();
+	console.log('Calculating defs finished...');
+});
 
 
-// cron.schedule('0 3 * * 1-7', async () => {
-// 	console.log('Updating all comps...');
-// 	await updateAllArtDataComps();
-// await  updateAllArtDataCompVariants();
-// 	console.log('Updating all comps finished...');
-// });
+cron.schedule('0 3 * * 1-7', async () => {
+	console.log('Updating all comps...');
+	await updateAllArtDataComps();
+await  updateAllArtDataCompVariants();
+	console.log('Updating all comps finished...');
+});
 
 
