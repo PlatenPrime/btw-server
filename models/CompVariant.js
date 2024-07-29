@@ -27,14 +27,12 @@ const CompVariantSchema = new mongoose.Schema(
             bestLink: String,
         },
         avail: {
-            btrade: Number,
             sharte: mongoose.Schema.Types.Mixed,
             yumi: mongoose.Schema.Types.Mixed,
             air: mongoose.Schema.Types.Mixed,
             best: mongoose.Schema.Types.Mixed,
         },
         price: {
-            btrade: String,
             sharte: String,
             yumi: String,
             air: String,

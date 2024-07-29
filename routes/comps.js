@@ -19,6 +19,7 @@ import {
 	getCompVariantById,
 	updateCompVariantById,
 	deleteCompVariantById,
+	getUpdatedArtDataCompVariant,
 } from '../controllers/comps.js';
 
 
@@ -92,6 +93,9 @@ router.get("/search/:artikul", checkAuth, getCompByArtikul)
 router.get("/updated", getUpdatedAllArtDataComps)
 
 
+
+
+
 // Get Updated Comp
 // http://localhost:3002/api/comps/updated/:artikul
 router.get("/updated/:artikul", getUpdatedArtDataComp)
@@ -106,6 +110,7 @@ router.get("/compStamp/:artikul", getCompStampByArtikul)
 router.get("/variant",  getAllCompVariants)
 router.get("/variant/:id", getCompVariantById)
 
+router.get("/updatedvariant/:artikul", getUpdatedArtDataCompVariant)
 
 // Get Comp By Id
 // http://localhost:3002/api/comps/:id

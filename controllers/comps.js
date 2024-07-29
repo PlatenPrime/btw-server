@@ -3,11 +3,13 @@ import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
 
-import { getArtDataComp, updateArtDataComp, updateAllArtDataComps, getArtDataSharte, getArtDataAir, getArtDataYumi, getArtDataBest, getArtDataBtrade } from "../utils/comps/index.js";
+import { updateArtDataComp, updateAllArtDataComps, } from "../utils/comps/index.js";
 import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
-import { createOrUpdateCompStamp } from '../utils/comps/createOrUpdateCompData.js';
+import { createOrUpdateCompStamp } from '../utils/comps/createOrUpdateCompStamp.js';
+import { createOrUpdateCompVariantStamp } from '../utils/comps/createOrUpdateCompVariantStamp.js';
 import CompStamp from '../models/CompStamp.js';
 import CompVariant from '../models/CompVariant.js';
+import { updateArtDataCompVariant } from '../utils/comps/updateArtDataCompVariant.js';
 
 
 // Create One Comp
@@ -186,6 +188,14 @@ export async function getAllComps(req, res) {
 export async function deleteCompById(req, res) {
 	try {
 		const comp = await Comp.findByIdAndDelete(req.params.id);
+		const artikul = comp?.artikul;
+		if (artikul) {
+			const compStamp = await CompStamp.findOne({ artikul });
+			if (compStamp) {
+				await CompStamp.findByIdAndDelete(compStamp._id);
+			}
+		}
+
 		if (!comp) {
 			res.status(404).json({ error: 'Comp not found' });
 		} else {
@@ -199,7 +209,7 @@ export async function deleteCompById(req, res) {
 // Delete All Comps from DB
 export async function deleteAllComps(req, res) {
 	try {
-		await Comp.deleteMany();
+		// await Comp.deleteMany();
 		res.status(200).json({ message: 'All comps deleted successfully' });
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to delete comps' });
@@ -316,7 +326,7 @@ export async function getAllCompStamps(req, res) {
 export async function createCompVariant(req, res) {
 	try {
 
-		const compVariant =  new CompVariant(req.body);
+		const compVariant = new CompVariant(req.body);
 		await compVariant.save();
 
 		res.status(201).json(compVariant);
@@ -324,6 +334,25 @@ export async function createCompVariant(req, res) {
 		res.status(400).json({ error: 'Failed to create comp variant' });
 	}
 }
+
+
+
+
+export async function createOrUpdateCompVariantStampByArtikul(req, res) {
+	try {
+		const { artikul } = req.body;
+
+
+		const compVariantStamp = await createOrUpdateCompVariantStamp(artikul);
+
+		res.status(200).json(compVariantStamp);
+
+
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to create or update comp variant stamp' });
+	}
+}
+
 
 
 export async function getAllCompVariants(req, res) {
@@ -359,10 +388,33 @@ export async function updateCompVariantById(req, res) {
 }
 
 
+
+export async function getUpdatedArtDataCompVariant(req, res) {
+	try {
+		const { artikul } = req.params;
+		const compVariant = await updateArtDataCompVariant(artikul);
+		res.status(200).json(compVariant);
+		sendMessageToUser(
+			`Варіант ${artikul} успішно проаналізовано!`, "555196992")
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to update comp variant' });
+	}
+}
+
+
+
+
 export async function deleteCompVariantById(req, res) {
 	try {
 		const { id } = req.params;
-		await CompVariant.findByIdAndDelete(id);
+		const compVariant = await CompVariant.findByIdAndDelete(id);
+
+		if (compVariant) {
+			const compStamp = await CompStamp.findOne({ artikul: compVariant.artikul });
+			if (compStamp) {
+				await CompStamp.findByIdAndDelete(compStamp._id);
+			}
+		}
 		res.status(200).json({ message: 'Comp variant deleted successfully' });
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to delete comp variant' });
