@@ -278,6 +278,12 @@ export async function getLinkPage(req, res) {
 
 
 
+
+
+
+
+
+
 export async function createOrUpdateCompStampByArtikul(req, res) {
 	try {
 		const { artikul } = req.body;
@@ -290,6 +296,18 @@ export async function createOrUpdateCompStampByArtikul(req, res) {
 
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to create or update comp data' });
+	}
+}
+
+
+
+export async function updateCompStampById(req, res) {
+	try {
+		const { id } = req.params;
+		const compStamp = await CompStamp.findByIdAndUpdate(id, req.body, { new: true });
+		res.status(200).json(compStamp);
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to update comp data' });
 	}
 }
 

@@ -20,6 +20,7 @@ import {
 	updateCompVariantById,
 	deleteCompVariantById,
 	getUpdatedArtDataCompVariant,
+	updateCompStampById,
 } from '../controllers/comps.js';
 
 
@@ -67,6 +68,9 @@ router.post("/update",
 
 
 	router.put("/variant/:id", updateCompVariantById)
+
+
+	router.put("/compStamp/:id", updateCompStampById)
 
 // Update Comp By Id
 //http://localhost:3002/api/comps/:id
