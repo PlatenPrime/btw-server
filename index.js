@@ -26,6 +26,7 @@ import { updateAllArtDataComps } from "./utils/comps/updateAllArtDataComps.js";
 import { updateFullCompData } from "./utils/comps/updateFullCompData.js";
 import { createOrUpdateCompVariantStamp } from "./utils/comps/createOrUpdateCompVariantStamp.js";
 import { updateAllArtDataCompVariants } from "./utils/comps/updateAllArtDataCompVariants.js";
+import { getStringSlice } from "./utils/getStringSlice.js";
 
 
 
