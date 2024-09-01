@@ -21,12 +21,9 @@ import defRoute from "./routes/defs.js";
 import testRoute from "./routes/tests.js";
 
 import { calculateDefs } from "./utils/defs/calculateDefs.js";
-
 import { updateAllArtDataComps } from "./utils/comps/updateAllArtDataComps.js";
-import { updateFullCompData } from "./utils/comps/updateFullCompData.js";
-import { createOrUpdateCompVariantStamp } from "./utils/comps/createOrUpdateCompVariantStamp.js";
 import { updateAllArtDataCompVariants } from "./utils/comps/updateAllArtDataCompVariants.js";
-import { getStringSlice } from "./utils/getStringSlice.js";
+
 
 
 
@@ -99,8 +96,11 @@ cron.schedule('0 6-14 * * 1-5', async () => {
 cron.schedule('0 3 * * *', async () => {
 	console.log('Updating all comps...');
 	await updateAllArtDataComps();
-await  updateAllArtDataCompVariants();
+	await updateAllArtDataCompVariants();
 	console.log('Updating all comps finished...');
 });
+
+
+
 
 

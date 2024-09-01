@@ -1,4 +1,4 @@
-import { getStringSlice } from "../getStringSlice";
+import { getStringSlice } from "../getStringSlice.js";
 
 class NetworkError extends Error {
     constructor(message) {
@@ -9,24 +9,71 @@ class NetworkError extends Error {
 
 
 
-const searchAvailLocationString = `data-qaid="presence_data"`;
+const searchLocationString = `b-product__info-line b-product__info-line_type_prices`;
 const searchAvailLocationWord = "наявності";
-
-
-// const stringSlice = getStringSlice(string, searchLocationWord, 10);
+const searchPriceLocationWord = "₴";
 
 
 
 
 function extractAvailFromStringSlice(stringSlice) {
 
-    const index = string?.indexOf(searchAvailLocationWord);
-    if (index === -1) {
+    const indexAvail = stringSlice?.indexOf(searchAvailLocationWord);
+
+    if (indexAvail === -1) {
         return null; // Не найдено значение 
     }
- 
-    const substring = stringSlice?.slice(index - 20, index);
-    const match = substring?.match("Немає");
-    return match ? match[0] : null;
 
+    if (stringSlice[indexAvail - 2] === "В") return true;
+    if (stringSlice[indexAvail - 2] === "в") return false;
+
+    return null;
+
+}
+
+
+function extractPriceFromStringSlice(stringSlice) {
+    const indexPrice = stringSlice?.lastIndexOf(searchPriceLocationWord);
+
+    if (indexPrice === -1) {
+        return null; // Не найдено значение 
+    }
+
+    const price = stringSlice?.slice(indexPrice - 20, indexPrice)
+        .split("")
+        .filter(char => ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ","].includes(char))
+        .map(char => char === "," ? "." : char)
+        .join("");
+
+    return price
+}
+
+
+
+
+
+
+export async function getArtDataAero(aeroLink) {
+    try {
+        const response = await fetch(aeroLink, {
+            cache: 'no-store', // Запрещаем кэширование 
+        })
+
+
+        const responseString = await response.text();
+
+        const stringSlice = getStringSlice(responseString, searchLocationString, 1400);
+
+        const isAvailable = extractAvailFromStringSlice(stringSlice);
+        const price = extractPriceFromStringSlice(stringSlice);
+
+        return { price, isAvailable };
+
+    } catch (error) {
+        if (error instanceof NetworkError) {
+            console.error("Network error:", error.message);
+        } else {
+            console.error("Unknown error:", error);
+        }
+    }
 }
