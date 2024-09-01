@@ -62,7 +62,7 @@ export async function getArtDataAero(aeroLink) {
 
         const responseString = await response.text();
 
-        const stringSlice = getStringSlice(responseString, searchLocationString, 1400);
+        const stringSlice = getStringSlice(responseString, searchLocationString, 2000);
 
         const isAvailable = extractAvailFromStringSlice(stringSlice);
         const price = extractPriceFromStringSlice(stringSlice);
