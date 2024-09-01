@@ -4,6 +4,6 @@ export function getStringSlice(string, searchLocationString , length) {
         return null; // Не найдено значение
     }
     const stringSlice = string?.slice(startIndex, startIndex + length)
-    console.log(stringSlice);
+    // console.log(stringSlice);
     return stringSlice;
 }

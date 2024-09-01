@@ -6,6 +6,7 @@ import { getArtDataBest } from './getArtDataBest.js';
 
 import { getArtDataAero } from './getArtDataAero.js';
 import { getArtDataBalun } from './getArtDataBalun.js';
+import { getArtDataSvyato } from './getArtDataSvyato.js';
 
 import { getArtDataComp } from './getArtDataComp.js';
 
@@ -22,6 +23,7 @@ export {
 
     getArtDataAero,
     getArtDataBalun,
+    getArtDataSvyato,
 
     getArtDataComp,
 
