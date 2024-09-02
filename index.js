@@ -104,8 +104,3 @@ cron.schedule('0 3 * * *', async () => {
 });
 
 
-
-
-const ideaData = await getArtDataIdea("https://ideaopt.com.ua/ua/lateksnyye-shary/g-1001-pastely-belyy-100sht-79");
-
-console.log(ideaData);
