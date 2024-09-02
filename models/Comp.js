@@ -19,6 +19,10 @@ const CompSchema = new mongoose.Schema(
 			yumiLink: String,
 			airLink: String,
 			bestLink: String,
+			aeroLink: String,
+			balunLink: String,
+			svyatoLink: String,
+			ideaLink: String,
 		},
 		avail: {
 			btrade: Number,
@@ -26,6 +30,11 @@ const CompSchema = new mongoose.Schema(
 			yumi: mongoose.Schema.Types.Mixed,
 			air: mongoose.Schema.Types.Mixed,
 			best: mongoose.Schema.Types.Mixed,
+			aero: mongoose.Schema.Types.Mixed,
+			balun: mongoose.Schema.Types.Mixed,
+			svyato: mongoose.Schema.Types.Mixed,
+			idea: mongoose.Schema.Types.Mixed,
+
 		},
 		price: {
 			btrade: String,
@@ -33,6 +42,10 @@ const CompSchema = new mongoose.Schema(
 			yumi: String,
 			air: String,
 			best: String,
+			aero: String,
+			balun: String,
+			svyato: String,
+			idea: String,
 		},
 		abc: String,
 

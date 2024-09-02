@@ -6,7 +6,7 @@ import CompStamp from "../../models/CompStamp.js";
 export async function createCompVariantStamp(artikul) {
 
 
-    const { yumi, air, sharte, best } = await getArtDataCompVariant(artikul);
+    const { yumi, air, sharte, best, aero, balun, svyato, idea  } = await getArtDataCompVariant(artikul);
 
 
     const compVariantStamp = new CompStamp({
@@ -15,16 +15,28 @@ export async function createCompVariantStamp(artikul) {
             {
                 date: new Date(),
                 avail: {
+                    btrade: btrade?.quant,
                     yumi: yumi?.quant,
                     air: air?.isAvailable,
                     sharte: sharte?.isAvailable,
                     best: best?.isAvailable,
+    
+                    aero: aero?.isAvailable,
+                    balun: balun?.isAvailable,
+                    svyato: svyato?.isAvailable,
+                    idea: idea?.quant,
                 },
                 price: {
+                    btrade: btrade?.price,
                     yumi: yumi?.price,
                     air: air?.price,
                     sharte: sharte?.price,
                     best: best?.price,
+    
+                    aero: aero?.price,
+                    balun: balun?.price,
+                    svyato: svyato?.price,
+                    idea: idea?.price,
                 },
             },
         ],
@@ -54,7 +66,7 @@ export async function updateCompVariantStamp(artikul) {
         }
 
 
-        const { yumi, air, sharte, best } = await getArtDataCompVariant(artikul);
+        const { yumi, air, sharte, best, aero, balun, svyato, idea  } = await getArtDataCompVariant(artikul);
 
 
 
@@ -62,16 +74,28 @@ export async function updateCompVariantStamp(artikul) {
         const newDate = {
             date: new Date(),
             avail: {
+                btrade: btrade?.quant,
                 yumi: yumi?.quant,
                 air: air?.isAvailable,
                 sharte: sharte?.isAvailable,
                 best: best?.isAvailable,
+
+                aero: aero?.isAvailable,
+                balun: balun?.isAvailable,
+                svyato: svyato?.isAvailable,
+                idea: idea?.quant,
             },
             price: {
+                btrade: btrade?.price,
                 yumi: yumi?.price,
                 air: air?.price,
                 sharte: sharte?.price,
                 best: best?.price,
+
+                aero: aero?.price,
+                balun: balun?.price,
+                svyato: svyato?.price,
+                idea: idea?.price,
             },
         };
         compVariantStamp.dates.push(newDate);

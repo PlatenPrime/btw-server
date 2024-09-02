@@ -6,7 +6,7 @@ import CompStamp from "../../models/CompStamp.js";
 export async function createCompStamp(artikul) {
 
 
-    const { btrade, yumi, air, sharte, best } = await getArtDataComp(artikul);
+    const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea } = await getArtDataComp(artikul);
 
 
 
@@ -22,6 +22,11 @@ export async function createCompStamp(artikul) {
                     air: air?.isAvailable,
                     sharte: sharte?.isAvailable,
                     best: best?.isAvailable,
+
+                    aero: aero?.isAvailable,
+                    balun: balun?.isAvailable,
+                    svyato: svyato?.isAvailable,
+                    idea: idea?.quant,
                 },
                 price: {
                     btrade: btrade?.price,
@@ -29,6 +34,11 @@ export async function createCompStamp(artikul) {
                     air: air?.price,
                     sharte: sharte?.price,
                     best: best?.price,
+
+                    aero: aero?.price,
+                    balun: balun?.price,
+                    svyato: svyato?.price,
+                    idea: idea?.price,
                 },
             },
         ],
@@ -58,7 +68,7 @@ export async function updateCompStamp(artikul) {
         }
 
 
-        const { btrade, yumi, air, sharte, best } = await getArtDataComp(artikul);
+        const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea } = await getArtDataComp(artikul);
 
 
         // Добавляем новые данные
@@ -70,6 +80,11 @@ export async function updateCompStamp(artikul) {
                 air: air?.isAvailable,
                 sharte: sharte?.isAvailable,
                 best: best?.isAvailable,
+
+                aero: aero?.isAvailable,
+                balun: balun?.isAvailable,
+                svyato: svyato?.isAvailable,
+                idea: idea?.quant,
             },
             price: {
                 btrade: btrade?.price,
@@ -77,6 +92,11 @@ export async function updateCompStamp(artikul) {
                 air: air?.price,
                 sharte: sharte?.price,
                 best: best?.price,
+
+                aero: aero?.price,
+                balun: balun?.price,
+                svyato: svyato?.price,
+                idea: idea?.price,
             },
         };
 

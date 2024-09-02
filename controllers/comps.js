@@ -75,16 +75,28 @@ export async function updateOrCreateComp(req, res) {
 			if (prod) existingComp.prod = prod;
 			if (abc) existingComp.abc = abc;
 			if (competitorsLinks) existingComp.competitorsLinks = competitorsLinks;
+
 			if (avail?.sharte || avail?.sharte === false) existingComp.avail.sharte = avail.sharte;
 			if (avail?.btrade || avail?.btrade === 0) existingComp.avail.btrade = avail.btrade;
 			if (avail?.air || avail?.air === false) existingComp.avail.air = avail.air;
 			if (avail?.yumi || avail?.yumi === 0 || avail?.yumi === "") existingComp.avail.yumi = avail.yumi;
 			if (avail?.best || avail?.best === false) existingComp.avail.best = avail.best;
+
+			if (avail?.aero || avail?.aero === false) existingComp.avail.aero = avail.aero;
+			if (avail?.balun || avail?.balun === false) existingComp.avail.balun = avail.balun;
+			if (avail?.svyato || avail?.svyato === false) existingComp.avail.svyato = avail.svyato;
+			if (avail?.idea || avail?.idea === 0 || avail?.idea === "") existingComp.avail.idea = avail.idea;
+
 			if (price?.sharte) existingComp.price.sharte = price.sharte;
 			if (price?.btrade) existingComp.price.btrade = price.btrade;
 			if (price?.air) existingComp.price.air = price.air;
 			if (price?.yumi) existingComp.price.yumi = price.yumi;
 			if (price?.best) existingComp.price.best = price.best;
+
+			if (price?.aero) existingComp.price.aero = price.aero;
+			if (price?.balun) existingComp.price.balun = price.balun;
+			if (price?.svyato) existingComp.price.svyato = price.svyato;
+			if (price?.idea) existingComp.price.idea = price.idea;
 
 
 			await existingComp.save();

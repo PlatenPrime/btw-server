@@ -18,7 +18,7 @@ export async function updateArtDataComp(artikul) {
         return;
     }
 
-    const { btrade, yumi, air, sharte, best }= await getArtDataComp(artikul);
+    const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea }= await getArtDataComp(artikul);
 
 
     comp.avail.btrade = btrade.quant;
@@ -27,11 +27,21 @@ export async function updateArtDataComp(artikul) {
     comp.avail.sharte = sharte.isAvailable;
     comp.avail.best = best.isAvailable;
 
+    comp.avail.aero = aero.isAvailable;
+    comp.avail.balun = balun.isAvailable;
+    comp.avail.svyato = svyato.isAvailable;
+    comp.avail.idea = idea.quant;
+
     comp.price.btrade = btrade.price;
     comp.price.yumi = yumi.price;
     comp.price.air = air.price;
     comp.price.sharte = sharte.price;
     comp.price.best = best.price;
+
+    comp.price.aero = aero.price;
+    comp.price.balun = balun.price;
+    comp.price.svyato = svyato.price;
+    comp.price.idea = idea.price;
 
     await comp.save();
 
