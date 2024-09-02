@@ -25,6 +25,7 @@ import { updateAllArtDataComps } from "./utils/comps/updateAllArtDataComps.js";
 import { updateAllArtDataCompVariants } from "./utils/comps/updateAllArtDataCompVariants.js";
 import { getArtDataBalun } from "./utils/comps/getArtDataBalun.js";
 import { getArtDataSvyato } from "./utils/comps/getArtDataSvyato.js";
+import { getArtDataIdea } from "./utils/comps/getArtDataIdea.js";
 
 
 
@@ -105,3 +106,6 @@ cron.schedule('0 3 * * *', async () => {
 
 
 
+const ideaData = await getArtDataIdea("https://ideaopt.com.ua/ua/lateksnyye-shary/g-1001-pastely-belyy-100sht-79");
+
+console.log(ideaData);

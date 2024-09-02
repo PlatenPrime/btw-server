@@ -34,6 +34,11 @@ function extractPriceFromStringSlice(stringSlice, responseString) {
 
     const indexPrice = stringSlice?.lastIndexOf(searchPriceLocationWord);
 
+
+    if (indexPrice === -1) {
+        return null; // Не найдено значение 
+    }
+
     const priceOpt = stringSlice?.slice(indexPrice, indexPrice + 100)
         .split("")
         .filter(char => ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ","].includes(char))
