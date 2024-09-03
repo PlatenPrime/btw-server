@@ -1,5 +1,16 @@
 import Comp from "../../models/Comp.js";
-import { getArtDataAir, getArtDataBtrade, getArtDataBest, getArtDataSharte, getArtDataYumi } from "./index.js";
+import { 
+    getArtDataAir, 
+    getArtDataBtrade, 
+    getArtDataBest, 
+    getArtDataSharte, 
+    getArtDataYumi,
+
+    getArtDataAero,
+    getArtDataBalun,
+    getArtDataSvyato,
+    getArtDataIdea
+} from "./index.js";
 
 
 export async function getArtDataComp(artikul) {
@@ -12,19 +23,30 @@ export async function getArtDataComp(artikul) {
     const airAction = comp?.competitorsLinks?.airLink ? getArtDataAir(comp?.competitorsLinks?.airLink) : Promise.resolve(null);
     const bestAction = comp?.competitorsLinks?.bestLink ? getArtDataBest(comp?.competitorsLinks?.bestLink) : Promise.resolve(null);
 
+    const aeroAction = comp?.competitorsLinks?.aeroLink ? getArtDataAero(comp?.competitorsLinks?.aeroLink) : Promise.resolve(null);
+    const balunAction = comp?.competitorsLinks?.balunLink ? getArtDataBalun(comp?.competitorsLinks?.balunLink) : Promise.resolve(null);
+    const svyatoAction = comp?.competitorsLinks?.svyatoLink ? getArtDataSvyato(comp?.competitorsLinks?.svyatoLink) : Promise.resolve(null);
+    const ideaAction = comp?.competitorsLinks?.ideaLink ? getArtDataIdea(comp?.competitorsLinks?.ideaLink) : Promise.resolve(null);
 
-    let [btradeData, yumiData, sharteData, airData, bestData] = await Promise.allSettled([
+
+
+
+    let [btradeData, yumiData, sharteData, airData, bestData, aeroData, balunData, svyatoData, ideaData] = await Promise.allSettled([
         getArtDataBtrade(artikul),
         yumiAction,
         sharteAction,
         airAction,
         bestAction,
+        aeroAction,
+        balunAction,
+        svyatoAction,
+        ideaAction
     ])
 
-    console.log(btradeData, yumiData, airData, sharteData, bestData);
+    console.log(btradeData, yumiData, airData, sharteData, bestData, aeroData, balunData, svyatoData, ideaData);
 
 
-    let btrade, yumi, air, sharte, best
+    let btrade, yumi, air, sharte, best, aero, balun, svyato, idea;
 
     if (btradeData && btradeData.status === "fulfilled" && btradeData.value) {
         btrade = {
@@ -84,12 +106,72 @@ export async function getArtDataComp(artikul) {
     }
 
 
+
+
+
+
+    if (aeroData && aeroData.status === "fulfilled" && aeroData.value) {
+        aero = {
+            isAvailable: aeroData.value?.isAvailable,
+            price: aeroData.value?.price,
+        }
+    } else {
+        aero = {
+            isAvailable: 'N/A',
+            price: 'N/A',
+        }
+    }
+
+    if (balunData && balunData.status === "fulfilled" && balunData.value) {
+        balun = {
+            isAvailable: balunData.value?.isAvailable,
+            price: balunData.value?.price,
+        }
+    } else {
+        balun = {
+            isAvailable: 'N/A',
+            price: 'N/A',
+        }
+    }
+
+    if (svyatoData && svyatoData.status === "fulfilled" && svyatoData.value) {
+        svyato = {
+            isAvailable: svyatoData.value?.isAvailable,
+            price: svyatoData.value?.price,
+        }
+    } else {
+        svyato = {
+            isAvailable: 'N/A',
+            price: 'N/A',
+        }
+    }
+
+
+    if (ideaData && ideaData.status === "fulfilled" && ideaData.value) {
+        idea = {
+            quant: ideaData.value?.quant,
+            price: ideaData.value?.price,
+        }
+    } else {
+        idea = {
+            quant: 'N/A',
+            price: 'N/A',
+        }
+    }
+
+
+
     return {
         btrade,
         yumi,
         air,
         sharte,
         best,
+
+        aero,
+        balun,
+        svyato,
+        idea,
 
     }
 

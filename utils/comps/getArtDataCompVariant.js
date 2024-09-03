@@ -7,7 +7,7 @@ import {
     getArtDataAero,
     getArtDataBalun,
     getArtDataSvyato,
-    getArtDataIdea
+    getArtDataIdea,
 
 } from "./index.js";
 
@@ -154,6 +154,6 @@ export async function getArtDataCompVariant(artikul) {
         aero,
         balun,
         svyato,
-        idea
+        idea,
     }
 }
