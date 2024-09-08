@@ -90,13 +90,21 @@ export async function getArtDataYumi(yumiLink) {
         const responseString = await response.text();
 
 
-        const quant = extractQuantFromString(responseString);
+        let quant = extractQuantFromString(responseString);
         let price = extractPriceFromString(responseString);
 
         // console.log("Цена со строки", price);
 
+
+        let pack = extractQuantityInPackFromString(responseString)
+
+        if (pack) {
+            quant = quant * pack
+        }
+
+        console.log("В 1 пачке:", pack)
+
         if (!price) {
-            let pack = extractQuantityInPackFromString(responseString)
             pack = pack || 1
             // console.log("В 1 пачке:", pack)
 
