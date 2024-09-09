@@ -5,7 +5,8 @@ class NetworkError extends Error {
     }
 }
 
-const regexPrice = /(\d+\.\d{2})\sгрн/;
+
+const regexPrice = /(\d+(\.\d{2})?)\sгрн/;
 
 function extractPriceFromTitle(title) {
     const match = title.match(regexPrice);
