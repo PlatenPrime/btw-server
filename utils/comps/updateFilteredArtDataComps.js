@@ -4,11 +4,10 @@ import { updateFullCompData } from "./updateFullCompData.js";
 
 
 
-export async function updateAllArtDataComps() {
+export async function updateFilteredArtDataComps(comps) {
 
-    console.log("Updating all comps...");
+    console.log("Updating filtered comps...");
 
-    const comps = await Comp.find({});
 
     for (const comp of comps) {
         const artikul = comp.artikul;
@@ -19,7 +18,7 @@ export async function updateAllArtDataComps() {
 
 
     sendMessageToUser(
-        "Всі конкуренти проаналізовані успішно!", "555196992")
+        "Відфільтровані конкуренти проаналізовані успішно!", "555196992")
 
-    console.log("All comps updated.");
+    console.log("Filtered comps updated.");
 }

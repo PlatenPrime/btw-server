@@ -21,6 +21,7 @@ import {
 	deleteCompVariantById,
 	getUpdatedArtDataCompVariant,
 	updateCompStampById,
+	getUpdatedFilteredArtDataComps,
 } from '../controllers/comps.js';
 
 
@@ -96,7 +97,9 @@ router.get("/search/:artikul", checkAuth, getCompByArtikul)
 // http://localhost:3002/api/comps/updated
 router.get("/updated", getUpdatedAllArtDataComps)
 
-
+// Get Filtered Updated Comps
+// http://localhost:3002/api/comps/updated-filtered
+router.get("/updated-filtered", getUpdatedFilteredArtDataComps)
 
 
 

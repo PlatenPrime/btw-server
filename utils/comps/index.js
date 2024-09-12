@@ -13,6 +13,7 @@ import { getArtDataComp } from './getArtDataComp.js';
 
 import { updateArtDataComp } from './updateArtDataComp.js';
 import { updateAllArtDataComps } from './updateAllArtDataComps.js';
+import { updateFilteredArtDataComps } from './updateFilteredArtDataComps.js';
 
 
 export {
@@ -30,6 +31,7 @@ export {
     getArtDataComp,
 
     updateArtDataComp,
-    updateAllArtDataComps
+    updateAllArtDataComps,
+    updateFilteredArtDataComps
 
 };

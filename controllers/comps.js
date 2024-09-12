@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
 
-import { updateArtDataComp, updateAllArtDataComps, } from "../utils/comps/index.js";
+import { updateArtDataComp, updateAllArtDataComps, updateFilteredArtDataComps } from "../utils/comps/index.js";
 import { sendMessageToUser } from '../utils/sendMessagesTelegram.js';
 import { createOrUpdateCompStamp } from '../utils/comps/createOrUpdateCompStamp.js';
 import { createOrUpdateCompVariantStamp } from '../utils/comps/createOrUpdateCompVariantStamp.js';
@@ -253,6 +253,20 @@ export async function getUpdatedAllArtDataComps(req, res) {
 }
 
 
+export async function getUpdatedFilteredArtDataComps(req, res) {
+	try {
+
+		const { comps } = req.body
+
+		await updateAllArtDataComps(comps);
+		res.status(200).json({ message: 'Filtered comps updated successfully' });
+	} catch (error) {
+		res.status(400).json({ error: 'Failed to update comps' });
+	}
+}
+
+
+
 
 
 export async function getLinkPage(req, res) {
@@ -290,9 +304,7 @@ export async function getLinkPage(req, res) {
 
 
 
-
-
-
+// Сomps Stamps
 
 
 
@@ -347,7 +359,7 @@ export async function getAllCompStamps(req, res) {
 
 
 
-
+// Comps Variants
 
 
 
