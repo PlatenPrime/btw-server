@@ -68,10 +68,21 @@ router.post("/update",
 
 
 
-	router.put("/variant/:id", updateCompVariantById)
+
+// Update All Updated Comps
+// http://localhost:3002/api/comps/updated
+router.put("/updated", getUpdatedAllArtDataComps)
+
+// Update Filtered Updated Comps
+// http://localhost:3002/api/comps/updated-filtered
+router.put("/updated-filtered", getUpdatedFilteredArtDataComps)
 
 
-	router.put("/compStamp/:id", updateCompStampById)
+
+router.put("/variant/:id", updateCompVariantById)
+
+
+router.put("/compStamp/:id", updateCompStampById)
 
 // Update Comp By Id
 //http://localhost:3002/api/comps/:id
@@ -93,13 +104,7 @@ router.get("/search/:artikul", checkAuth, getCompByArtikul)
 
 
 
-// Get All Updated Comps
-// http://localhost:3002/api/comps/updated
-router.get("/updated", getUpdatedAllArtDataComps)
 
-// Get Filtered Updated Comps
-// http://localhost:3002/api/comps/updated-filtered
-router.get("/updated-filtered", getUpdatedFilteredArtDataComps)
 
 
 
@@ -114,7 +119,7 @@ router.get("/compStamp", getAllCompStamps)
 router.get("/compStamp/:artikul", getCompStampByArtikul)
 
 
-router.get("/variant",  getAllCompVariants)
+router.get("/variant", getAllCompVariants)
 router.get("/variant/:id", getCompVariantById)
 
 router.get("/updatedvariant/:artikul", getUpdatedArtDataCompVariant)
