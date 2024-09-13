@@ -23,9 +23,7 @@ import testRoute from "./routes/tests.js";
 import { calculateDefs } from "./utils/defs/calculateDefs.js";
 import { updateAllArtDataComps } from "./utils/comps/updateAllArtDataComps.js";
 import { updateAllArtDataCompVariants } from "./utils/comps/updateAllArtDataCompVariants.js";
-import { getArtDataBalun } from "./utils/comps/getArtDataBalun.js";
-import { getArtDataSvyato } from "./utils/comps/getArtDataSvyato.js";
-import { getArtDataIdea } from "./utils/comps/getArtDataIdea.js";
+import { getArtDataYumi } from "./utils/comps/getArtDataYumi.js";
 
 
 
@@ -102,5 +100,4 @@ cron.schedule('0 3 * * *', async () => {
 	await updateAllArtDataCompVariants();
 	console.log('Updating all comps finished...');
 });
-
 

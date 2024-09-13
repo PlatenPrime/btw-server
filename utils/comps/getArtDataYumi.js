@@ -49,7 +49,8 @@ function extractProductPriceFromString(valueString, pack = 1) {
     }
 
     const substring = valueString.slice(index - 50, index);
-    const match = substring.match(/(\d+,\d+)/);
+    const match = substring.match(/(\d+(,\d+)?)/);
+ 
 
     if (match) {
         const priceWithComma = match[0];
