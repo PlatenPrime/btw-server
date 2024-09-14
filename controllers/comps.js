@@ -451,12 +451,12 @@ export async function deleteCompVariantById(req, res) {
 		const { id } = req.params;
 		const compVariant = await CompVariant.findByIdAndDelete(id);
 
-		if (compVariant) {
-			const compStamp = await CompStamp.findOne({ artikul: compVariant.artikul });
-			if (compStamp) {
-				await CompStamp.findByIdAndDelete(compStamp._id);
-			}
-		}
+		// if (compVariant) {
+		// 	const compStamp = await CompStamp.findOne({ artikul: compVariant.artikul });
+		// 	if (compStamp) {
+		// 		await CompStamp.findByIdAndDelete(compStamp._id);
+		// 	}
+		// }
 		res.status(200).json({ message: 'Comp variant deleted successfully' });
 	} catch (error) {
 		res.status(400).json({ error: 'Failed to delete comp variant' });
