@@ -201,12 +201,7 @@ export async function deleteCompById(req, res) {
 	try {
 		const comp = await Comp.findByIdAndDelete(req.params.id);
 		const artikul = comp?.artikul;
-		if (artikul) {
-			const compStamp = await CompStamp.findOne({ artikul });
-			if (compStamp) {
-				await CompStamp.findByIdAndDelete(compStamp._id);
-			}
-		}
+	
 
 		if (!comp) {
 			res.status(404).json({ error: 'Comp not found' });
