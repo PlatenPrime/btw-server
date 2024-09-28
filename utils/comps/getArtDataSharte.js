@@ -29,20 +29,33 @@ function extractAvailabilityFromResponse(responseString) {
 }
 
 export async function getArtDataSharte(link) {
+
+
+    const defaultData = { price: "N/A", isAvailable: "N/A" }; // Значения по умолчанию
+    const timeout = 5000; // 5 секунд
+
+    // Тайм-аутный промис
+    const timeoutPromise = new Promise((resolve) =>
+        setTimeout(() => resolve(defaultData), timeout)
+    );
+
+
+
+
+
     try {
+
+
+        const response = await Promise.race([
+            fetch(link, {
+                cache: 'no-store', // Запрещаем кэширование
+            }),
+            timeoutPromise
+        ]);
+
         const searchValuePrice = "title";
 
-        const response = await fetch(link, {
-            cache: 'no-store', // Запрещаем кэширование
-        })
-
-        // if (!response.ok) {
-        //     throw new NetworkError('Network response was not ok');
-        // }
-
         const responseString = await response.text();
-
-
 
         const indexPrice = responseString.indexOf(searchValuePrice);
         const indexPrice2 = responseString.indexOf(searchValuePrice, indexPrice + searchValuePrice.length);

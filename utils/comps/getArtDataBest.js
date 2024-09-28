@@ -10,17 +10,28 @@ export async function getArtDataBest(bestLink) {
 
 	let price; // Объявляем переменную price здесь
 
+
+	const defaultData = { price: "N/A", isAvailable: "N/A" }; // Значения по умолчанию		
+	const timeout = 5000; // 5 секунд
+
+	const timeoutPromise = new Promise((resolve) =>
+		setTimeout(
+			() => resolve(defaultData),
+			timeout));
+
+
 	try {
 
-		const response = await fetch(bestLink, {
-			cache: 'no-store', // Запрещаем кэширование
-		})
+
+		const response = await Promise.race([
+			fetch(bestLink, {
+				cache: 'no-store', // Запрещаем кэширование
+			}),
+
+			timeoutPromise
+		])
 
 
-
-		// if (!response.ok) {
-		// 	throw new NetworkError('Network response was not ok');
-		// }
 
 		const responseString = await response.text();
 

@@ -50,7 +50,7 @@ function extractProductPriceFromString(valueString, pack = 1) {
 
     const substring = valueString.slice(index - 50, index);
     const match = substring.match(/(\d+(,\d+)?)/);
- 
+
 
     if (match) {
         const priceWithComma = match[0];
@@ -77,16 +77,23 @@ function extractQuantityInPackFromString(valueString) {
 export async function getArtDataYumi(yumiLink) {
 
 
+    const defaultData = { price: "N/A", quant: "N/A" }; // Значения по умолчанию
+    const timeout = 5000; // 5 секунд
+
+    // Тайм-аутный промис
+    const timeoutPromise = new Promise((resolve) =>
+        setTimeout(() => resolve(defaultData), timeout)
+    );
+
     try {
+        
+        const response = await Promise.race([
+            fetch(yumiLink, {
+                cache: 'no-store', // Запрещаем кэширование
+            }),
+            timeoutPromise
+        ]);
 
-        const response = await fetch(yumiLink, {
-            cache: 'no-store', // Запрещаем кэширование
-        })
-
-
-        // if (!response.ok) {
-        //     throw new NetworkError('Network response was not ok');
-        // }
 
         const responseString = await response.text();
 
@@ -130,6 +137,6 @@ export async function getArtDataYumi(yumiLink) {
         } else {
             console.error("Unknown error:", error);
         }
-       
+
     }
 }

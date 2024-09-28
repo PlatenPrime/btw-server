@@ -69,11 +69,26 @@ function extractPriceFromStringSlice(stringSlice, responseString) {
 
 
 export async function getArtDataSvyato(svyatoLink) {
-    try {
-        const response = await fetch(svyatoLink, {
-            cache: 'no-store', // Запрещаем кэширование 
-        })
 
+    const defaultData = { price: "N/A", isAvailable: "N/A" }; // Значения по умолчанию
+    const timeout = 5000; // 5 секунд
+
+    // Тайм-аутный промис
+    const timeoutPromise = new Promise((resolve) =>
+        setTimeout(() => resolve(defaultData), timeout)
+    );
+
+
+
+
+    try {
+
+        const response = await Promise.race([
+            fetch(svyatoLink, {
+                cache: 'no-store', // Запрещаем кэширование 
+            }),
+            timeoutPromise
+        ]);
 
         const responseString = await response.text();
 

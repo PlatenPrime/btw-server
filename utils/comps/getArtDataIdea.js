@@ -86,10 +86,30 @@ function extractPriceFromStringSlice(stringSlice, responseString) {
 
 
 export async function getArtDataIdea(ideaLink) {
+
+
+    const defaultData = { price: "N/A", quant: "N/A" }; // Значения по умолчанию
+    const timeout = 5000; // 5 секунд
+
+    // Тайм-аутный промис
+    const timeoutPromise = new Promise((resolve) =>
+        setTimeout(() => resolve(defaultData), timeout)
+    );
+
+
+
+
     try {
-        const response = await fetch(ideaLink, {
-            cache: 'no-store', // Запрещаем кэширование 
-        })
+
+
+        const response = await Promise.race([
+            fetch(ideaLink, {
+                cache: 'no-store', // Запрещаем кэширование 
+            }),
+            timeoutPromise
+        ]);
+
+
 
         const responseString = await response.text();
 

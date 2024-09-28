@@ -24,18 +24,32 @@ function extractAvailabilityFromString(valueString) {
 }
 
 export async function getArtDataAir(airLink) {
-	
+
+	const defaultData = { price: "N/A", isAvailable: "N/A" }; // Значения по умолчанию
+	const timeout = 5000; // 5 секунд
+
+	// Тайм-аутный промис
+	const timeoutPromise = new Promise((resolve) =>
+		setTimeout(() => resolve(defaultData), timeout)
+	);
+
+
 
 	try {
-        const response = await fetch(airLink, {
-            cache: 'no-store', // Запрещаем кэширование
-        })
+
+		// Используем Promise.race для ограничения времени ожидания
+		const response = await Promise.race([
+			fetch(airLink, { cache: 'no-store' }),
+			timeoutPromise
+		]);
+
+		// Если вернулись значения по умолчанию, значит был тайм-аут
+		if (response === defaultData) {
+			console.warn('Request timed out, returning default values');
+			return defaultData;
+		}
 
 
-
-		// if (!response.ok) {
-		// 	throw new NetworkError('Network response was not ok');
-		// }
 
 		const responseString = await response.text();
 
@@ -53,9 +67,6 @@ export async function getArtDataAir(airLink) {
 		const price = extractPriceFromString(priceText);
 		const isAvailable = extractAvailabilityFromString(availabilityText);
 
-		// console.log("Цена Air: ", price)
-		// console.log("Наличие Air", isAvailable)
-
 
 		return { price, isAvailable };
 	} catch (error) {
@@ -64,6 +75,6 @@ export async function getArtDataAir(airLink) {
 		} else {
 			console.error("Unknown error:", error);
 		}
-		
+
 	}
 }

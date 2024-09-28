@@ -73,10 +73,32 @@ function extractPriceFromStringSlice(stringSlice) {
 
 
 export async function getArtDataBalun(balunLink) {
+
+
+    const defaultData = { price: "N/A", isAvailable: "N/A" }; // Значения по умолчанию
+    const timeout = 5000; // 5 секунд
+
+    // Тайм-аутный промис
+    const timeoutPromise = new Promise((resolve) =>
+        setTimeout(() => resolve(defaultData), timeout)
+    );
+
+
     try {
-        const response = await fetch(balunLink, {
-            cache: 'no-store', // Запрещаем кэширование 
-        })
+
+
+        const response = await Promise.race([
+            fetch(balunLink, {
+                cache: 'no-store', // Запрещаем кэширование 
+            }),
+            timeoutPromise
+        ]);
+
+        // Если вернулись значения по умолчанию, значит был тайм-аут
+        if (response === defaultData) {
+            console.warn('Request timed out, returning default values');
+            return defaultData;
+        }
 
 
         const responseString = await response.text();

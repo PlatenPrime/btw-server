@@ -54,26 +54,34 @@ function extractPriceFromStringSlice(stringSlice) {
 
 
 export async function getArtDataAero(aeroLink) {
-    try {
-        const response = await fetch(aeroLink, {
-            cache: 'no-store', // Запрещаем кэширование 
-        })
+    const defaultData = { price: "N/A", isAvailable: "N/A" }; // Значения по умолчанию
+    const timeout = 5000; // 5 секунд
 
+    // Функция для создания промиса тайм-аута
+    const timeoutPromise = new Promise((resolve) => 
+        setTimeout(() => resolve(defaultData), timeout)
+    );
+
+    try {
+        // Используем Promise.race, чтобы ограничить время ожидания запроса
+        const response = await Promise.race([
+            fetch(aeroLink, { cache: 'no-store' }),
+            timeoutPromise
+        ]);
+
+        if (response === defaultData) {
+            console.warn('Request timed out, returning default values');
+            return defaultData;
+        }
 
         const responseString = await response.text();
-
         const stringSlice = getStringSlice(responseString, searchLocationString, 2000);
-
         const isAvailable = extractAvailFromStringSlice(stringSlice);
         const price = extractPriceFromStringSlice(stringSlice);
 
         return { price, isAvailable };
-
     } catch (error) {
-        if (error instanceof NetworkError) {
-            console.error("Network error:", error.message);
-        } else {
-            console.error("Unknown error:", error);
-        }
+        console.error('Error during fetch, returning default values:', error);
+        return defaultData; // Возвращаем значения по умолчанию в случае ошибки
     }
 }
