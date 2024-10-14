@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import cron from 'node-cron';
+import fs from 'fs';
 
 import authRoute from "./routes/auth.js";
 import palletRoute from "./routes/pallets.js";
@@ -24,6 +25,8 @@ import { calculateDefs } from "./utils/defs/calculateDefs.js";
 import { updateAllArtDataComps } from "./utils/comps/updateAllArtDataComps.js";
 import { updateAllArtDataCompVariants } from "./utils/comps/updateAllArtDataCompVariants.js";
 import { getArtDataAero } from "./utils/comps/getArtDataAero.js";
+import { getArtData, getRowData } from "./utils/reserve/getCollections.js";
+import { sendFileToUser } from "./utils/sendMessagesTelegram.js";
 
 
 
@@ -101,3 +104,26 @@ cron.schedule('0 3 * * *', async () => {
 	console.log('Updating all comps finished...');
 });
 
+
+
+
+const sendReservedDataToTelegram = async () => {
+
+	try {
+
+		const data = await getRowData();
+		// Преобразуем данные в JSON и записываем их в файл
+		const filePath = './collection.json';
+		fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+
+		// Отправляем файл пользователю (замените userId на нужный ID)
+		await sendFileToUser(filePath, '555196992');
+
+		console.log('Файл успешно отправлен');
+	} catch (error) {
+		console.error('Ошибка при выполнении задачи:', error);
+	}
+
+}
+
+// sendReservedDataToTelegram()
