@@ -4,19 +4,20 @@ import fs from 'fs';
 
 
 const BOT_API_TOKEN = '6777916786:AAEHbVOZvb0cuA9zyby3caPIfTk5OzzRsOY'
+const CHAT_ID = '-1002121224059'
+const PLATEN_ID = '555196992'
 
 
 export const sendMessageToTelegram = async (message) => {
 	try {
 		const response = await axios.post(`https://api.telegram.org/bot${BOT_API_TOKEN}/sendMessage`, {
-			chat_id: '-1002121224059', // Replace 'CHAT_ID' with your actual chat ID
+			chat_id: CHAT_ID, // Replace 'CHAT_ID' with your actual chat ID
 			text: message,
 		});
 		console.log('Message sent:', response.data);
 
 	} catch (error) {
 		console.error('Error sending message:', error);
-
 	}
 
 };
@@ -51,21 +52,28 @@ export const sendMessageToUser = async (message, userId) => {
 };
 
 
+export const sendMessageToPlaten = async (message) => sendMessageToUser(message, PLATEN_ID)
+
+
 
 export const sendFileToUser = async (filePath, userId) => {
 	try {
-	  const formData = new FormData();
-	  formData.append('chat_id', userId);
-	  formData.append('document', fs.createReadStream(filePath)); // Прикрепляем файл
-  
-	  const response = await axios.post(`https://api.telegram.org/bot${BOT_API_TOKEN}/sendDocument`, formData, {
-		headers: {
-		  ...formData.getHeaders(), // Обязательно указываем корректные заголовки для multipart/form-data
-		},
-	  });
-  
-	  console.log('Файл успешно отправлен пользователю:', response.data);
+		const formData = new FormData();
+		formData.append('chat_id', userId);
+		formData.append('document', fs.createReadStream(filePath)); // Прикрепляем файл
+
+		const response = await axios.post(`https://api.telegram.org/bot${BOT_API_TOKEN}/sendDocument`, formData, {
+			headers: {
+				...formData.getHeaders(), // Обязательно указываем корректные заголовки для multipart/form-data
+			},
+		});
+
+		console.log('Файл успешно отправлен пользователю:', response.data);
 	} catch (error) {
-	  console.error('Ошибка отправки файла пользователю:', error);
+		console.error('Ошибка отправки файла пользователю:', error);
 	}
-  };
+};
+
+
+
+export const sendFileToPlaten = async (filePath) => sendFileToUser(filePath, PLATEN_ID)
