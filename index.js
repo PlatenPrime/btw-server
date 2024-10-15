@@ -104,7 +104,14 @@ cron.schedule('0 3 * * *', async () => {
 
 
 
+cron.schedule('0 3 * * *', async () => {
+	console.log('Sending all collections to Telegram...');
+	await sendCollectionsDataToTelegram()
+	console.log('Sending all collections to Telegram finished');
+});
 
-// sendCollectionsDataToTelegram()
 
-// sendReservedDataToTelegram()
+
+
+
+
