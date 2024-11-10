@@ -13,7 +13,7 @@ export async function updateFullCompData(artikul) {
         return;
     }
 
-    const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea } = await getArtDataComp(artikul);
+    const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea, chudo } = await getArtDataComp(artikul);
 
     comp.avail.btrade = btrade?.quant;
     comp.avail.yumi = yumi?.quant;
@@ -25,6 +25,7 @@ export async function updateFullCompData(artikul) {
     comp.avail.balun = balun?.isAvailable;
     comp.avail.svyato = svyato?.isAvailable;
     comp.avail.idea = idea?.quant;
+    comp.avail.chudo = chudo.quant;
 
     comp.price.btrade = btrade?.price;
     comp.price.yumi = yumi?.price;
@@ -36,14 +37,15 @@ export async function updateFullCompData(artikul) {
     comp.price.balun = balun?.price;
     comp.price.svyato = svyato?.price;
     comp.price.idea = idea?.price;
+    comp.price.chudo = chudo.price;
 
     await comp.save();
 
 
     if (compStamp) {
-        await updateCompStamp(artikul, { btrade, yumi, air, sharte, best, aero, balun, svyato, idea });
+        await updateCompStamp(artikul, { btrade, yumi, air, sharte, best, aero, balun, svyato, idea, chudo });
     } else {
-        await createCompStamp(artikul, { btrade, yumi, air, sharte, best, aero, balun, svyato, idea });
+        await createCompStamp(artikul, { btrade, yumi, air, sharte, best, aero, balun, svyato, idea, chudo });
     }
 
     console.log("Finished updating artikul:", artikul);
@@ -51,7 +53,7 @@ export async function updateFullCompData(artikul) {
 }
 
 
-async function createCompStamp(artikul, { btrade, yumi, air, sharte, best, aero, balun, svyato, idea }) {
+async function createCompStamp(artikul, { btrade, yumi, air, sharte, best, aero, balun, svyato, idea, chudo }) {
 
 
     const compStamp = new CompStamp({
@@ -70,6 +72,7 @@ async function createCompStamp(artikul, { btrade, yumi, air, sharte, best, aero,
                     balun: balun?.isAvailable,
                     svyato: svyato?.isAvailable,
                     idea: idea?.quant,
+                    chudo: chudo?.quant,
                 },
                 price: {
                     btrade: btrade?.price,
@@ -82,6 +85,7 @@ async function createCompStamp(artikul, { btrade, yumi, air, sharte, best, aero,
                     balun: balun?.price,
                     svyato: svyato?.price,
                     idea: idea?.price,
+                    chudo: chudo?.price,
                 },
             },
         ],
@@ -91,7 +95,7 @@ async function createCompStamp(artikul, { btrade, yumi, air, sharte, best, aero,
 }
 
 
-async function updateCompStamp(artikul, { btrade, yumi, air, sharte, best, aero, balun, svyato, idea }) {
+async function updateCompStamp(artikul, { btrade, yumi, air, sharte, best, aero, balun, svyato, idea, chudo }) {
 
     const today = new Date().setHours(0, 0, 0, 0); // Устанавливаем начало текущего дня
     const compStamp = await CompStamp.findOne({ artikul });
@@ -123,6 +127,7 @@ async function updateCompStamp(artikul, { btrade, yumi, air, sharte, best, aero,
                 balun: balun?.isAvailable,
                 svyato: svyato?.isAvailable,
                 idea: idea?.quant,
+                chudo: chudo?.quant,
             },
             price: {
                 btrade: btrade?.price,
@@ -135,6 +140,7 @@ async function updateCompStamp(artikul, { btrade, yumi, air, sharte, best, aero,
                 balun: balun?.price,
                 svyato: svyato?.price,
                 idea: idea?.price,
+                chudo: chudo?.price,
             },
         };
 

@@ -12,7 +12,7 @@ export async function updateArtDataCompVariant(artikul) {
         return;
     }
 
-    const { yumi, air, sharte, best, aero, balun, svyato, idea } = await getArtDataCompVariant(artikul);
+    const { yumi, air, sharte, best, aero, balun, svyato, idea, chudo } = await getArtDataCompVariant(artikul);
 
 
     compVariant.avail.yumi = yumi?.quant;
@@ -24,6 +24,7 @@ export async function updateArtDataCompVariant(artikul) {
     compVariant.avail.balun = balun?.isAvailable;
     compVariant.avail.svyato = svyato?.isAvailable;
     compVariant.avail.idea = idea?.quant;
+    compVariant.avail.chudo = chudo?.quant;
 
     compVariant.price.yumi = yumi?.price;
     compVariant.price.air = air?.price;
@@ -34,6 +35,7 @@ export async function updateArtDataCompVariant(artikul) {
     compVariant.price.balun = balun?.price;
     compVariant.price.svyato = svyato?.price;
     compVariant.price.idea = idea?.price;
+    compVariant.price.chudo = chudo?.price;
 
 
     await compVariant.save();

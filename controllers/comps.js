@@ -1,6 +1,5 @@
 import Comp from '../models/Comp.js';
 import fetch from 'node-fetch';
-import cheerio from 'cheerio';
 
 
 import { updateArtDataComp, updateAllArtDataComps, updateFilteredArtDataComps } from "../utils/comps/index.js";
@@ -86,6 +85,7 @@ export async function updateOrCreateComp(req, res) {
 			if (avail?.balun || avail?.balun === false) existingComp.avail.balun = avail.balun;
 			if (avail?.svyato || avail?.svyato === false) existingComp.avail.svyato = avail.svyato;
 			if (avail?.idea || avail?.idea === 0 || avail?.idea === "") existingComp.avail.idea = avail.idea;
+			if (avail?.chudo || avail?.chudo === 0 || avail?.chudo === "") existingComp.avail.chudo = avail.chudo;
 
 			if (price?.sharte) existingComp.price.sharte = price.sharte;
 			if (price?.btrade) existingComp.price.btrade = price.btrade;
@@ -97,6 +97,7 @@ export async function updateOrCreateComp(req, res) {
 			if (price?.balun) existingComp.price.balun = price.balun;
 			if (price?.svyato) existingComp.price.svyato = price.svyato;
 			if (price?.idea) existingComp.price.idea = price.idea;
+			if (price?.chudo) existingComp.price.chudo = price.chudo;
 
 
 			await existingComp.save();

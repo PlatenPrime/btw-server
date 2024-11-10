@@ -6,7 +6,7 @@ import CompStamp from "../../models/CompStamp.js";
 export async function createCompStamp(artikul) {
 
 
-    const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea } = await getArtDataComp(artikul);
+    const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea, chudo } = await getArtDataComp(artikul);
 
 
 
@@ -27,6 +27,7 @@ export async function createCompStamp(artikul) {
                     balun: balun?.isAvailable,
                     svyato: svyato?.isAvailable,
                     idea: idea?.quant,
+                    chudo: chudo?.quant,
                 },
                 price: {
                     btrade: btrade?.price,
@@ -39,6 +40,7 @@ export async function createCompStamp(artikul) {
                     balun: balun?.price,
                     svyato: svyato?.price,
                     idea: idea?.price,
+                    chudo: chudo?.price,
                 },
             },
         ],
@@ -68,7 +70,7 @@ export async function updateCompStamp(artikul) {
         }
 
 
-        const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea } = await getArtDataComp(artikul);
+        const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea, chudo } = await getArtDataComp(artikul);
 
 
         // Добавляем новые данные
@@ -85,6 +87,7 @@ export async function updateCompStamp(artikul) {
                 balun: balun?.isAvailable,
                 svyato: svyato?.isAvailable,
                 idea: idea?.quant,
+                chudo: chudo?.quant,
             },
             price: {
                 btrade: btrade?.price,
@@ -97,6 +100,7 @@ export async function updateCompStamp(artikul) {
                 balun: balun?.price,
                 svyato: svyato?.price,
                 idea: idea?.price,
+                chudo: chudo?.price,
             },
         };
 

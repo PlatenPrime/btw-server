@@ -18,6 +18,7 @@ const dateSchema = new mongoose.Schema({
         balun: mongoose.Schema.Types.Mixed,
         svyato: mongoose.Schema.Types.Mixed,
         idea: mongoose.Schema.Types.Mixed,
+        chudo: mongoose.Schema.Types.Mixed,
 
     },
     price: {
@@ -30,6 +31,7 @@ const dateSchema = new mongoose.Schema({
         balun: String,
         svyato: String,
         idea: String,
+        chudo: String,
     },
 
 })

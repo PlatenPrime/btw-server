@@ -23,6 +23,7 @@ const CompSchema = new mongoose.Schema(
 			balunLink: String,
 			svyatoLink: String,
 			ideaLink: String,
+			chudoLink: String,
 		},
 		avail: {
 			btrade: Number,
@@ -34,6 +35,7 @@ const CompSchema = new mongoose.Schema(
 			balun: mongoose.Schema.Types.Mixed,
 			svyato: mongoose.Schema.Types.Mixed,
 			idea: mongoose.Schema.Types.Mixed,
+			chudo: mongoose.Schema.Types.Mixed,
 
 		},
 		price: {
@@ -46,6 +48,7 @@ const CompSchema = new mongoose.Schema(
 			balun: String,
 			svyato: String,
 			idea: String,
+			chudo: String,
 		},
 		abc: String,
 

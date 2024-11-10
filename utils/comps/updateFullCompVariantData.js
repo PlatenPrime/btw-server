@@ -16,7 +16,7 @@ export async function updateFullCompVariantData(artikul) {
         return;
     }
 
-    const { yumi, air, sharte, best, aero, balun, svyato, idea } = await getArtDataCompVariant(artikul);
+    const { yumi, air, sharte, best, aero, balun, svyato, idea, chudo } = await getArtDataCompVariant(artikul);
 
 
     compVariant.avail.yumi = yumi?.quant;
@@ -28,6 +28,7 @@ export async function updateFullCompVariantData(artikul) {
     compVariant.avail.balun = balun?.isAvailable;
     compVariant.avail.svyato = svyato?.isAvailable;
     compVariant.avail.idea = idea?.quant;
+    comp.avail.chudo = chudo.quant;
 
     compVariant.price.yumi = yumi?.price;
     compVariant.price.air = air?.price;
@@ -38,15 +39,16 @@ export async function updateFullCompVariantData(artikul) {
     compVariant.price.balun = balun?.price;
     compVariant.price.svyato = svyato?.price;
     compVariant.price.idea = idea?.price;
+    comp.price.chudo = chudo.price;
 
 
     await compVariant.save();
 
 
     if (compStamp) {
-        await updateCompVariantStamp(artikul, { yumi, air, sharte, best, aero, balun, svyato, idea });
+        await updateCompVariantStamp(artikul, { yumi, air, sharte, best, aero, balun, svyato, idea, chudo });
     } else {
-        await createCompVariantStamp(artikul, { yumi, air, sharte, best, aero, balun, svyato, idea });
+        await createCompVariantStamp(artikul, { yumi, air, sharte, best, aero, balun, svyato, idea, chudo });
     }
 
     console.log("Finished updating variant artikul:", artikul);
@@ -56,7 +58,7 @@ export async function updateFullCompVariantData(artikul) {
 
 
 
-async function createCompVariantStamp(artikul, { yumi, air, sharte, best, aero, balun, svyato, idea }) {
+async function createCompVariantStamp(artikul, { yumi, air, sharte, best, aero, balun, svyato, idea, chudo }) {
 
 
     const compStamp = new CompStamp({
@@ -74,6 +76,7 @@ async function createCompVariantStamp(artikul, { yumi, air, sharte, best, aero, 
                     balun: balun?.isAvailable,
                     svyato: svyato?.isAvailable,
                     idea: idea?.quant,
+                    chudo: chudo?.quant,
                 },
                 price: {
                     yumi: yumi?.price,
@@ -85,6 +88,7 @@ async function createCompVariantStamp(artikul, { yumi, air, sharte, best, aero, 
                     balun: balun?.price,
                     svyato: svyato?.price,
                     idea: idea?.price,
+                    chudo: chudo?.price,
                 },
             },
         ],
@@ -95,7 +99,7 @@ async function createCompVariantStamp(artikul, { yumi, air, sharte, best, aero, 
 
 
 
-async function updateCompVariantStamp(artikul, { yumi, air, sharte, best, aero, balun, svyato, idea }) {
+async function updateCompVariantStamp(artikul, { yumi, air, sharte, best, aero, balun, svyato, idea, chudo  }) {
 
     const today = new Date().setHours(0, 0, 0, 0); // Устанавливаем начало текущего дня
     const compVariantStamp = await CompStamp.findOne({ artikul });
@@ -128,6 +132,8 @@ async function updateCompVariantStamp(artikul, { yumi, air, sharte, best, aero, 
                 balun: balun?.isAvailable,
                 svyato: svyato?.isAvailable,
                 idea: idea?.quant,
+                chudo: chudo?.quant,
+                
             },
             price: {
 
@@ -140,6 +146,7 @@ async function updateCompVariantStamp(artikul, { yumi, air, sharte, best, aero, 
                 balun: balun?.price,
                 svyato: svyato?.price,
                 idea: idea?.price,
+                chudo: chudo?.price,
             },
         };
 
