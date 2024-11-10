@@ -1,25 +1,28 @@
-
-
-
-
 import { getArtDataComp } from "./getArtDataComp.js";
 import Comp from "../../models/Comp.js";
 
-
-
 export async function updateArtDataComp(artikul) {
-
-
+  try {
     console.log("Updating artikul:", artikul);
-    
+
     const comp = await Comp.findOne({ artikul });
 
     if (!comp) {
-        return;
+      return;
     }
 
-    const { btrade, yumi, air, sharte, best, aero, balun, svyato, idea, chudo }= await getArtDataComp(artikul);
-
+    const {
+      btrade,
+      yumi,
+      air,
+      sharte,
+      best,
+      aero,
+      balun,
+      svyato,
+      idea,
+      chudo,
+    } = await getArtDataComp(artikul);
 
     comp.avail.btrade = btrade.quant;
     comp.avail.yumi = yumi.quant;
@@ -32,8 +35,6 @@ export async function updateArtDataComp(artikul) {
     comp.avail.svyato = svyato.isAvailable;
     comp.avail.idea = idea.quant;
     comp.avail.chudo = chudo.quant;
-
-
 
     comp.price.btrade = btrade.price;
     comp.price.yumi = yumi.price;
@@ -49,9 +50,11 @@ export async function updateArtDataComp(artikul) {
 
     await comp.save();
 
-
-
     console.log("Finished updating artikul:", artikul);
 
     return comp;
-}   
+  } catch (error) {
+    console.log("Error updating artikul:", artikul, error);
+    
+  }
+}

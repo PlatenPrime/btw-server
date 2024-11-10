@@ -8,6 +8,7 @@ import { getArtDataAero } from './getArtDataAero.js';
 import { getArtDataBalun } from './getArtDataBalun.js';
 import { getArtDataSvyato } from './getArtDataSvyato.js';
 import { getArtDataIdea } from './getArtDataIdea.js';
+import { getArtDataChudo } from './getArtDataChudo.js';
 
 import { getArtDataComp } from './getArtDataComp.js';
 
@@ -27,6 +28,7 @@ export {
     getArtDataBalun,
     getArtDataSvyato,
     getArtDataIdea,
+    getArtDataChudo,
 
     getArtDataComp,
 

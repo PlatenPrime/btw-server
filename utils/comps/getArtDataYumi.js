@@ -110,7 +110,7 @@ export async function getArtDataYumi(yumiLink) {
             quant = quant * pack
         }
 
-        console.log("В 1 пачке:", pack)
+        // console.log("В 1 пачке:", pack)
 
         if (!price) {
             pack = pack || 1
