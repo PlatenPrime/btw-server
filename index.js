@@ -20,6 +20,7 @@ import defRoute from "./routes/defs.js";
 import testRoute from "./routes/tests.js";
 
 import { cronTasks } from "./utils/cron/index.js";
+import { getArtDataChudo } from "./utils/comps/getArtDataChudo.js";
 
 mongoose.set("strictQuery", false);
 
