@@ -39,8 +39,8 @@ export async function getArtDataCompVariant(artikul) {
   const ideaAction = compVariant?.competitorsLinks?.ideaLink
     ? getArtDataIdea(compVariant?.competitorsLinks?.ideaLink)
     : Promise.resolve(null);
-  const chudoAction = comp?.competitorsLinks?.chudoLink
-    ? getArtDataChudo(comp?.competitorsLinks?.chudoLink)
+  const chudoAction = compVariant?.competitorsLinks?.chudoLink
+    ? getArtDataChudo(compVariant?.competitorsLinks?.chudoLink)
     : Promise.resolve(null);
 
   let [
