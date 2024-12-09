@@ -1,12 +1,14 @@
 import { sendFileToPlaten } from "../sendMessagesTelegram.js";
-import { getAllCollectionsData } from "./getCollectionsData.js";
 import fs from 'fs/promises'; // Используем промисы для асинхронной работы с файлами
 import path from 'path';
 import { fileURLToPath } from 'url';
+import CollectionsDataFetcher from "./getCollectionsData.js";
 
 // Получаем текущую директорию для ES-модулей
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const collectionsDataFetcher = new CollectionsDataFetcher();
 
 // Проверка существования директории
 const directoryExists = async (dirPath) => {
@@ -27,7 +29,7 @@ if (!await directoryExists(collectionsDir)) {
 // Функция для отправки всех коллекций в Telegram
 export const sendCollectionsDataToTelegram = async () => {
     try {
-        const collectionsData = await getAllCollectionsData();
+        const collectionsData = await collectionsDataFetcher.getAllCollectionsData();
 
         for (const key of Object.keys(collectionsData)) {
             const collection = collectionsData[key];

@@ -20,9 +20,12 @@ import defRoute from "./routes/defs.js";
 import testRoute from "./routes/tests.js";
 
 import { cronTasks } from "./utils/cron/index.js";
-import { getArtDataChudo } from "./utils/comps/getArtDataChudo.js";
-import { getArtDataBtrade } from "./utils/getArtDataBtrade.js";
-import { updateArtStock, updateArtStocks } from "./utils/arts/updateArtStocks.js";
+
+import {
+  updateArtStock,
+  updateArtStocks,
+} from "./utils/arts/updateArtStocks.js";
+
 
 mongoose.set("strictQuery", false);
 
@@ -73,7 +76,6 @@ async function start() {
 start();
 
 cronTasks();
-
 
 // const data = await updateArtStocks();
 
