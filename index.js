@@ -75,7 +75,7 @@ async function start() {
 
 start();
 
-cronTasks();
+// cronTasks();
 
 // const data = await updateArtStocks();
 
