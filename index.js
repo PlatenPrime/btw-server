@@ -1,31 +1,25 @@
+import cors from "cors";
+import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-import cors from "cors";
 
-import authRoute from "./routes/auth.js";
-import palletRoute from "./routes/pallets.js";
-import rowRoute from "./routes/rows.js";
+import adaptBlockRoute from "./routes/adaptblocks.js";
+import adaptRoute from "./routes/adapts.js";
 import artRoute from "./routes/arts.js";
-import posRoute from "./routes/poses.js";
-import compRoute from "./routes/comps.js";
-import logRoute from "./routes/logs.js";
 import askRoute from "./routes/asks.js";
-import roleRoute from "./routes/roles.js";
+import authRoute from "./routes/auth.js";
+import compRoute from "./routes/comps.js";
+import defRoute from "./routes/defs.js";
 import insRoute from "./routes/ins.js";
 import insFolderRoute from "./routes/insfolders.js";
-import adaptRoute from "./routes/adapts.js";
-import adaptBlockRoute from "./routes/adaptblocks.js";
-import defRoute from "./routes/defs.js";
+import logRoute from "./routes/logs.js";
+import palletRoute from "./routes/pallets.js";
+import posRoute from "./routes/poses.js";
+import roleRoute from "./routes/roles.js";
+import rowRoute from "./routes/rows.js";
 import testRoute from "./routes/tests.js";
 
 import { cronTasks } from "./utils/cron/index.js";
-
-import {
-  updateArtStock,
-  updateArtStocks,
-} from "./utils/arts/updateArtStocks.js";
-
 
 mongoose.set("strictQuery", false);
 
@@ -78,4 +72,3 @@ start();
 cronTasks();
 
 // const data = await updateArtStocks();
-

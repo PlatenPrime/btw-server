@@ -11,17 +11,23 @@ const regex = /(\d+(\.\d+)?)/;
 
 function extractValueFromString(valueString, searchValue, back = false) {
     const index = valueString.indexOf(searchValue);
+   
+    
     if (index === -1) {
         return null; // Не найдено значение
     }
 
     const substring = back ? valueString.slice(index - 50, index) : valueString.slice(index, index + 50);
+   
+    
     const match = substring.match(regex);
+
+    
     return match ? match[0] : null;
 }
 
 function extractQuantFromString(valueString) {
-    const searchQuantValue = "наявності";
+    const searchQuantValue = "В наявності";
     const notAvailableString = "Немає в наявності";
 
     // Проверяем, содержит ли valueString фразу "Немає в наявності"
@@ -31,6 +37,9 @@ function extractQuantFromString(valueString) {
 
     // В противном случае ищем значение как обычно
     const quant = extractValueFromString(valueString, searchQuantValue);
+
+   
+    
 
     return quant;
 }
@@ -105,6 +114,9 @@ export async function getArtDataYumi(yumiLink) {
 
 
         let pack = extractQuantityInPackFromString(responseString)
+
+      
+        
 
         if (pack) {
             quant = quant * pack
