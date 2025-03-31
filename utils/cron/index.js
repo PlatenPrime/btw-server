@@ -19,11 +19,7 @@ export const cronTasks = () => {
     console.log("Updating all comps finished...");
   });
 
-  cron.schedule("32 10 * * *", async () => {
-    console.log("Updating all comps...");
-    await updateAllArtDataComps();
-    console.log("Updating all comps finished...");
-  });
+
 
   cron.schedule("0 2 * * *", async () => {
     console.log("Sending all collections to Telegram...");
