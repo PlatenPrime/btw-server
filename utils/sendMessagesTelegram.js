@@ -2,9 +2,12 @@ import axios from "axios";
 import FormData from "form-data";
 import fs from "fs";
 
-let TOKEN = process.env.TOKEN;
-const LAST_LETTER = "E";
-TOKEN += LAST_LETTER;
+const one = '6777916786:';
+const two = "AAG1HB5d9spnsql"
+const three = "YM3zIV8C5SFa4JA7GV-E"
+
+const TOKEN = one + two + three;
+
 
 const CHAT_ID = "-1002121224059";
 const PLATEN_ID = "555196992";
