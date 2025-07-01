@@ -3,14 +3,14 @@ import FormData from 'form-data';
 import fs from 'fs';
 
 
-const BOT_API_TOKEN = '6777916786:AAEHbVOZvb0cuA9zyby3caPIfTk5OzzRsOY'
+const TOKEN = process.env.TOKEN
 const CHAT_ID = '-1002121224059'
 const PLATEN_ID = '555196992'
 
 
 export const sendMessageToTelegram = async (message) => {
 	try {
-		const response = await axios.post(`https://api.telegram.org/bot${BOT_API_TOKEN}/sendMessage`, {
+		const response = await axios.post(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
 			chat_id: CHAT_ID, // Replace 'CHAT_ID' with your actual chat ID
 			text: message,
 		});
@@ -27,7 +27,7 @@ export const sendMessageToTelegram = async (message) => {
 // Функция для отправки сообщения в чат
 export const sendMessageToChat = async (message, chatId) => {
 	try {
-		const response = await axios.post(`https://api.telegram.org/bot${BOT_API_TOKEN}/sendMessage`, {
+		const response = await axios.post(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
 			chat_id: chatId,
 			text: message,
 		});
@@ -40,7 +40,7 @@ export const sendMessageToChat = async (message, chatId) => {
 // Функция для отправки сообщения пользователю
 export const sendMessageToUser = async (message, userId) => {
 	try {
-		const response = await axios.post(`https://api.telegram.org/bot${BOT_API_TOKEN}/sendMessage`, {
+		const response = await axios.post(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
 			chat_id: userId,
 			text: message,
 			parse_mode: 'HTML',
@@ -62,7 +62,7 @@ export const sendFileToUser = async (filePath, userId) => {
 		formData.append('chat_id', userId);
 		formData.append('document', fs.createReadStream(filePath)); // Прикрепляем файл
 
-		const response = await axios.post(`https://api.telegram.org/bot${BOT_API_TOKEN}/sendDocument`, formData, {
+		const response = await axios.post(`https://api.telegram.org/bot${TOKEN}/sendDocument`, formData, {
 			headers: {
 				...formData.getHeaders(), // Обязательно указываем корректные заголовки для multipart/form-data
 			},
