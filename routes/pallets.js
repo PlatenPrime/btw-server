@@ -88,10 +88,10 @@ router.delete('/:id',
 
 checkAuth,
 
-// checkRoles([
-// 	"PRIME",
-// 	"SKLAD",
-// ]),
+checkRoles([
+	"PRIME",
+	
+]),
 
 deletePallet);
 
