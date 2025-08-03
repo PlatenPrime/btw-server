@@ -1,18 +1,39 @@
-import mongoose from "mongoose";
+import { model, Schema } from "mongoose";
 
-const PosSchema = new mongoose.Schema(
-	{
-		pallet: { type: mongoose.Schema.Types.ObjectId, ref: 'Pallet', required: true },
-		palletTitle: String,
-		rowTitle: String,
-		artikul: String,
-		quant: Number,
-		boxes: Number,
-		date: String,
-		sklad: String,
-		com: String
+const palletSubdocumentSchema = new Schema(
+  {
+    _id: { type: Schema.Types.ObjectId, required: true },
+    title: { type: String, required: true },
+    sector: String,
+  },
+  { _id: false }
+);
 
-	}
-)
+const rowSubdocumentSchema = new Schema(
+  {
+    _id: { type: Schema.Types.ObjectId, required: true },
+    title: { type: String, required: true },
+  },
+  { _id: false }
+);
 
-export default mongoose.model("Pos", PosSchema);
+const PosSchema = new Schema({
+  pallet: {
+    type: Schema.Types.ObjectId,
+    ref: "Pallet",
+    required: true,
+  },
+  row: { type: Schema.Types.ObjectId, ref: "Row", required: true },
+  palletData: palletSubdocumentSchema,
+  rowData: rowSubdocumentSchema,
+  palletTitle: String,
+  rowTitle: String,
+  artikul: String,
+  quant: Number,
+  boxes: Number,
+  date: String,
+  sklad: String,
+  com: String,
+});
+
+export default model("Pos", PosSchema);

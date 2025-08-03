@@ -133,27 +133,9 @@ export const clearPalletById = async (req, res) => {
 
 export const movePalletContent = async (req, res) => {
 
-	// Очищение паллеты от всех позиций на ней
-	const clearPalletFunction = async (pallet) => {
-
-		const posIds = pallet.poses;
-		// Удаление связанных объектов Pos
-		await Pos.deleteMany({ _id: { $in: posIds } });
-
-		pallet.poses = [];
-		await pallet.save();
-	};
-
-
 
 
 	try {
-
-
-
-
-
-
 
 
 		const { currentPalletId, targetPalletId } = req.body;
@@ -167,18 +149,28 @@ export const movePalletContent = async (req, res) => {
 		const targetRowTitle = targetRow?.title
 
 
+		if (targetPallet.poses?.length > 0) {
+			return res.status(500).json({ message: "Target Pallet should be empty" });
+		}
+
+
 		if (!currentPallet || !targetPallet || !targetRow) {
 			return res.status(404).json({ message: "One or both or target row of the pallets not found" });
 		}
 
-		// Очистка второй паллеты
-		await clearPalletFunction(targetPallet);
 
 		// Получим все связанные объекты Pos внутри текущей паллеты
 		const posIdsToMove = currentPallet.poses;
 
 		// Обновление информации о паллете в позициях, которые переносятся
-		await Pos.updateMany({ _id: { $in: posIdsToMove } }, { pallet: targetPalletId, palletTitle: targetPallet?.title, rowTitle: targetRowTitle });
+		await Pos.updateMany({ _id: { $in: posIdsToMove } }, { 
+			pallet: targetPalletId, 
+			row: targetPallet?.row,
+			palletTitle: targetPallet?.title, 
+			rowTitle: targetRowTitle,
+			palletData: { _id: targetPalletId, title: targetPallet?.title, sector: targetPallet?.sector },
+			rowData: { _id: targetRow?._id, title: targetRowTitle }, 
+		});
 
 		// Добавим перемещенные позиции в целевую паллету
 		targetPallet.poses = posIdsToMove;

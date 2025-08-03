@@ -11,14 +11,20 @@ export const createPos = async (req, res) => {
 
 		const palletDB = await Pallet.findById(palletId);
 		const palletTitle = palletDB?.title
-		const row = await Row.findById(palletDB?.row)
-		const rowTitle = row?.title
+		const rowDB = await Row.findById(palletDB?.row)
+		const rowTitle = rowDB?.title
+		const row = rowDB?._id
+		const palletData = {_id: palletId, title: palletTitle, sector: palletDB?.sector}
+		const rowData = {_id: rowDB?._id, title: rowTitle}
 
 
 		const newPos = await Pos.create({
 			pallet,
 			palletTitle,
 			rowTitle,
+			row,
+			rowData,
+			palletData,
 			...posData
 		});
 
