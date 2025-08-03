@@ -1,6 +1,7 @@
 import Pos from '../models/Pos.js';
 import Pallet from '../models/Pallet.js';
 import Row from '../models/Row.js';
+import Art from '../models/Art.js';
 
 // Создание новой коробки и добавление её в объект Pallet
 export const createPos = async (req, res) => {
@@ -17,6 +18,8 @@ export const createPos = async (req, res) => {
 		const palletData = {_id: palletId, title: palletTitle, sector: palletDB?.sector}
 		const rowData = {_id: rowDB?._id, title: rowTitle}
 
+		const art= await Art.findOne({artikul: posData.artikul})
+		const nameukr = art?.nameukr || ''
 
 		const newPos = await Pos.create({
 			pallet,
@@ -25,6 +28,7 @@ export const createPos = async (req, res) => {
 			row,
 			rowData,
 			palletData,
+			nameukr,
 			...posData
 		});
 

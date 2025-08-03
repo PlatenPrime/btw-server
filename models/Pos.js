@@ -29,6 +29,7 @@ const PosSchema = new Schema({
   palletTitle: String,
   rowTitle: String,
   artikul: String,
+  nameukr: String,
   quant: Number,
   boxes: Number,
   date: String,
