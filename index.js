@@ -21,6 +21,7 @@ import testRoute from "./routes/tests.js";
 
 import { cronTasks } from "./utils/cron/index.js";
 
+
 mongoose.set("strictQuery", false);
 
 const app = express();
@@ -71,4 +72,3 @@ start();
 
 cronTasks();
 
-// const data = await updateArtStocks();
