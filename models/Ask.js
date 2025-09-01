@@ -1,17 +1,29 @@
-import mongoose from "mongoose";
+import { model, Schema } from "mongoose";
 
-const AskSchema = new mongoose.Schema(
-	{
-		artikul: String,
-		quant: Number,
-		status: String,
-		com: String,
-		actions: [{ type: String }],
-		asker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-		solver: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+const askUserDataSchema =
+  new Schema
+  ({
+    _id: { type: Schema.Types.ObjectId, required: true },
+    fullname: { type: String, required: true },
+    telegram: { type: String },
+    photo: { type: String },
+  },
+  { _id: false });
 
-	},
-	{ timestamps: true },
-)
+const AskSchema = new Schema(
+  {
+    artikul: String,
+    nameukr: String,
+    quant: Number,
+    status: String,
+    com: String,
+    actions: [{ type: String }],
+    asker: { type: Schema.Types.ObjectId, ref: "User" },
+    solver: { type: Schema.Types.ObjectId, ref: "User" },
+    askerData: askUserDataSchema,
+    solverData: askUserDataSchema,
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model("Ask", AskSchema);
+export default model("Ask", AskSchema);
