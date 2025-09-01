@@ -6,9 +6,9 @@ import { sendMessageToTelegram } from "../utils/sendMessagesTelegram.js";
 // Create the ask
 
 const VadimVladislava = [
-	"658fd47894302d8e7da6d255",
-	"65a8d938894d5d3bd5bc9e6e",
-]
+  "658fd47894302d8e7da6d255",
+  "65a8d938894d5d3bd5bc9e6e",
+];
 
 export const createAsk = async (req, res) => {
   try {
@@ -20,8 +20,6 @@ export const createAsk = async (req, res) => {
       telegram: askerUser.telegram,
       photo: askerUser.photo,
     };
-
-	
 
     const art = await Art.findOne({ artikul });
     const nameukr = art?.nameukr || "";
@@ -39,13 +37,13 @@ export const createAsk = async (req, res) => {
 
     await newAsk.save();
 
-	if(VadimVladislava.includes(asker)) {
-		sendMessageToTelegram(`
+    if (VadimVladislava.includes(asker)) {
+      sendMessageToTelegram(`
 			${askerUser?.fullname}: необхідно зняти ${nameukr}.
 			${quant ? `Кількість: ${quant} шт` : ""}
 			${com ? `Коментарій: ${com}` : ""}
-			`)
-	}
+			`);
+    }
 
     return res.status(201).json(newAsk);
   } catch (error) {
@@ -86,17 +84,21 @@ export const getAskById = async (req, res) => {
 // Редактирование объекта Ask по его ID
 export const updateAskById = async (req, res) => {
   try {
-    const {solver, ...updateData} = req.body;
+    const { solver } = req.body;
+    const updateData = req.body;
 
-	const solverUser = await User.findById(solver);
-	const solverData = {
-		_id: solverUser._id,
-		fullname: solverUser.fullname,
-		telegram: solverUser.telegram,
-		photo: solverUser.photo,
-	};
-
-	updateData.solverData = solverData;
+    if (solver) {
+      const solverUser = await User.findById(solver);
+      if (solverUser) {
+        const solverData = {
+          _id: solverUser._id,
+          fullname: solverUser.fullname,
+          telegram: solverUser.telegram,
+          photo: solverUser.photo,
+        };
+        updateData.solverData = solverData;
+      }
+    }
 
     const updatedAsk = await Ask.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
