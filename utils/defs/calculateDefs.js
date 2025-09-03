@@ -38,7 +38,7 @@ function isNewerThanThreeYears(dateString) {
 function optimizePoses(poses, arts) {
 
 
-    const correctRows = ["01-01", "06-08", "10-12", "14-16", "18-20", "22-24", "27-29"]; // TODO: Заменить в будущем на константы из базы данных
+    const correctRows = ["01-01", "06-08", "10-12", "14-16", "18-20", "22-24", "27-29", "17-19", "21-23"]; // TODO: Заменить в будущем на константы из базы данных
 
 
     return poses
