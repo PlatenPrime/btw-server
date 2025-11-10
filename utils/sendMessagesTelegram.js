@@ -2,12 +2,11 @@ import axios from "axios";
 import FormData from "form-data";
 import fs from "fs";
 
-const one = '6777916786:';
-const two = "AAG1HB5d9spnsql"
-const three = "YM3zIV8C5SFa4JA7GV-E"
+const one = "8161980779:";
+const two = "AAEc-wMjQy7H2g_";
+const three = "7whhK4ws13bhCrrVvlzA";
 
-const TOKEN = one + two + three;
-
+const B = one + two + three;
 
 const CHAT_ID = "-1002121224059";
 const PLATEN_ID = "555196992";
@@ -15,7 +14,7 @@ const PLATEN_ID = "555196992";
 export const sendMessageToTelegram = async (message) => {
   try {
     const response = await axios.post(
-      `https://api.telegram.org/bot${TOKEN}/sendMessage`,
+      `https://api.telegram.org/bot${B}/sendMessage`,
       {
         chat_id: CHAT_ID, // Replace 'CHAT_ID' with your actual chat ID
         text: message,
@@ -31,7 +30,7 @@ export const sendMessageToTelegram = async (message) => {
 export const sendMessageToChat = async (message, chatId) => {
   try {
     const response = await axios.post(
-      `https://api.telegram.org/bot${TOKEN}/sendMessage`,
+      `https://api.telegram.org/bot${B}/sendMessage`,
       {
         chat_id: chatId,
         text: message,
@@ -47,7 +46,7 @@ export const sendMessageToChat = async (message, chatId) => {
 export const sendMessageToUser = async (message, userId) => {
   try {
     const response = await axios.post(
-      `https://api.telegram.org/bot${TOKEN}/sendMessage`,
+      `https://api.telegram.org/bot${B}/sendMessage`,
       {
         chat_id: userId,
         text: message,
@@ -70,7 +69,7 @@ export const sendFileToUser = async (filePath, userId) => {
     formData.append("document", fs.createReadStream(filePath)); // Прикрепляем файл
 
     const response = await axios.post(
-      `https://api.telegram.org/bot${TOKEN}/sendDocument`,
+      `https://api.telegram.org/bot${B}/sendDocument`,
       formData,
       {
         headers: {
